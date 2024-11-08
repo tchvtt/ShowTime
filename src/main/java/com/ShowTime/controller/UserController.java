@@ -1,15 +1,20 @@
 package com.ShowTime.controller;
 import com.ShowTime.model.User;
+
+import jakarta.validation.Valid;
+import java.util.List;
+import javax.naming.Binding; 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
-import java.util.List; 
-
-@RestController
-@RequestMapping("/users")
+@Controller
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -18,23 +23,28 @@ public class UserController {
     @GetMapping("/profile")
     public String showProfile(Model model, @AuthenticationPrincipal User currentUser) {
         model.addAttribute("user", currentUser);
-        return "profile";  //Vue affichant les informations de l'utilisateur
+        return "profile";  //Vue du profil de l'user
     }
 
 
     @PostMapping("/profile/update")
-    public String updateUser(@AuthenticationPrincipal User currentUser, @ModelAttribute User updatedUser) {
+    public String updateUser(@AuthenticationPrincipal User currentUser, @Valid @ModelAttribute User updatedUser, BindingResult result) {
+        if (result.hasErrors()) {
+            //gère avec thymelead l'affichage des erreurs 
+            return "profile/update"; 
+        }
         currentUser.setName(updatedUser.getName());
-        currentUser.setAge(updatedUser.getAge());
+        currentUser.setEmail(updatedUser.getEmail());
         userRepository.save(currentUser);
         return "redirect:/profile";
     }
 
-    @GetMapping("/users/{id}/delete")
+
+    @PostMapping("/profile/delete")
+    //gérer le fait que quand l'user delete son profil il est auto déconnecté 
     public String deleteUser(@PathVariable("id") Long id) {
-        if (userRepository.existsById(id)) {
-            userRepository.deleteById(id);
-        }
-        return "redirect:/users";
+        userRepository.deleteById(id);
+        //redirect page d'accueil
+        return "redirect:/";
     }
 }
