@@ -31,19 +31,19 @@ public class User {
     private FavoriteMoviesList favoriteMoviesList; 
 
     @OneToOne(cascade = CascadeType.ALL)
-    private FavoriteTVShowList favoriteTVShowList;
+    private FavoriteTVShowsList favoriteTVShowsList;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private ToWatchList moviesToWatchList;
+    private ToWatchMoviesList toWatchMoviesList;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private ToWatchList tvShowsToWatchList;
+    private ToWatchMoviesList toWatchTVShowsList;
 
     public User() {
         this.favoriteMoviesList = new FavoriteMoviesList("Favorite Movies");
-        this.favoriteTVShowList = new FavoriteTVShowList("Favorite TV Shows");
-        this.moviesToWatchList = new ToWatchList("Movies To Watch List");
-        this.tvShowsToWatchList = new ToWatchList("TVShows To Watch List");
+        this.favoriteTVShowsList = new FavoriteTVShowsList("Favorite TV Shows");
+        this.toWatchMoviesList = new ToWatchMoviesList("Movies To Watch List");
+        this.toWatchTVShowsList = new ToWatchMoviesList("TVShows To Watch List");
     }
 
     public User(String name, String email, String password) {
@@ -51,9 +51,9 @@ public class User {
         this.email = email;
         this.password = password;
         this.favoriteMoviesList = new FavoriteMoviesList("Favorite Movies");
-        this.favoriteTVShowList = new FavoriteTVShowList("Favorite TV Shows");
-        this.moviesToWatchList = new ToWatchList("Movies To Watch List");
-        this.tvShowsToWatchList = new ToWatchList("TVShows To Watch List");
+        this.favoriteTVShowsList = new FavoriteTVShowsList("Favorite TV Shows");
+        this.toWatchMoviesList = new ToWatchMoviesList("Movies To Watch List");
+        this.toWatchTVShowsList = new ToWatchMoviesList("TVShows To Watch List");
     }
 
     //Getters
@@ -92,24 +92,24 @@ public class User {
     }
 
     public void addFavoriteTVShow(TVShow favoriteTVShow) {
-        this.favoriteTVShowList.addMedia(favoriteTVShow); 
+        this.favoriteTVShowsList.addMedia(favoriteTVShow); 
     }
     public void removeFavoriteTVShow(TVShow favoriteTVShow) {
-        this.favoriteTVShowList.removeMedia(favoriteTVShow); 
+        this.favoriteTVShowsList.removeMedia(favoriteTVShow); 
     }
 
     public void addMoviesToWatch(Media media) {
-        this.moviesToWatchList.addMedia(media); 
+        this.toWatchMoviesList.addMedia(media); 
     }
     public void removeMoviesToWatch(Media media) {
-        this.moviesToWatchList.removeMedia(media); 
+        this.toWatchMoviesList.removeMedia(media); 
     }
 
     public void addTVShowsToWatch(Media media) {
-        this.tvShowsToWatchList.addMedia(media); 
+        this.toWatchTVShowsList.addMedia(media); 
     }
     public void removeTVShowsToWatch(Media media) {
-        this.tvShowsToWatchList.removeMedia(media); 
+        this.toWatchTVShowsList.removeMedia(media); 
     }
 
     

@@ -19,6 +19,16 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private FavoriteMoviesListRepository favoriteMoviesListRepository;
+    @Autowired
+    private FavoriteTVShowsListRepository favoriteTVShowsListRepository;
+    @Autowired
+    private ToWatchMoviesListRepository toWatchMoviesListRepository;
+    @Autowired
+    private ToWatchTVShowsListRepository toWatchTVShowsListRepository;
+
+
     @GetMapping("/profile")
     public String showProfile(Model model, @AuthenticationPrincipal User currentUser) {
         model.addAttribute("user", currentUser);
@@ -40,10 +50,20 @@ public class UserController {
 
 
     @PostMapping("/profile/delete")
-    //gérer le fait que quand l'user delete son profil il est auto déconnecté 
+    //à faire : gérer le fait que quand l'user delete son profil il est auto déconnecté 
     public String deleteUser(@PathVariable("id") Long id) {
         userRepository.deleteById(id);
         //redirect page d'accueil
         return "redirect:/";
+    }
+
+
+    @GetMapping("/profile")
+    public String showAllMediaLists(Model model, @AuthenticationPrincipal User currentUser) {
+        model.addAttribute("favoriteMovies", favoriteMoviesListRepository.findByUser(currentUser));
+        model.addAttribute("favoriteTVShows", favoriteTVShowsListRepository.findByUser(currentUser));
+        model.addAttribute("toWatchMovies", toWatchMoviesListRepository.findByUser(currentUser));
+        model.addAttribute("toWatchTVShows", toWatchTVShowsListRepository.findByUser(currentUser));
+        return "user-media-lists";
     }
 }
