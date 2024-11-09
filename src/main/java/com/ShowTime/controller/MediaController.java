@@ -3,8 +3,9 @@ package com.ShowTime.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.ShowTime.model.Actor;
-import com.ShowTime.model.Rating;
+import com.ShowTime.model.*;
+import com.ShowTime.repository.*;
+
 import java.util.List; 
 
 import org.springframework.ui.Model;

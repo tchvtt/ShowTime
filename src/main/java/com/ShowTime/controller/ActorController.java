@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
-import com.ShowTime.model.Actor;
+import com.ShowTime.model.*;
+import com.ShowTime.repository.*;
 
 
 @RestController
