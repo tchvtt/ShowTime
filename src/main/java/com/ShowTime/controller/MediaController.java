@@ -41,8 +41,8 @@ public class MediaController {
         }
 
        //récup les acteurs associés au média
-        List<Actor> actors = actorRepository.findActorsByMediaId(id);
-        model.addAttribute("actors", actors);
+        //List<Actor> actors = actorRepository.findActorsByMediaId(id);
+        //model.addAttribute("actors", actors);
 
         //récup les évaluations associées au média
         List<Rating> ratings = ratingRepository.findRatingsByMediaId(id);
