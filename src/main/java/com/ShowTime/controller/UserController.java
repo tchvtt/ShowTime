@@ -19,14 +19,14 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
+    /*@Autowired
     private FavoriteMoviesListRepository favoriteMoviesListRepository;
     @Autowired
     private FavoriteTVShowsListRepository favoriteTVShowsListRepository;
     @Autowired
     private ToWatchMoviesListRepository toWatchMoviesListRepository;
     @Autowired
-    private ToWatchTVShowsListRepository toWatchTVShowsListRepository;
+    private ToWatchTVShowsListRepository toWatchTVShowsListRepository;*/
 
 
     @GetMapping("/profile")

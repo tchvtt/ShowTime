@@ -1,27 +1,24 @@
 package com.ShowTime.controller;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import com.ShowTime.model.*;
 import com.ShowTime.repository.*;
 
-import java.util.List; 
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 @Controller
-@RequestMapping("/media")
 public class MediaController {
 
     @Autowired
     private MovieRepository movieRepository;
     @Autowired
     private TVShowRepository tvShowRepository;
-    //@Autowired
-    //private ActorRepository actorRepository;
+    /*@Autowired
+    private ActorRepository actorRepository;
     @Autowired
     private RatingRepository ratingRepository;
 
@@ -32,10 +29,24 @@ public class MediaController {
     @Autowired
     private ToWatchMoviesListRepository toWatchMoviesListRepository;
     @Autowired
-    private ToWatchTVShowsListRepository toWatchTVShowsListRepository;
+    private ToWatchTVShowsListRepository toWatchTVShowsListRepository;*/
 
 
-    @GetMapping("/{id}")
+    //Méthode pour la page d'accueil
+    @GetMapping("/index")
+    public String showIndex(Model model) {
+        List<Movie> popularMovies = movieRepository.findAll();
+        List<TVShow> popularTVShows = tvShowRepository.findAll();
+        
+        model.addAttribute("popularMovies", popularMovies);
+        model.addAttribute("popularTVShows", popularTVShows);
+        System.out.println("Nombre de films trouvés : " + popularMovies.size());
+        System.out.println("Nombre de séries trouvées : " + popularTVShows.size());
+        return "index"; 
+    }
+
+    //Méthode pour avoir les détails d'un media 
+    @GetMapping("/media/{id}")
     public String showMedia(@PathVariable("id") Long id, Model model) {
         Media media = null;
         if (movieRepository.existsById(id)) {
@@ -48,13 +59,15 @@ public class MediaController {
             return "redirect:/"; 
         }
 
+        model.addAttribute("media", media);
+
        //récup les acteurs associés au média
         //List<Actor> actors = actorRepository.findActorsByMediaId(id);
         //model.addAttribute("actors", actors);
 
         //récup les évaluations associées au média
-        List<Rating> ratings = ratingRepository.findRatingsByMediaId(id);
-        model.addAttribute("ratings", ratings);
+        //List<Rating> ratings = ratingRepository.findRatingsByMediaId(id);
+        //model.addAttribute("ratings", ratings);
 
         return "media-details";
     }

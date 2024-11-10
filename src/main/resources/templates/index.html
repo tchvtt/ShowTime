@@ -20,8 +20,8 @@
                 <!-- Boucle pour afficher les films -->
                 <div th:each="movie : ${popularMovies}" class="media-item">
                     <h3 th:text="${movie.title}">Titre du film</h3>
-                    <p th:text="${movie.description}">Description</p>
-                    <a th:href="@{/movie/{id}(id=${movie.id})}">Détails</a>
+                    <!--<p th:text="${movie.description}">Description</p>-->
+                    <a th:href="@{/media/{id}(id=${movie.id})}">Détails</a>
                 </div>
             </div>
         </section>
@@ -33,8 +33,8 @@
                 <!-- Boucle pour afficher les séries -->
                 <div th:each="tvShow : ${popularTVShows}" class="media-item">
                     <h3 th:text="${tvShow.title}">Titre de la série</h3>
-                    <p th:text="${tvShow.description}">Description</p>
-                    <a th:href="@{/tvshow/{id}(id=${tvShow.id})}">Détails</a>
+                    <!--<p th:text="${tvShow.description}">Description</p>-->
+                    <a th:href="@{/media/{id}(id=${tvShow.id})}">Détails</a>
                 </div>
             </div>
         </section>

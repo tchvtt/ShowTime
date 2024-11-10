@@ -1,5 +1,7 @@
 package com.ShowTime.model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -8,8 +10,10 @@ public class Movie extends Media{
 
     public Movie() {}
 
-    public Movie(String title, double duration ){
+    public Movie(String title, String genre, LocalDate releaseDate, double duration) {
         super(title); 
+        this.setGenre(genre);
+        this.setReleaseDate(releaseDate);
         this.duration = duration; 
     }
 

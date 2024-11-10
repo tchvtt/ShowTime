@@ -1,5 +1,7 @@
 package com.ShowTime.model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -9,8 +11,10 @@ public class TVShow extends Media {
 
     public TVShow() {}
 
-    public TVShow(String title, int numberOfSeasons, boolean isCompleted) {
-        super(title);
+    public TVShow(String title, String genre, LocalDate releaseDate, int numberOfSeasons, boolean isCompleted) {
+        super(title); 
+        this.setGenre(genre);
+        this.setReleaseDate(releaseDate);
         this.numberOfSeasons = numberOfSeasons;
         this.isCompleted = isCompleted;
     }
