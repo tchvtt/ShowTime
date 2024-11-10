@@ -32,7 +32,7 @@ public class UserController {
     @GetMapping("/profile")
     public String showProfile(Model model, @AuthenticationPrincipal User currentUser) {
         model.addAttribute("user", currentUser);
-        return "profile";  //Vue du profil de l'user
+        return "user/profile";  //Vue du profil de l'user
     }
 
 
@@ -45,7 +45,7 @@ public class UserController {
         currentUser.setName(updatedUser.getName());
         currentUser.setEmail(updatedUser.getEmail());
         userRepository.save(currentUser);
-        return "redirect:/profile";
+        return "redirect:/user/profile";
     }
 
 
@@ -58,12 +58,14 @@ public class UserController {
     }
 
 
-    @GetMapping("/profile")
+    @GetMapping("/profile/media-lists")
     public String showAllMediaLists(Model model, @AuthenticationPrincipal User currentUser) {
+        /*
         model.addAttribute("favoriteMovies", favoriteMoviesListRepository.findByUser(currentUser));
         model.addAttribute("favoriteTVShows", favoriteTVShowsListRepository.findByUser(currentUser));
         model.addAttribute("toWatchMovies", toWatchMoviesListRepository.findByUser(currentUser));
         model.addAttribute("toWatchTVShows", toWatchTVShowsListRepository.findByUser(currentUser));
+        */
         return "user-media-lists";
     }
 }

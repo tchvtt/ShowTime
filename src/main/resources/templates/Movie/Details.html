@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Movie Details</h1>
+
+        <div class="movie-details">
+            <p><strong>Title:</strong> <span th:text="${movie.title}">Movie Title</span></p>
+            <p><strong>Genre:</strong> <span th:text="${movie.genre}">Genre</span></p>
+            <p><strong>Release Date:</strong> <span th:text="${movie.releaseDate}">Release Date</span></p>
+            <p><strong>Duration:</strong> <span th:text="${movie.duration}">Duration</span> min</p>
+
+            <h3>Actors</h3>
+            <ul>
+                <!-- Affichage des acteurs -->
+                <li th:each="actor : ${movie.actors}">
+                    <span th:text="${actor.name}">Actor Name</span>
+                </li>
+            </ul>
+
+            <h3>Ratings</h3>
+            <ul>
+                <!-- Affichage des évaluations (ratings) -->
+                <li th:each="rating : ${movie.ratings}">
+                    <span th:text="${rating.score}">Rating Score</span> - 
+                    <span th:text="${rating.comment}">Comment</span>
+                </li>
+            </ul>
+        </div>
+
+        <a href="/movies">Back to Movies List</a> <!-- Retour à la liste des films -->
+
+    </div>
+
+</body>
+</html>

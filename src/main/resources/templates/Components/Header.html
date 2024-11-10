@@ -1,0 +1,29 @@
+<!-- src/main/resources/templates/Components/Header.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShowTime - Header</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <!-- Menu de gauche -->
+            <div class="navbar-left">
+                <a href="/" th:href="@{/}" class="nav-link">Home</a>
+                <a href="/discover" th:href="@{/discover}" class="nav-link">Discover</a>
+                <a href="/movies" th:href="@{/movies}" class="nav-link">Movies</a>
+                <a href="/tvshows" th:href="@{/tvshows}" class="nav-link">TV Show</a>
+            </div>
+
+            <!-- Menu de droite -->
+            <div class="navbar-right">
+                <a href="/signup" th:href="@{/signup}" class="nav-link">Signup</a>
+                <a href="/login" th:href="@{/login}" class="nav-link">Login</a>
+            </div>
+        </nav>
+    </header>
+</body>
+</html>

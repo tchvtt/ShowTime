@@ -73,6 +73,7 @@ public class MediaController {
             return "redirect:/"; //Redirection si le média n'existe pas
         }
 
+        /*
         switch (listType) {
             case "favoriteMovies":
                 List<FavoriteMoviesList> favoriteMoviesLists = favoriteMoviesListRepository.findByUser(currentUser);
@@ -117,6 +118,7 @@ public class MediaController {
             default:
                 return "redirect:/";
         }
+        */
 
         return "redirect:/media/" + mediaId; //Retour à la page du média
     }

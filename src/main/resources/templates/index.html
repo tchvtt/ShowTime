@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ShowTime - Accueil</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Inclusion de l'en-tête -->
+    <th:block th:replace="Components/Header :: header"></th:block>
+
+    <div class="container">
+        <h1>It's ShowTime !</h1>
+        <p>Suivez vos films et séries préférés, lisez des critiques et bien plus encore !</p>
+
+        <!-- Section pour les films populaires -->
+        <section>
+            <h2>Films populaires</h2>
+            <div class="media-list">
+                <!-- Boucle pour afficher les films -->
+                <div th:each="movie : ${popularMovies}" class="media-item">
+                    <h3 th:text="${movie.title}">Titre du film</h3>
+                    <p th:text="${movie.description}">Description</p>
+                    <a th:href="@{/movie/{id}(id=${movie.id})}">Détails</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section pour les séries populaires -->
+        <section>
+            <h2>Séries populaires</h2>
+            <div class="media-list">
+                <!-- Boucle pour afficher les séries -->
+                <div th:each="tvShow : ${popularTVShows}" class="media-item">
+                    <h3 th:text="${tvShow.title}">Titre de la série</h3>
+                    <p th:text="${tvShow.description}">Description</p>
+                    <a th:href="@{/tvshow/{id}(id=${tvShow.id})}">Détails</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Inclusion du pied de page -->
+    <th:block th:replace="Components/Footer :: footer"></th:block>
+</body>
+</html>

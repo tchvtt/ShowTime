@@ -14,8 +14,8 @@ public class ShowTimeApplication {
       SpringApplication.run(ShowTimeApplication.class, args);
     }
 
-    @GetMapping("/ShowTime")
+    @GetMapping("/index")
     public String showtime() {
-      return String.format("It's ShowTime !");
+      return ("index");
     }
 }

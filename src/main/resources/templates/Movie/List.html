@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movies List</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Movies List</h1>
+
+        <div class="media-list">
+            <ul>
+                <!-- Liste des films -->
+                <li th:each="movie : ${movies}">
+                    <span th:text="${movie.title}">Movie Title</span> - 
+                    <span th:text="${movie.genre}">Genre</span> -
+                    <span th:text="${movie.duration}">Duration</span> min
+                    <!-- Lien vers les détails du film -->
+                    <a th:href="@{/movie/details/{id}(id=${movie.id})}">View Details</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
