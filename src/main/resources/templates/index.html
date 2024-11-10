@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Inclusion de l'en-tête -->
-    <th:block th:replace="Components/Header :: header"></th:block>
+    <!-- Insertion du Header -->
+    <div th:replace="~{Components/Header :: header}"></div>
 
     <div class="container">
         <h1>It's ShowTime !</h1>
@@ -40,7 +40,7 @@
         </section>
     </div>
 
-    <!-- Inclusion du pied de page -->
-    <th:block th:replace="Components/Footer :: footer"></th:block>
+    <!-- Insertion du Footer -->
+    <div th:replace="~{Components/Footer :: footer}"></div>
 </body>
 </html>
