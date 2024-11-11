@@ -19,10 +19,7 @@ public class ShowTimeApplication implements CommandLineRunner{
       SpringApplication.run(ShowTimeApplication.class, args);
     }
 
-    /*@GetMapping("/index")
-    public String showtime() {
-      return ("index");
-    }*/
+
 
     @Autowired
     MovieRepository movieRepository;
@@ -33,15 +30,15 @@ public class ShowTimeApplication implements CommandLineRunner{
     @Override
     public void run(String... args) {
       // Ajout de films
-        Movie film1 = new Movie("Inception", "Science Fiction", LocalDate.of(2010, 7, 16), 148.0);
-        Movie film2 = new Movie("The Matrix", "Action", LocalDate.of(1999, 3, 31), 136.0);
-        movieRepository.save(film1);
-        movieRepository.save(film2);
+        Movie movie1 = new Movie("Inception", "Science Fiction", LocalDate.of(2010, 7, 16), 148.0);
+        Movie movie2 = new Movie("The Matrix", "Action", LocalDate.of(1999, 3, 31), 136.0);
+        movieRepository.save(movie1);
+        movieRepository.save(movie2);
 
         // Ajout de séries
-        TVShow serie1 = new TVShow("Breaking Bad", "Crime", LocalDate.of(2008, 1, 20), 5, false);
-        TVShow serie2 = new TVShow("Stranger Things", "Sci-Fi", LocalDate.of(2016, 7, 15), 4, true);
-        tvshowRepository.save(serie1);
-        tvshowRepository.save(serie2);
+        TVShow tvshow1 = new TVShow("Breaking Bad", "Crime", LocalDate.of(2008, 1, 20), 5, false);
+        TVShow tvshow2 = new TVShow("Stranger Things", "Sci-Fi", LocalDate.of(2016, 7, 15), 4, true);
+        tvshowRepository.save(tvshow1);
+        tvshowRepository.save(tvshow2);
     }
 }

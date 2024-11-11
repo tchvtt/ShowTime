@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List; 
 
 @Entity
+@Table(name = "app_user")       // User est réservé en H2, j'avais full erreurs et avec ça j'ai plus
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,13 +38,13 @@ public class User {
     private ToWatchMoviesList toWatchMoviesList;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private ToWatchMoviesList toWatchTVShowsList;
+    private ToWatchTVShowsList toWatchTVShowsList;
 
     public User() {
         this.favoriteMoviesList = new FavoriteMoviesList("Favorite Movies");
         this.favoriteTVShowsList = new FavoriteTVShowsList("Favorite TV Shows");
         this.toWatchMoviesList = new ToWatchMoviesList("Movies To Watch List");
-        this.toWatchTVShowsList = new ToWatchMoviesList("TVShows To Watch List");
+        this.toWatchTVShowsList = new ToWatchTVShowsList("TVShows To Watch List");
     }
 
     public User(String name, String email, String password) {
@@ -53,7 +54,7 @@ public class User {
         this.favoriteMoviesList = new FavoriteMoviesList("Favorite Movies");
         this.favoriteTVShowsList = new FavoriteTVShowsList("Favorite TV Shows");
         this.toWatchMoviesList = new ToWatchMoviesList("Movies To Watch List");
-        this.toWatchTVShowsList = new ToWatchMoviesList("TVShows To Watch List");
+        this.toWatchTVShowsList = new ToWatchTVShowsList("TVShows To Watch List");
     }
 
     //Getters
