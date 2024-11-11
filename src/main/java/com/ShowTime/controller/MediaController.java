@@ -56,7 +56,7 @@ public class MediaController {
         }
 
         if (media == null) {
-            return "redirect:/"; 
+            return "redirect:/index"; 
         }
 
         model.addAttribute("media", media);
@@ -69,7 +69,7 @@ public class MediaController {
         //List<Rating> ratings = ratingRepository.findRatingsByMediaId(id);
         //model.addAttribute("ratings", ratings);
 
-        return "media-details";
+        return "Media/Details";
     }
 
 
