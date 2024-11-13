@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de l'Acteur</title>
+</head>
+<body>
+    <h1>Détails de l'Acteur : <span th:text="${actor.name}"></span></h1>
+
+    <!-- Informations de base sur l'acteur -->
+    <p><strong>Nom :</strong> <span th:text="${actor.name}"></span></p>
+    <p><strong>Date de naissance :</strong> <span th:text="${actor.birthDate}"></span></p>
+
+    <!-- Liste des médias associés à l'acteur -->
+    <h2>Médias associés :</h2>
+    <ul>
+        <li th:each="media : ${medias}">
+            <a th:href="@{/media/{id}(id=${media.id})}"><p th:text="${media.title}"></p></a>
+        </li>
+    </ul>
+
+    <!-- Lien pour revenir à la page d'accueil -->
+    <a th:href="@{/}">Retour à l'accueil</a>
+</body>
+</html>

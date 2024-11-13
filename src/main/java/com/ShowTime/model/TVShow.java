@@ -38,10 +38,10 @@ public class TVShow extends Media {
     //Gérer les acteurs liés à la série
     public void addActor(Actor actor) {
         getActors().add(actor);
-        actor.getTVShows().add(this);
+        //actor.getTVShows().add(this);
     }
     public void removeActor(Actor actor) {
         getActors().remove(actor);
-        actor.getTVShows().remove(this);
+        //actor.getTVShows().remove(this);
     }
 }

@@ -12,17 +12,26 @@
     <div class="container">
         <h1>TV Shows</h1>
 
-        <!-- Section pour les séries populaires -->
-        <section>
-            <h2>Séries populaires</h2>
-            <div class="media-list">
-                <!-- Boucle pour afficher les séries -->
-                <div th:each="tvShow : ${popularTVShows}" class="media-item">
-                    <h3 th:text="${tvShow.title}">Titre de la série</h3>
-                    <a th:href="@{/media/{id}(id=${tvShow.id})}">Détails</a>
-                </div>
-            </div>
-        </section>
+        <h1>Trending TV Shows</h1>
+        <ul>
+            <li th:each="tvshow : ${trendingTVShows}">
+                <a th:href="@{/media/{id}(id=${tvshow.id})}"><p th:text="${tvshow.title}">Titre de la série</p></a>
+            </li>
+        </ul>
+    
+        <h1>Most Watched TV Shows</h1>
+        <ul>
+            <li th:each="tvshow : ${mostWatchedTVShows}">
+                <a th:href="@{/media/{id}(id=${tvshow.id})}"><p th:text="${tvshow.title}">Titre de la série</p></a>
+            </li>
+        </ul>
+    
+        <h1>Top Rated TV Shows</h1>
+        <ul>
+            <li th:each="tvshow : ${topRatedTVShows}">
+                <a th:href="@{/media/{id}(id=${tvshow.id})}"><p th:text="${tvshow.title}">Titre de la série</p></a>
+            </li>
+        </ul>
     </div>
 
     <!-- Insertion du Footer -->

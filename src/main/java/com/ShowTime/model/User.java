@@ -9,109 +9,90 @@ import java.util.List;
 @Entity
 @Table(name = "app_user")       // User est réservé en H2, j'avais full erreurs et avec ça j'ai plus
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+   
     @NotNull
-    @Size(min = 3, max = 50)
-    private String name;
-
+    @Size(min = 3, max = 20)
+    private String username;
+   
     @NotNull
     @Email
     private String email;
-
+    
     @NotNull
     @Size(min = 8)
     private String password;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MediaList> mediaLists = new ArrayList<>();
+
+    public User() {}
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+
+        mediaLists.add(new MediaList("Watched Movies", MediaListType.WATCHED, MediaType.MOVIE, this));
+        mediaLists.add(new MediaList("To Watch Movies", MediaListType.TO_WATCH, MediaType.MOVIE, this));
+        mediaLists.add(new MediaList("Favorites Movies", MediaListType.FAVORITE, MediaType.MOVIE, this));
+        
+        mediaLists.add(new MediaList("Watched TV Shows", MediaListType.WATCHED, MediaType.TV_SHOW, this));
+        mediaLists.add(new MediaList("To Watch TV Shows", MediaListType.TO_WATCH, MediaType.TV_SHOW, this));
+        mediaLists.add(new MediaList("Favorites TV Shows", MediaListType.FAVORITE, MediaType.TV_SHOW, this));
+    }
+
+
+
+    // Getters et setters
+    public Long getId() {
+        return id;
+    }
+    
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public List<MediaList> getAllMediaLists() {
+        return mediaLists;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+
+
+
+
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rating> ratings = new ArrayList<>(); 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private FavoriteMoviesList favoriteMoviesList; 
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private FavoriteTVShowsList favoriteTVShowsList;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private ToWatchMoviesList toWatchMoviesList;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private ToWatchTVShowsList toWatchTVShowsList;
-
-    public User() {
-        this.favoriteMoviesList = new FavoriteMoviesList("Favorite Movies");
-        this.favoriteTVShowsList = new FavoriteTVShowsList("Favorite TV Shows");
-        this.toWatchMoviesList = new ToWatchMoviesList("Movies To Watch List");
-        this.toWatchTVShowsList = new ToWatchTVShowsList("TVShows To Watch List");
-    }
-
-    public User(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.favoriteMoviesList = new FavoriteMoviesList("Favorite Movies");
-        this.favoriteTVShowsList = new FavoriteTVShowsList("Favorite TV Shows");
-        this.toWatchMoviesList = new ToWatchMoviesList("Movies To Watch List");
-        this.toWatchTVShowsList = new ToWatchTVShowsList("TVShows To Watch List");
-    }
-
-    //Getters
-    public Long getId(){
-        return this.id; 
-    }
-    public String getName(){
-        return this.name; 
-    }
-    public String getEmail(){
-        return this.email; 
-    }
-    //?
-    public String getPassword(){
-        return this.password; 
-    }
-    
-    //Setters
-    public void setName(String name){
-        this.name = name; 
-    }
-    public void setEmail(String email){
-        this.email = email; 
-    }
-    public void setPassword(String password){
-        this.password = password; 
-    }
 
 
-    //gérer les médias dans les listes de base 
-    public void addFavoriteMovie(Movie favoriteMovie) {
-        this.favoriteMoviesList.addMedia(favoriteMovie); 
-    }
-    public void removeFavoriteMovie(Movie favoriteMovie) {
-        this.favoriteMoviesList.removeMedia(favoriteMovie);
-    }
 
-    public void addFavoriteTVShow(TVShow favoriteTVShow) {
-        this.favoriteTVShowsList.addMedia(favoriteTVShow); 
-    }
-    public void removeFavoriteTVShow(TVShow favoriteTVShow) {
-        this.favoriteTVShowsList.removeMedia(favoriteTVShow); 
-    }
 
-    public void addMoviesToWatch(Media media) {
-        this.toWatchMoviesList.addMedia(media); 
-    }
-    public void removeMoviesToWatch(Media media) {
-        this.toWatchMoviesList.removeMedia(media); 
-    }
 
-    public void addTVShowsToWatch(Media media) {
-        this.toWatchTVShowsList.addMedia(media); 
-    }
-    public void removeTVShowsToWatch(Media media) {
-        this.toWatchTVShowsList.removeMedia(media); 
-    }
 
     
     //gérer les ratings 

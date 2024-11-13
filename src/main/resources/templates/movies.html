@@ -12,17 +12,26 @@
     <div class="container">
         <h1>Movies</h1>
 
-        <!-- Section pour les films populaires -->
-        <section>
-            <h2>Films populaires</h2>
-            <div class="media-list">
-                <!-- Boucle pour afficher les films -->
-                <div th:each="movie : ${popularMovies}" class="media-item">
-                    <h3 th:text="${movie.title}">Titre du film</h3>
-                    <a th:href="@{/media/{id}(id=${movie.id})}">Détails</a>
-                </div>
-            </div>
-        </section>
+        <h1>Trending Movies</h1>
+        <ul>
+            <li th:each="movie : ${trendingMovies}">
+                <a th:href="@{/media/{id}(id=${movie.id})}"><p th:text="${movie.title}">Titre du film</p></a>
+            </li>
+        </ul>
+    
+        <h1>Most Watched Movies</h1>
+        <ul>
+            <li th:each="movie : ${mostWatchedMovies}">
+                <a th:href="@{/media/{id}(id=${movie.id})}"><p th:text="${movie.title}">Titre du film</p></a>
+            </li>
+        </ul>
+    
+        <h1>Top Rated Movies</h1>
+        <ul>
+            <li th:each="movie : ${topRatedMovies}">
+                <a th:href="@{/media/{id}(id=${movie.id})}"><p th:text="${movie.title}">Titre du film</p></a>
+            </li>
+        </ul>
     </div>
 
     <!-- Insertion du Footer -->

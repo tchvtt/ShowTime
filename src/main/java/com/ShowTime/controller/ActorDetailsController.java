@@ -1,5 +1,7 @@
 package com.ShowTime.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +13,7 @@ import com.ShowTime.repository.*;
 
 @Controller
 @RequestMapping("/actor")
-public class ActorController {
+public class ActorDetailsController {
 
     @Autowired
     private ActorRepository actorRepository;
@@ -19,16 +21,14 @@ public class ActorController {
     @GetMapping("/{id}")
     public String showActor(@PathVariable("id") Long id, Model model) {
         Actor actor = actorRepository.findById(id).orElse(null);
-
         if (actor == null) {
             return "redirect:/";  //si l'acteur n'existe pas redirection vers accueil
         }
 
-        //add les informations de l'acteur au modèle
         model.addAttribute("actor", actor);
-        model.addAttribute("movies", actor.getMovies());
-        model.addAttribute("tvShows", actor.getTVShows());
-
-        return "actor-details";
+        List<Media> medias = actorRepository.findMediaByActorId(id);
+        model.addAttribute("medias", medias);
+        
+        return "Actor/Details";
     }
 }

@@ -14,7 +14,7 @@ import org.springframework.validation.BindingResult;
 
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserProfileController {
 
     @Autowired
     private UserRepository userRepository;
@@ -42,7 +42,7 @@ public class UserController {
             //gère avec thymelead l'affichage des erreurs 
             return "profile/update"; 
         }
-        currentUser.setName(updatedUser.getName());
+        currentUser.setUsername(updatedUser.getUsername());
         currentUser.setEmail(updatedUser.getEmail());
         userRepository.save(currentUser);
         return "redirect:/user/profile";

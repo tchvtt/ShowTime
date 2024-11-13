@@ -30,10 +30,10 @@ public class Movie extends Media{
     //Gérer les acteurs liés au film 
     public void addActor(Actor actor) {
         getActors().add(actor);
-        actor.getMovies().add(this);
+        //actor.getMovies().add(this);
     }
     public void removeActor(Actor actor) {
         getActors().remove(actor);
-        actor.getMovies().remove(this);
+        //actor.getMovies().remove(this);
     }
 }

@@ -11,61 +11,38 @@ import org.springframework.stereotype.Controller;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 @Controller
-public class MediaController {
+public class MediaDetailsController {
 
     @Autowired
     private MovieRepository movieRepository;
+    
     @Autowired
     private TVShowRepository tvShowRepository;
-    /*@Autowired
+
+    @Autowired
     private ActorRepository actorRepository;
-    @Autowired
-    private RatingRepository ratingRepository;
-
-    @Autowired
-    private FavoriteMoviesListRepository favoriteMoviesListRepository;
-    @Autowired
-    private FavoriteTVShowsListRepository favoriteTVShowsListRepository;
-    @Autowired
-    private ToWatchMoviesListRepository toWatchMoviesListRepository;
-    @Autowired
-    private ToWatchTVShowsListRepository toWatchTVShowsListRepository;*/
 
 
-    //Méthode pour la page d'accueil
-    @GetMapping("/index")
-    public String showIndex(Model model) {
-        List<Movie> popularMovies = movieRepository.findAll();
-        List<TVShow> popularTVShows = tvShowRepository.findAll();
-        
-        model.addAttribute("popularMovies", popularMovies);
-        model.addAttribute("popularTVShows", popularTVShows);
-        System.out.println("Nombre de films trouvés : " + popularMovies.size());
-        System.out.println("Nombre de séries trouvées : " + popularTVShows.size());
-        return "index"; 
-    }
 
-    //Méthode pour avoir les détails d'un media 
     @GetMapping("/media/{id}")
     public String showMedia(@PathVariable("id") Long id, Model model) {
+        // Media Infos
         Media media = null;
         if (movieRepository.existsById(id)) {
             media = movieRepository.findById(id).orElse(null);
         } else if (tvShowRepository.existsById(id)) {
             media = tvShowRepository.findById(id).orElse(null);
         }
-
         if (media == null) {
             return "redirect:/index"; 
         }
-
         model.addAttribute("media", media);
 
-       //récup les acteurs associés au média
-        //List<Actor> actors = actorRepository.findActorsByMediaId(id);
-        //model.addAttribute("actors", actors);
+       // Media Actors
+        List<Actor> actors = actorRepository.findActorsByMediaId(media.getId());
+        model.addAttribute("actors", actors);
 
-        //récup les évaluations associées au média
+        // Media Ratings
         //List<Rating> ratings = ratingRepository.findRatingsByMediaId(id);
         //model.addAttribute("ratings", ratings);
 
