@@ -136,7 +136,7 @@ public class ShowTimeApplication implements CommandLineRunner{
 
 
           // Création de l'utilisateur
-      User thomas = new User("Thomas", "thomas@example.com", "securepassword");
+      User thomas = new User("Thomas", "thomas@example.com", "password");
         
       
       // Ajout des films et séries à ses listes
