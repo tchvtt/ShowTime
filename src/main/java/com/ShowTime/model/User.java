@@ -16,6 +16,7 @@ public class User {
    
     @NotNull
     @Size(min = 3, max = 20)
+    @Column(unique = true)
     private String username;
    
     @NotNull
@@ -64,7 +65,7 @@ public class User {
         this.username = username;
     }
 
-    public List<MediaList> getAllMediaLists() {
+    public List<MediaList> getMediaLists() {
         return mediaLists;
     }
 
@@ -85,16 +86,13 @@ public class User {
 
 
 
+
+
+
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rating> ratings = new ArrayList<>(); 
 
 
-
-
-
-
-
-    
     //gérer les ratings 
     public void addRating(Rating rating){
         this.ratings.add(rating); 

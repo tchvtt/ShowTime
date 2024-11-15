@@ -19,14 +19,32 @@ public class UserProfileController {
     @Autowired
     private UserRepository userRepository;
 
-    /*@Autowired
-    private FavoriteMoviesListRepository favoriteMoviesListRepository;
-    @Autowired
-    private FavoriteTVShowsListRepository favoriteTVShowsListRepository;
-    @Autowired
-    private ToWatchMoviesListRepository toWatchMoviesListRepository;
-    @Autowired
-    private ToWatchTVShowsListRepository toWatchTVShowsListRepository;*/
+    @GetMapping("/profile/{id}")
+    public String showProfile(@PathVariable Long id, Model model) {
+        User user = userRepository.findById(id)
+                .orElse(null);
+
+        if (user == null) {
+            return "error/404";
+        }
+
+        model.addAttribute("user", user);
+        return "User/Profile";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     @GetMapping("/profile")

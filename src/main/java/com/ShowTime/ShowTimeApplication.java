@@ -5,6 +5,7 @@ import com.ShowTime.repository.ActorRepository;
 import com.ShowTime.repository.MediaListRepository;
 import com.ShowTime.repository.MovieRepository;
 import com.ShowTime.repository.TVShowRepository;
+import com.ShowTime.repository.UserRepository;
 
 import java.time.LocalDate;
 
@@ -34,6 +35,9 @@ public class ShowTimeApplication implements CommandLineRunner{
 
     @Autowired
     private ActorRepository actorRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public void run(String... args) {
@@ -126,6 +130,40 @@ public class ShowTimeApplication implements CommandLineRunner{
       actorRepository.save(actor6);
 
       tvshowRepository.save(tvshow3);
+
+
+
+
+
+          // Création de l'utilisateur
+      User thomas = new User("Thomas", "thomas@example.com", "securepassword");
+        
+      
+      // Ajout des films et séries à ses listes
+      thomas.getMediaLists().stream().forEach(list -> {
+          switch (list.getName()) {
+              case "Favorites TV Shows":
+                  list.getMediaList().add(tvshow3); // Friends
+                  break;
+              case "To Watch TV Shows":
+                  list.getMediaList().add(tvshow1); // Breaking Bad
+                  list.getMediaList().add(tvshow2); // Stranger Things
+                  break;
+              case "Watched Movies":
+                  list.getMediaList().add(movie3); // Interstellar
+                  list.getMediaList().add(movie2); // The Matrix
+                  break;
+              case "To Watch Movies":
+                  list.getMediaList().add(movie1); // Inception
+                  break;
+              default:
+                  break;
+          }
+      });
+      
+
+      // Sauvegarde de l'utilisateur
+      userRepository.save(thomas);
 
     }
 }
