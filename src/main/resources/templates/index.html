@@ -13,29 +13,7 @@
         <h1>It's ShowTime !</h1>
         <p>Suivez vos films et séries préférés, lisez des critiques et bien plus encore !</p>
 
-        <!-- Section pour les films populaires -->
-        <section>
-            <h2>Films populaires</h2>
-            <div class="media-list">
-                <!-- Boucle pour afficher les films -->
-                <div th:each="movie : ${popularMovies}" class="media-item">
-                    <h3 th:text="${movie.title}">Titre du film</h3>
-                    <a th:href="@{/media/{id}(id=${movie.id})}">Détails</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section pour les séries populaires -->
-        <section>
-            <h2>Séries populaires</h2>
-            <div class="media-list">
-                <!-- Boucle pour afficher les séries -->
-                <div th:each="tvShow : ${popularTVShows}" class="media-item">
-                    <h3 th:text="${tvShow.title}">Titre de la série</h3>
-                    <a th:href="@{/media/{id}(id=${tvShow.id})}">Détails</a>
-                </div>
-            </div>
-        </section>
+        <a href="/logout">Se déconnecter</a>
     </div>
 
     <!-- Insertion du Footer -->
