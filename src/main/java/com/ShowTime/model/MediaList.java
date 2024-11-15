@@ -6,49 +6,110 @@ import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
-public abstract class MediaList {
+public class MediaList {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     private String name;
+    
     private LocalDate date;
 
-    @ManyToMany
-    private List<Media> mediaItems = new ArrayList<>();
+    @ManyToOne
+    private User user;  // Peut être null pour des listes générales
 
-    public MediaList(String name) {
+    private MediaListType mediaListType;
+
+    private MediaType mediaType;
+
+    @ManyToMany
+    @JoinTable(
+        name = "media_list_media",
+        joinColumns = @JoinColumn(name = "media_list_id"),
+        inverseJoinColumns = @JoinColumn(name = "media_id")
+     )
+    private List<Media> mediaList = new ArrayList<>();
+
+
+
+    public MediaList() {}
+
+    // Global
+    public MediaList(String name, MediaListType mediaListType, MediaType mediaType) {
         this.name = name;
         this.date = LocalDate.now();
+        this.mediaListType = mediaListType;
+        this.mediaType = mediaType;
     }
 
-    //Getters
-    public Long getId(){
-        return id; 
-    }
-    public String getName(){
-        return name; 
-    }
-    public LocalDate getDate(){
-        return date; 
-    }
-    public List<Media> getMediaItems(){
-        return mediaItems; 
+    // User
+    public MediaList(String name,  MediaListType mediaListType, MediaType mediaType, User user) {
+        this(name, mediaListType, mediaType);
+        this.user = user;
     }
 
-    //Setters 
-    public void setName(String name){
-        this.name = name; 
+
+
+
+
+
+
+
+
+
+    // Getters
+    public Long getId() {
+        return id;
     }
 
-    //Gérer les médias qu'on add ou remove des listes 
+    public String getName() {
+        return name;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public MediaListType getMediaListType() {
+        return mediaListType;
+    }
+
+    public MediaType getMediaType() {
+        return mediaType;
+    }
+
+    public List<Media> getMediaList() {
+        return mediaList;
+    }
+
+
+
+    // Setters 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+
+
+
+
+
+
+
+    // Gestion de la liste
     public void addMedia(Media media) {
-        mediaItems.add(media);
+        mediaList.add(media);
     }
     public void removeMedia(Media media) {
-        mediaItems.remove(media);
+        mediaList.remove(media);
     }
     public boolean containsMedia(Media media) {
-        return mediaItems.contains(media);
+        return mediaList.contains(media);
     }
 }

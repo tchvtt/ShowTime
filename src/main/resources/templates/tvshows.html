@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ShowTime - TV Shows</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Insertion du Header -->
+    <div th:replace="~{Components/Header :: header}"></div>
+
+    <div class="container">
+        <h1>TV Shows</h1>
+
+        <h1>Trending TV Shows</h1>
+        <ul>
+            <li th:each="tvshow : ${trendingTVShows}">
+                <a th:href="@{/media/{id}(id=${tvshow.id})}"><p th:text="${tvshow.title}">Titre de la série</p></a>
+            </li>
+        </ul>
+    
+        <h1>Most Watched TV Shows</h1>
+        <ul>
+            <li th:each="tvshow : ${mostWatchedTVShows}">
+                <a th:href="@{/media/{id}(id=${tvshow.id})}"><p th:text="${tvshow.title}">Titre de la série</p></a>
+            </li>
+        </ul>
+    
+        <h1>Top Rated TV Shows</h1>
+        <ul>
+            <li th:each="tvshow : ${topRatedTVShows}">
+                <a th:href="@{/media/{id}(id=${tvshow.id})}"><p th:text="${tvshow.title}">Titre de la série</p></a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Insertion du Footer -->
+    <div th:replace="~{Components/Footer :: footer}"></div>
+</body>
+</html>

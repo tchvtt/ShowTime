@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ShowTime - Movies</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Insertion du Header -->
+    <div th:replace="~{Components/Header :: header}"></div>
+
+    <div class="container">
+        <h1>Movies</h1>
+
+        <h1>Trending Movies</h1>
+        <ul>
+            <li th:each="movie : ${trendingMovies}">
+                <a th:href="@{/media/{id}(id=${movie.id})}"><p th:text="${movie.title}">Titre du film</p></a>
+            </li>
+        </ul>
+    
+        <h1>Most Watched Movies</h1>
+        <ul>
+            <li th:each="movie : ${mostWatchedMovies}">
+                <a th:href="@{/media/{id}(id=${movie.id})}"><p th:text="${movie.title}">Titre du film</p></a>
+            </li>
+        </ul>
+    
+        <h1>Top Rated Movies</h1>
+        <ul>
+            <li th:each="movie : ${topRatedMovies}">
+                <a th:href="@{/media/{id}(id=${movie.id})}"><p th:text="${movie.title}">Titre du film</p></a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Insertion du Footer -->
+    <div th:replace="~{Components/Footer :: footer}"></div>
+</body>
+</html>

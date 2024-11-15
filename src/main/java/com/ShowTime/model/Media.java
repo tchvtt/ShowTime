@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 
 
 @Entity
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Media {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +19,11 @@ public abstract class Media {
     private LocalDate releaseDate;
 
     @ManyToMany
-    //à faire JoinTable
+    @JoinTable(
+        name = "media_actor",
+        joinColumns = @JoinColumn(name = "media_id"),
+        inverseJoinColumns = @JoinColumn(name = "actor_id")
+    )
     private List<Actor> actors = new ArrayList<>();
 
     @OneToMany(mappedBy = "media", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -56,5 +61,19 @@ public abstract class Media {
     }
     public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+
+    //Gérer les medias associés
+    public void addActor(Actor actor) {
+        getActors().add(actor);
+        //actor.getMediaList().getMediaList().add(this);
+        actor.getMediaList().add(this);
+
+    }
+    public void removeActor(Actor actor) {
+        getActors().remove(actor);
+        //actor.getMediaList().getMediaList().remove(this);
+        actor.getMediaList().remove(this);
     }
 }

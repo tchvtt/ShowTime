@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Media</title>
+</head>
+<body>
+    <h1>Details de : <span th:text="${media.title}"></span></h1>
+    
+    <!-- Affichage des détails d'un film ou d'une série -->
+    <p><strong>Titre :</strong> <span th:text="${media.title}"></span></p>
+    <p><strong>Genre :</strong> <span th:text="${media.genre}"></span></p>
+    <p><strong>Date de sortie :</strong> <span th:text="${media.releaseDate}"></span></p>
+
+    <!-- Si c'est un film -->
+    <div th:if="${media instanceof T(com.ShowTime.model.Movie)}">
+        <p><strong>Durée :</strong> <span th:text="${media.duration}"></span> minutes</p>
+    </div>
+
+    <!-- Si c'est une série -->
+    <div th:if="${media instanceof T(com.ShowTime.model.TVShow)}">
+        <p><strong>Saison :</strong> <span th:text="${media.numberOfSeasons}"></span> saisons</p>
+        <p><strong>Terminé :</strong> <span th:text="${media.isCompleted} ? 'Oui' : 'Non'"></span></p>
+    </div>
+    
+    <!-- Affichage des acteurs associés au média -->
+    <p><strong>Acteurs :</strong></p>
+    <ul>
+        <li th:each="actor : ${actors}">
+            <a th:href="@{/actor/{id}(id=${actor.id})}" th:text="${actor.name}"><p th:text="${actor.name}"></p></a>
+        </li>
+    </ul>
+    
+    <!-- Vous pouvez ajouter plus d'informations en fonction des attributs de votre modèle -->
+    <a th:href="@{/}">Retour à l'accueil</a>
+</body>
+</html>
