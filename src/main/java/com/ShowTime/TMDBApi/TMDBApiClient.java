@@ -140,16 +140,20 @@ import com.ShowTime.model.TVShow;
         return tvShowSet;
     }
 
-
-    public static void main(String[] args) {
-    Set<Movie> movieSet = new HashSet<>();
-    Set<TVShow> tvShowSet = new HashSet<>();
-    for (int i = 1; i < 6; i++) {
-        movieSet = aggregateMovieSet(movieSet, getTopRatedMoviePageN(i));
-        tvShowSet = aggregateTVShowSet(tvShowSet,getTopRatedTVShowPageN(i));
+    public static Set<Movie> getTop100Movie(){
+        Set <Movie> movieSet = new HashSet<>();
+        for(int i = 1; i < 6; i++){
+            movieSet = aggregateMovieSet(movieSet, getTopRatedMoviePageN(i));
+        }
+        return movieSet;
     }
-    System.out.println("Movie dataset size = " + movieSet.size());
-    System.out.println("TVShow dataset size = " + tvShowSet.size());
-}
+
+    public static Set<TVShow> getTop100TVShow(){
+        Set <TVShow> tvShowSet = new HashSet<>();
+        for(int i = 1; i < 6; i++){
+            tvShowSet = aggregateTVShowSet(tvShowSet, getTopRatedTVShowPageN(i));
+        }
+        return tvShowSet;
+    }
  }
  
