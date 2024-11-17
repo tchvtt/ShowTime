@@ -26,7 +26,7 @@ import com.ShowTime.model.TVShow;
   */
  public class TMDBApiClient{
  
-     private static final String API_KEY = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4YWNhYjgxYjM1YzY1NjViOWY0OTU0M2I3NWRkMWY0YyIsIm5iZiI6MTczMTg3NDA1MC41Njg5OTksInN1YiI6IjY3MmRkNDYzNWEyMDQ1OTIwNzQxNzE1NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Ze3Op-ckHFI7ghuMsY9KvVwVkcc2nVSgwqKP3qDtEM8";
+     private static final String API_KEY = "xxx";
      private static final String BASE_URL = "https://api.themoviedb.org/3/";
 
      public static String makeRequest(String endpoint){
