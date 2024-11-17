@@ -46,14 +46,7 @@ public class UserProfileController {
 
 
 
-
-
-
-
-
-
-
-
+    /*
     @GetMapping("/profile")
     public String showProfile(Model model, @AuthenticationPrincipal User currentUser) {
         model.addAttribute("user", currentUser);
@@ -81,16 +74,5 @@ public class UserProfileController {
         //redirect page d'accueil
         return "redirect:/";
     }
-
-
-    @GetMapping("/profile/media-lists")
-    public String showAllMediaLists(Model model, @AuthenticationPrincipal User currentUser) {
-        /*
-        model.addAttribute("favoriteMovies", favoriteMoviesListRepository.findByUser(currentUser));
-        model.addAttribute("favoriteTVShows", favoriteTVShowsListRepository.findByUser(currentUser));
-        model.addAttribute("toWatchMovies", toWatchMoviesListRepository.findByUser(currentUser));
-        model.addAttribute("toWatchTVShows", toWatchTVShowsListRepository.findByUser(currentUser));
-        */
-        return "user-media-lists";
-    }
+    */
 }
