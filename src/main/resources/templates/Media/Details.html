@@ -31,6 +31,18 @@
             <a th:href="@{/actor/{id}(id=${actor.id})}" th:text="${actor.name}"><p th:text="${actor.name}"></p></a>
         </li>
     </ul>
+
+    <!-- Affichage des notes associées au média -->
+    <h2>Ratings</h2>
+    <ul>
+        <li th:each="rating : ${ratings}">
+            <p><strong th:text="${rating.user.username}">User</strong>: 
+                <span th:text="${rating.rating}">Rating</span>/5
+                <span th:text="${rating.comment}">Comment</span>
+            </p>
+            <p><small th:text="${rating.date}">Date</small></p>
+        </li>
+    </ul>
     
     <!-- Vous pouvez ajouter plus d'informations en fonction des attributs de votre modèle -->
     <a th:href="@{/}">Retour à l'accueil</a>

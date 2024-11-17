@@ -5,6 +5,8 @@ import com.ShowTime.repository.*;
 
 import jakarta.validation.Valid;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -19,16 +21,21 @@ public class UserProfileController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RatingRepository ratingRepository;
+
     @GetMapping("/profile/{id}")
     public String showProfile(@PathVariable Long id, Model model) {
-        User user = userRepository.findById(id)
-                .orElse(null);
-
+        User user = userRepository.findById(id).orElse(null);
         if (user == null) {
-            return "error/404";
+            return "redirect:/"; // Redirection si l'utilisateur n'existe pas
         }
-
         model.addAttribute("user", user);
+
+        // Récupération des évaluations de l'utilisateur
+        List<Rating> ratings = ratingRepository.findRatingsByUserId(id);
+        model.addAttribute("ratings", ratings);
+
         return "User/Profile";
     }
 

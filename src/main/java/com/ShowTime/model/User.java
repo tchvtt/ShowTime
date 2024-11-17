@@ -89,18 +89,18 @@ public class User {
 
 
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rating> ratings = new ArrayList<>(); 
 
 
     //gérer les ratings 
     public void addRating(Rating rating){
         this.ratings.add(rating); 
-        rating.setAuthor(this); 
+        rating.setUser(this); 
     }
     public void removeRating(Rating rating){
         this.ratings.remove(rating); 
         //dans JPA orphanRemoval = true donc censé delete le rating s'il n'est plus associé à un user 
-        rating.setAuthor(null);
+        rating.setUser(null);
     }
 }

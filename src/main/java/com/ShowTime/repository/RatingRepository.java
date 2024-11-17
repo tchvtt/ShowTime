@@ -9,5 +9,5 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
     List<Rating> findRatingsByMediaId(Long mediaId);
     
     // Recherche des évaluations d'un utilisateur spécifique
-    List<Rating> findRatingsByAuthorId(Long userId);
+    List<Rating> findRatingsByUserId(Long userId);
 }

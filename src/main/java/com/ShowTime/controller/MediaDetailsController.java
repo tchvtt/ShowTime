@@ -22,6 +22,9 @@ public class MediaDetailsController {
     @Autowired
     private ActorRepository actorRepository;
 
+    @Autowired
+    private RatingRepository ratingRepository;
+
 
 
     @GetMapping("/media/{id}")
@@ -38,13 +41,13 @@ public class MediaDetailsController {
         }
         model.addAttribute("media", media);
 
-       // Media Actors
+        // Media Actors
         List<Actor> actors = actorRepository.findActorsByMediaId(media.getId());
         model.addAttribute("actors", actors);
 
         // Media Ratings
-        //List<Rating> ratings = ratingRepository.findRatingsByMediaId(id);
-        //model.addAttribute("ratings", ratings);
+        List<Rating> ratings = ratingRepository.findRatingsByMediaId(id);
+        model.addAttribute("ratings", ratings);
 
         return "Media/Details";
     }
