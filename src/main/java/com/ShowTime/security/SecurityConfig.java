@@ -55,6 +55,7 @@ public class SecurityConfig {
         return http.build();
     }
 
+    @SuppressWarnings("removal")
     @Bean
     public AuthenticationManager authManager(HttpSecurity http, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
