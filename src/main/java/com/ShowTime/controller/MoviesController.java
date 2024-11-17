@@ -22,8 +22,10 @@ public class MoviesController {
         MediaList trendingMovies = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.TRENDING, MediaType.MOVIE);
         MediaList mostWatchedMovies = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.MOST_WATCHED, MediaType.MOVIE);
         MediaList topRatedMovies = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.TOP_RATED, MediaType.MOVIE);
+        MediaList allMovies = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.ALL, MediaType.MOVIE);
         System.out.println(trendingMovies);
 
+        model.addAttribute("allMovies", allMovies.getMediaList());
         model.addAttribute("trendingMovies", trendingMovies.getMediaList());
         model.addAttribute("mostWatchedMovies", mostWatchedMovies.getMediaList());
         model.addAttribute("topRatedMovies", topRatedMovies.getMediaList());

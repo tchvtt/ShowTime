@@ -11,6 +11,11 @@
 
     <div class="container">
         <h1>Movies</h1>
+        <ul>
+            <li th:each="movie : ${allMovies}">
+                <a th:href="@{/media/{id}(id=${movie.id})}"><p th:text="${movie.title}">Titre du film</p></a>
+            </li>
+        </ul>
 
         <h1>Trending Movies</h1>
         <ul>

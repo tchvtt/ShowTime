@@ -1,12 +1,5 @@
 package com.ShowTime;
 
-import com.ShowTime.model.*;
-import com.ShowTime.repository.ActorRepository;
-import com.ShowTime.repository.MediaListRepository;
-import com.ShowTime.repository.MovieRepository;
-import com.ShowTime.repository.TVShowRepository;
-import com.ShowTime.repository.UserRepository;
-
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +7,18 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.ShowTime.model.Actor;
+import com.ShowTime.model.MediaList;
+import com.ShowTime.model.MediaListType;
+import com.ShowTime.model.MediaType;
+import com.ShowTime.model.Movie;
+import com.ShowTime.model.TVShow;
+import com.ShowTime.model.User;
+import com.ShowTime.repository.ActorRepository;
+import com.ShowTime.repository.MediaListRepository;
+import com.ShowTime.repository.MovieRepository;
+import com.ShowTime.repository.TVShowRepository;
+import com.ShowTime.repository.UserRepository;
 
 
 @SpringBootApplication
@@ -48,7 +53,29 @@ public class ShowTimeApplication implements CommandLineRunner{
       movieRepository.save(movie1);
       movieRepository.save(movie2);
       movieRepository.save(movie3); 
-  
+
+      //Get all the movies and save them to the db
+      //All movie MediaList creation
+      MediaList allMovies = new MediaList("All Movies",MediaListType.ALL,MediaType.MOVIE);
+      Set<Movie> movieSet = new HashSet();
+      movieSet = TMDBApiClient.getTop100Movie();
+      for (Movie currentMovie : movieSet) {
+          movieRepository.save(currentMovie);
+          allMovies.getMediaList().add(currentMovie);
+      }
+      mediaListRepository.save(allMovies);
+
+      //Get all the TV Shows and save them to the db
+      //All TV Shows MediaList creation
+      MediaList allTVShows = new MediaList("All TV Shows",MediaListType.ALL,MediaType.TV_SHOW);
+      Set<TVShow> TVShowSet = new HashSet();
+      TVShowSet = TMDBApiClient.getTop100TVShow();
+      for (TVShow currentShow : TVShowSet) {
+          tvshowRepository.save(currentShow);
+          allTVShows.getMediaList().add(currentShow);
+      }
+      mediaListRepository.save(allTVShows);
+
       // Ajout de séries
       TVShow tvshow1 = new TVShow("Breaking Bad", "Crime", LocalDate.of(2008, 1, 20), 5, false);
       TVShow tvshow2 = new TVShow("Stranger Things", "Sci-Fi", LocalDate.of(2016, 7, 15), 4, true);

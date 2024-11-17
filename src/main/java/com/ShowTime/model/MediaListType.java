@@ -10,7 +10,8 @@ public enum MediaListType {
     // Global Lists (Movies/TVShows)
     TRENDING("Trending"),
     MOST_WATCHED("Most Watched"),
-    TOP_RATED("Top Rated");
+    TOP_RATED("Top Rated"),
+    ALL("all");
 
     // Soit on reprend les memes, soit on crée d'autres listes pour Discover (voir idées Drive)
 

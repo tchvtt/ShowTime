@@ -11,6 +11,11 @@
 
     <div class="container">
         <h1>TV Shows</h1>
+        <ul>
+            <li th:each="tvshow : ${allTVShows}">
+                <a th:href="@{/media/{id}(id=${tvshow.id})}"><p th:text="${tvshow.title}">Titre de la série</p></a>
+            </li>
+        </ul>
 
         <h1>Trending TV Shows</h1>
         <ul>

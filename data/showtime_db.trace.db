@@ -108,3 +108,18 @@ org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2024-11-17 21:22:01.721048+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MEDIA" not found (this database is empty); SQL statement:
+insert into media (genre,release_date,title,duration,dtype,id) values (?,?,?,?,'Movie',default) [42104-224]
+2024-11-17 21:22:11.442397+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MEDIA" not found (this database is empty); SQL statement:
+insert into media (genre,release_date,title,duration,dtype,id) values (?,?,?,?,'Movie',default) [42104-224]
+2024-11-17 21:22:28.302588+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MEDIA" not found (this database is empty); SQL statement:
+insert into media (genre,release_date,title,duration,dtype,id) values (?,?,?,?,'Movie',default) [42104-224]
+2024-11-17 21:22:38.910603+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MEDIA_LIST" not found (this database is empty); SQL statement:
+select ml1_0.id,ml1_0.date,ml1_0.media_list_type,ml1_0.media_type,ml1_0.name,ml1_0.user_id from media_list ml1_0 where ml1_0.media_list_type=? and ml1_0.media_type=? [42104-224]
+2024-11-17 21:22:42.507898+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MEDIA" not found (this database is empty); SQL statement:
+insert into media (genre,release_date,title,duration,dtype,id) values (?,?,?,?,'Movie',default) [42104-224]
