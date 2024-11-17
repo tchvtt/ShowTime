@@ -19,13 +19,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.ShowTime.model.Movie;
+import com.ShowTime.model.TVShow;
  /**
   *
   * @author anthony
   */
  public class TMDBApiClient{
  
-     private static final String API_KEY = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyZWJiYWNjNTU3YmNkYWIzZTk2ODE1NDlmNTRmMjg5MiIsIm5iZiI6MTczMTg0ODc5Ni4yMTczMzUsInN1YiI6IjY3MmRkNDYzNWEyMDQ1OTIwNzQxNzE1NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.S74Je4ZorwHM6i7Rjj323i7N4wcdpsWEzAMHgiXw8jY";
+     private static final String API_KEY = "xxx";
      private static final String BASE_URL = "https://api.themoviedb.org/3/";
 
      public static String makeRequest(String endpoint){
@@ -56,14 +57,14 @@ import com.ShowTime.model.Movie;
         return jsonResponse;
      }
 
-     public static Set<Integer> handleMovieList(JSONArray results){
-        JSONObject currentMovie;
-        Set<Integer> movieIDSet = new HashSet<>();
+     public static Set<Integer> handleMediaList(JSONArray results){
+        JSONObject currentMedia;
+        Set<Integer> mediaIDSet = new HashSet<>();
         for (int i = 0; i < results.length(); i++) {
-            currentMovie = results.getJSONObject(i);
-            movieIDSet.add(currentMovie.getInt("id"));
+            currentMedia = results.getJSONObject(i);
+            mediaIDSet.add(currentMedia.getInt("id"));
         }
-        return movieIDSet;
+        return mediaIDSet;
      }
  
      public static String handleGenre(JSONObject response){
@@ -85,12 +86,32 @@ import com.ShowTime.model.Movie;
         return movie;
     }
 
+    public static TVShow handleTVShow(Integer tvShowID){
+        JSONObject jsonObject;
+        TVShow tvShow = new TVShow();
+        jsonObject = handleApiResponse(makeRequest("tv/"+tvShowID));
+        tvShow.setTitle(jsonObject.getString("name"));
+        tvShow.setNumberOfSeasons(jsonObject.getInt("number_of_seasons"));
+        tvShow.setReleaseDate(LocalDate.parse(jsonObject.getString("first_air_date")));
+        tvShow.setGenre(handleGenre(jsonObject));
+        tvShow.setCompleted(jsonObject.getString("status").equals("Ended"));
+        return tvShow;
+    }
+
     public static Set<Movie> aggregateMovies(Set<Integer> movieIDs){
         Set<Movie> movieSet = new HashSet<>();
         for (Integer currentMovieID : movieIDs) {
             movieSet.add(handleMovie(currentMovieID));
         }
         return movieSet;
+    }
+
+    public static Set<TVShow> aggregateTVShows(Set<Integer> tvShowIDs){
+        Set<TVShow> tvShowSet = new HashSet<>();
+        for (Integer currentTVShowID : tvShowIDs) {
+            tvShowSet.add(handleTVShow(currentTVShowID));
+        }
+        return tvShowSet;
     }
 
     public static Set<Movie> aggregateMovieSet(Set<Movie> destination, Set<Movie> source){
@@ -100,20 +121,35 @@ import com.ShowTime.model.Movie;
         return destination;
     }
 
+    public static Set<TVShow> aggregateTVShowSet(Set<TVShow> destination, Set<TVShow> source){
+        for (TVShow currentTVShow : source) {
+            destination.add(currentTVShow);
+        }
+        return destination;
+    }
+
     public static Set<Movie> getTopRatedMoviePageN(int pageN){
         Set<Movie> movieSet = new HashSet<>();
-        movieSet = aggregateMovies(handleMovieList(handleApiArrayResponse(makeRequest("movie/top_rated?language=en-US&page="+pageN))));
+        movieSet = aggregateMovies(handleMediaList(handleApiArrayResponse(makeRequest("movie/top_rated?language=en-US&page="+pageN))));
         return movieSet;
     }
+
+    public static Set<TVShow> getTopRatedTVShowPageN(int pageN){
+        Set<TVShow> tvShowSet = new HashSet<>();
+        tvShowSet = aggregateTVShows(handleMediaList(handleApiArrayResponse(makeRequest("tv/top_rated?language=en-US&page="+pageN))));
+        return tvShowSet;
+    }
+
+
     public static void main(String[] args) {
     Set<Movie> movieSet = new HashSet<>();
+    Set<TVShow> tvShowSet = new HashSet<>();
     for (int i = 1; i < 6; i++) {
         movieSet = aggregateMovieSet(movieSet, getTopRatedMoviePageN(i));
+        tvShowSet = aggregateTVShowSet(tvShowSet,getTopRatedTVShowPageN(i));
     }
-    System.out.println("Dataset size = " + movieSet.size());
-    for (Movie elem : movieSet) {
-        System.out.println(elem.getTitle());
-    }
- }
+    System.out.println("Movie dataset size = " + movieSet.size());
+    System.out.println("TVShow dataset size = " + tvShowSet.size());
+}
  }
  
