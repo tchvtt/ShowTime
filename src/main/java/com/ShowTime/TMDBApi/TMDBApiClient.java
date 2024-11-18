@@ -83,7 +83,7 @@ import com.ShowTime.model.TVShow;
         movie.setDuration(jsonObject.getDouble("runtime"));
         movie.setReleaseDate(LocalDate.parse(jsonObject.getString("release_date")));
         movie.setGenre(handleGenre(jsonObject));
-        //movie.setOverview(jsonObject.getString("overview"));
+        movie.setOverview(jsonObject.getString("overview"));
         movie.setPosterURL(BASE_POSTER_URL+jsonObject.get("poster_path"));
         return movie;
     }
@@ -97,7 +97,7 @@ import com.ShowTime.model.TVShow;
         tvShow.setReleaseDate(LocalDate.parse(jsonObject.getString("first_air_date")));
         tvShow.setGenre(handleGenre(jsonObject));
         tvShow.setCompleted(jsonObject.getString("status").equals("Ended"));
-        //tvShow.setOverview(jsonObject.getString("overview"));
+        tvShow.setOverview(jsonObject.getString("overview"));
         tvShow.setPosterURL(BASE_POSTER_URL+jsonObject.get("poster_path"));
         return tvShow;
     }

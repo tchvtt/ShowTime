@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List; 
 
 import jakarta.persistence.CascadeType; 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +26,8 @@ public abstract class Media {
     private String title;
     private String genre;
     private LocalDate releaseDate;
+
+    @Column(length=1000)
     private String overview;
     private String posterURL;
 
