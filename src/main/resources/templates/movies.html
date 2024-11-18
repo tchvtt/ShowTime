@@ -11,11 +11,15 @@
 
     <div class="container">
         <h1>Movies</h1>
-        <ul>
-            <li th:each="movie : ${allMovies}">
-                <a th:href="@{/media/{id}(id=${movie.id})}"><p th:text="${movie.title}">Titre du film</p></a>
-            </li>
-        </ul>
+            <ul>
+                <li th:each="movie : ${allMovies}">
+                    <a th:href="@{/media/{id}(id=${movie.id})}">
+                        <p th:text="${movie.title}">Titre du film</p>
+                    </a>
+                    <!-- Displaying the image using the external URL from the posterURL field -->
+                    <img th:src="@{${movie.posterURL}}" alt="Poster of ${movie.title}" width="400" height="400" />
+                </li>
+            </ul>            
 
         <h1>Trending Movies</h1>
         <ul>

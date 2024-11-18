@@ -22,9 +22,9 @@ public class TVShowsController {
         MediaList trendingTVShows = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.TRENDING, MediaType.TV_SHOW);
         MediaList mostWatchedTVShows = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.MOST_WATCHED, MediaType.TV_SHOW);
         MediaList topRatedTVShows = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.TOP_RATED, MediaType.TV_SHOW);
-        MediaList allTvShows = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.ALL, MediaType.TV_SHOW);
+        MediaList allTVShows = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.ALL, MediaType.TV_SHOW);
 
-        model.addAttribute("allTVShows",allTvShows.getMediaList());
+        model.addAttribute("allTVShows",allTVShows.getMediaList());
         model.addAttribute("trendingTVShows", trendingTVShows.getMediaList());
         model.addAttribute("mostWatchedTVShows", mostWatchedTVShows.getMediaList());
         model.addAttribute("topRatedTVShows", topRatedTVShows.getMediaList());

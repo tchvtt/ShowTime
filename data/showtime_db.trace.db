@@ -123,3 +123,6 @@ select ml1_0.id,ml1_0.date,ml1_0.media_list_type,ml1_0.media_type,ml1_0.name,ml1
 2024-11-17 21:22:42.507898+01:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MEDIA" not found (this database is empty); SQL statement:
 insert into media (genre,release_date,title,duration,dtype,id) values (?,?,?,?,'Movie',default) [42104-224]
+2024-11-18 10:55:57.491095+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "OVERVIEW CHARACTER VARYING(255)": "'Imprisoned in the 1940s for the double murder of his wife and her lover, upstan... (392)"; SQL statement:
+insert into media (genre,overview,posterurl,release_date,title,duration,dtype,id) values (?,?,?,?,?,?,'Movie',default) [22001-224]
