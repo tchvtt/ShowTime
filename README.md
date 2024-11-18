@@ -2,8 +2,8 @@
 
 ShowTime is your ultimate web application for tracking movies and series.  Easily manage your watched, to-watch, and favorite lists while discovering the latest and most popular content.
 
-  
-  
+
+
 ## Features
 
 - **Track Your Progress**: Organize your watched and to-watch lists.
@@ -11,14 +11,14 @@ ShowTime is your ultimate web application for tracking movies and series.  Easil
 - **Discover**: Browse the latest releases and trending content.
 - **Personalized Experience**: Create your unique lists to match your preferences.
 
-  
-  
+
+
 ## Screenshots
 
 ...
 
-  
-  
+
+
 ## Installation
 
 ### Prerequisites
@@ -42,8 +42,8 @@ ShowTime is your ultimate web application for tracking movies and series.  Easil
    ```bash
    http://localhost:8080
 
-  
-  
+
+
 ## Authors
 
 - **Barrouillet Margaux**  
@@ -54,8 +54,8 @@ ShowTime is your ultimate web application for tracking movies and series.  Easil
   ING2 GSI Groupe1
   CY Tech Pau
 
-  
-  
+
+
 ## License
 
 This project was created as part of an academic course in JEE.  
