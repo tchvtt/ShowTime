@@ -4,7 +4,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List; 
 
-import jakarta.persistence.*; 
+import jakarta.persistence.CascadeType; 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 
 @Entity
@@ -17,6 +25,8 @@ public abstract class Media {
     private String title;
     private String genre;
     private LocalDate releaseDate;
+    private String overview;
+    private String posterURL;
 
     @ManyToMany
     @JoinTable(
@@ -51,6 +61,12 @@ public abstract class Media {
     public List<Actor> getActors() {
         return actors;
     }
+    public String getOverview(){
+        return overview;
+    }
+    public String getPosterURL(){
+        return posterURL;
+    }
 
     //Setters
     public void setTitle(String title) {
@@ -62,7 +78,12 @@ public abstract class Media {
     public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
-
+    public void setOverview(String overview){
+        this.overview = overview;
+    }
+    public void setPosterURL(String posterURL){
+        this.posterURL = posterURL;
+    }
 
     //Gérer les medias associés
     public void addActor(Actor actor) {
