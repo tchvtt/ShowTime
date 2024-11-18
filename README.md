@@ -49,13 +49,14 @@ Easily manage your watched, to-watch, and favorite lists while discovering the l
 
 ## Authors
 
-- **Barrouillet Margaux**  
-- **Chevillotte Thomas**
-- **Garcia Anthony**
-- **Soutric Tanguy**
+ING2 GSI Groupe1  
+CY Tech Pau
+- Barrouillet Margaux
+- Chevillotte Thomas
+- Garcia Anthony
+- Soutric Tanguy
 
-  ING2 GSI Groupe1
-  CY Tech Pau
+
 
 
 
