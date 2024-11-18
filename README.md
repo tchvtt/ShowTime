@@ -1,6 +1,7 @@
 # ShowTime
 
-ShowTime is your ultimate web application for tracking movies and series.  Easily manage your watched, to-watch, and favorite lists while discovering the latest and most popular content.
+ShowTime is your ultimate web application for tracking movies and series.  
+Easily manage your watched, to-watch, and favorite lists while discovering the latest and most popular content.
 
 
 
