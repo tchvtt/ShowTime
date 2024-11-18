@@ -32,7 +32,7 @@ Easily manage your watched, to-watch, and favorite lists while discovering the l
 1. Clone the repository:
    ```bash
    git clone https://github.com/tchvtt/ShowTime.git
-   cd ShowTime
+
 2. Install dependencies :
 
 3. Start the application:
