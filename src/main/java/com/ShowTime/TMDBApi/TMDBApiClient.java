@@ -29,6 +29,14 @@ import com.ShowTime.model.TVShow;
      private static final String BASE_URL = "https://api.themoviedb.org/3/";
      private static final String BASE_POSTER_URL= "https://image.tmdb.org/t/p/original";
 
+     private static final String TOP_RATED_MOVIE = "movie/top_rated?language=en-US&page=";
+     private static final String POPULAR_MOVIE = "movie/popular?language=en-US&page=";
+     private static final String TRENDING_MOVIE = "trending/movie/week?language=en-US";
+
+     private static final String TOP_RATED_TVSHOW = "tv/top_rated?language=en-US&page=";
+     private static final String POPULAR_TVSHOW = "tv/popular?language=en-US&page=";
+     private static final String TRENDING_TVSHOW = "trending/tv/week?language=en-US";
+
      public static String makeRequest(String endpoint){
         HttpClient client = HttpClient.newBuilder().build();
         HttpRequest request = HttpRequest.newBuilder()
@@ -132,22 +140,22 @@ import com.ShowTime.model.TVShow;
         return destination;
     }
 
-    public static LinkedHashSet<Movie> getTopRatedMoviePageN(int pageN){
+    public static LinkedHashSet<Movie> getMovieListEndpointPageN(int pageN, String endpoint){
         LinkedHashSet<Movie> movieSet = new LinkedHashSet<>();
-        movieSet = aggregateMovies(handleMediaList(handleApiArrayResponse(makeRequest("movie/top_rated?language=en-US&page="+pageN))));
+        movieSet = aggregateMovies(handleMediaList(handleApiArrayResponse(makeRequest(endpoint+pageN))));
         return movieSet;
     }
 
-    public static LinkedHashSet<TVShow> getTopRatedTVShowPageN(int pageN){
+    public static LinkedHashSet<TVShow> getTVShowEndpointPageN(int pageN, String endpoint){
         LinkedHashSet<TVShow> tvShowSet = new LinkedHashSet<>();
-        tvShowSet = aggregateTVShows(handleMediaList(handleApiArrayResponse(makeRequest("tv/top_rated?language=en-US&page="+pageN))));
+        tvShowSet = aggregateTVShows(handleMediaList(handleApiArrayResponse(makeRequest(endpoint+pageN))));
         return tvShowSet;
     }
-
+/*
     public static LinkedHashSet<Movie> getTop100Movie(){
         LinkedHashSet <Movie> movieSet = new LinkedHashSet<>();
         for(int i = 1; i < 6; i++){
-            movieSet = aggregateMovieSet(movieSet, getTopRatedMoviePageN(i));
+            movieSet = aggregateMovieSet(movieSet, getTopRatedMoviePageN(i, TOP_RATED_MOVIE));
         }
         return movieSet;
     }
@@ -155,9 +163,39 @@ import com.ShowTime.model.TVShow;
     public static LinkedHashSet<TVShow> getTop100TVShow(){
         LinkedHashSet<TVShow> tvShowSet = new LinkedHashSet<>();
         for(int i = 1; i < 6; i++){
-            tvShowSet = aggregateTVShowSet(tvShowSet, getTopRatedTVShowPageN(i));
+            tvShowSet = aggregateTVShowSet(tvShowSet, getTopRatedTVShowPageN(i, TOP_RATED_TVSHOW));
         }
         return tvShowSet;
     }
+*/
+    public static LinkedHashSet<Movie> getTrendingMovie(){
+        LinkedHashSet<Movie> movieSet = new LinkedHashSet<>();
+        movieSet = aggregateMovies(handleMediaList(handleApiArrayResponse(makeRequest("trending/movie/week?language=en-US"))));
+        return movieSet;
+    }
+
+    public static LinkedHashSet<TVShow> getTrendingTVShow(){
+        LinkedHashSet<TVShow> tvShowSet = new LinkedHashSet<>();
+        tvShowSet = aggregateTVShows(handleMediaList(handleApiArrayResponse(makeRequest("trending/tv/week?language=en-US"))));
+        return tvShowSet;
+    }
+
+    //Endpoints getters
+    public static String getTopRatedMovieEndpoint(){
+        return TOP_RATED_MOVIE;
+    }
+
+    public static String getPopularMovieEndpoint(){
+        return POPULAR_MOVIE;
+    }
+
+    public static String getTopRatedTVShowEndpoint(){
+        return TOP_RATED_TVSHOW;
+    }
+
+    public static String getPopularTVShowEndpoint(){
+        return POPULAR_TVSHOW;
+    }
+
  }
  
