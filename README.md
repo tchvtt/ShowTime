@@ -1,9 +1,9 @@
 # ShowTime
 
-ShowTime is your ultimate web application for tracking movies and series.  Easily manage your watched, to-watch, and favorite lists while discovering the latest and most popular content.  
+ShowTime is your ultimate web application for tracking movies and series.  Easily manage your watched, to-watch, and favorite lists while discovering the latest and most popular content.
 
----
-
+  
+  
 ## Features
 
 - **Track Your Progress**: Organize your watched and to-watch lists.
@@ -11,34 +11,28 @@ ShowTime is your ultimate web application for tracking movies and series.  Easil
 - **Discover**: Browse the latest releases and trending content.
 - **Personalized Experience**: Create your unique lists to match your preferences.
 
----
-
+  
+  
 ## Screenshots
 
-| **Home Page**                     | **Discover Page**                |
-|------------------------------------|-----------------------------------|
-| ![Home](path/to/home-screenshot)  | ![Discover](path/to/discover-screenshot) |
+...
 
-| **Movies Page**                    | **Profile Page**                 |
-|------------------------------------|-----------------------------------|
-| ![Movies](path/to/movies-screenshot) | ![Profile](path/to/profile-screenshot) |
-
----
-
+  
+  
 ## Installation
 
 ### Prerequisites
 - Java 17
 - Maven 3.8+
-- Node.js (for managing Tailwind CSS)
-- A modern browser for testing the application
+- An IDE (VSCode recommended)
+- A web browser (Google Chrome recommended)
 
 ### Steps
 1. Clone the repository:
    ```bash
    git clone [https://github.com/yourusername/showtime.git](https://github.com/tchvtt/ShowTime.git)
    cd ShowTime
-2. Install dependencies
+2. Install dependencies :
 
 3. Start the application:
    ```bash
@@ -48,8 +42,8 @@ ShowTime is your ultimate web application for tracking movies and series.  Easil
    ```bash
    http://localhost:8080
 
----
-
+  
+  
 ## Authors
 
 - **Barrouillet Margaux**  
@@ -60,8 +54,8 @@ ShowTime is your ultimate web application for tracking movies and series.  Easil
   ING2 GSI Groupe1
   CY Tech Pau
 
-  ---
-
+  
+  
 ## License
 
 This project was created as part of an academic course in JEE.  
