@@ -12,8 +12,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedHashSet;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -57,9 +56,9 @@ import com.ShowTime.model.TVShow;
         return jsonResponse;
      }
 
-     public static Set<Integer> handleMediaList(JSONArray results){
+     public static LinkedHashSet<Integer> handleMediaList(JSONArray results){
         JSONObject currentMedia;
-        Set<Integer> mediaIDSet = new HashSet<>();
+        LinkedHashSet<Integer> mediaIDSet = new LinkedHashSet<>();
         for (int i = 0; i < results.length(); i++) {
             currentMedia = results.getJSONObject(i);
             mediaIDSet.add(currentMedia.getInt("id"));
@@ -98,58 +97,58 @@ import com.ShowTime.model.TVShow;
         return tvShow;
     }
 
-    public static Set<Movie> aggregateMovies(Set<Integer> movieIDs){
-        Set<Movie> movieSet = new HashSet<>();
+    public static LinkedHashSet<Movie> aggregateMovies(LinkedHashSet<Integer> movieIDs){
+        LinkedHashSet<Movie> movieSet = new LinkedHashSet<>();
         for (Integer currentMovieID : movieIDs) {
             movieSet.add(handleMovie(currentMovieID));
         }
         return movieSet;
     }
 
-    public static Set<TVShow> aggregateTVShows(Set<Integer> tvShowIDs){
-        Set<TVShow> tvShowSet = new HashSet<>();
+    public static LinkedHashSet<TVShow> aggregateTVShows(LinkedHashSet<Integer> tvShowIDs){
+        LinkedHashSet<TVShow> tvShowSet = new LinkedHashSet<>();
         for (Integer currentTVShowID : tvShowIDs) {
             tvShowSet.add(handleTVShow(currentTVShowID));
         }
         return tvShowSet;
     }
 
-    public static Set<Movie> aggregateMovieSet(Set<Movie> destination, Set<Movie> source){
+    public static LinkedHashSet<Movie> aggregateMovieSet(LinkedHashSet<Movie> destination, LinkedHashSet<Movie> source){
         for (Movie currentMovie : source) {
             destination.add(currentMovie);
         }
         return destination;
     }
 
-    public static Set<TVShow> aggregateTVShowSet(Set<TVShow> destination, Set<TVShow> source){
+    public static LinkedHashSet<TVShow> aggregateTVShowSet(LinkedHashSet<TVShow> destination, LinkedHashSet<TVShow> source){
         for (TVShow currentTVShow : source) {
             destination.add(currentTVShow);
         }
         return destination;
     }
 
-    public static Set<Movie> getTopRatedMoviePageN(int pageN){
-        Set<Movie> movieSet = new HashSet<>();
+    public static LinkedHashSet<Movie> getTopRatedMoviePageN(int pageN){
+        LinkedHashSet<Movie> movieSet = new LinkedHashSet<>();
         movieSet = aggregateMovies(handleMediaList(handleApiArrayResponse(makeRequest("movie/top_rated?language=en-US&page="+pageN))));
         return movieSet;
     }
 
-    public static Set<TVShow> getTopRatedTVShowPageN(int pageN){
-        Set<TVShow> tvShowSet = new HashSet<>();
+    public static LinkedHashSet<TVShow> getTopRatedTVShowPageN(int pageN){
+        LinkedHashSet<TVShow> tvShowSet = new LinkedHashSet<>();
         tvShowSet = aggregateTVShows(handleMediaList(handleApiArrayResponse(makeRequest("tv/top_rated?language=en-US&page="+pageN))));
         return tvShowSet;
     }
 
-    public static Set<Movie> getTop100Movie(){
-        Set <Movie> movieSet = new HashSet<>();
+    public static LinkedHashSet<Movie> getTop100Movie(){
+        LinkedHashSet <Movie> movieSet = new LinkedHashSet<>();
         for(int i = 1; i < 6; i++){
             movieSet = aggregateMovieSet(movieSet, getTopRatedMoviePageN(i));
         }
         return movieSet;
     }
 
-    public static Set<TVShow> getTop100TVShow(){
-        Set <TVShow> tvShowSet = new HashSet<>();
+    public static LinkedHashSet<TVShow> getTop100TVShow(){
+        LinkedHashSet<TVShow> tvShowSet = new LinkedHashSet<>();
         for(int i = 1; i < 6; i++){
             tvShowSet = aggregateTVShowSet(tvShowSet, getTopRatedTVShowPageN(i));
         }

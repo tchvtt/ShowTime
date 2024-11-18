@@ -1,12 +1,14 @@
 package com.ShowTime;
 
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.ShowTime.TMDBApi.TMDBApiClient;
 import com.ShowTime.model.Actor;
 import com.ShowTime.model.MediaList;
 import com.ShowTime.model.MediaListType;
@@ -19,7 +21,6 @@ import com.ShowTime.repository.MediaListRepository;
 import com.ShowTime.repository.MovieRepository;
 import com.ShowTime.repository.TVShowRepository;
 import com.ShowTime.repository.UserRepository;
-
 
 @SpringBootApplication
 public class ShowTimeApplication implements CommandLineRunner{
@@ -57,7 +58,7 @@ public class ShowTimeApplication implements CommandLineRunner{
       //Get all the movies and save them to the db
       //All movie MediaList creation
       MediaList allMovies = new MediaList("All Movies",MediaListType.ALL,MediaType.MOVIE);
-      Set<Movie> movieSet = new HashSet();
+      LinkedHashSet<Movie> movieSet = new LinkedHashSet();
       movieSet = TMDBApiClient.getTop100Movie();
       for (Movie currentMovie : movieSet) {
           movieRepository.save(currentMovie);
@@ -68,7 +69,7 @@ public class ShowTimeApplication implements CommandLineRunner{
       //Get all the TV Shows and save them to the db
       //All TV Shows MediaList creation
       MediaList allTVShows = new MediaList("All TV Shows",MediaListType.ALL,MediaType.TV_SHOW);
-      Set<TVShow> TVShowSet = new HashSet();
+      LinkedHashSet<TVShow> TVShowSet = new LinkedHashSet();
       TVShowSet = TMDBApiClient.getTop100TVShow();
       for (TVShow currentShow : TVShowSet) {
           tvshowRepository.save(currentShow);
