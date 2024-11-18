@@ -31,7 +31,7 @@ Easily manage your watched, to-watch, and favorite lists while discovering the l
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/yourusername/showtime.git](https://github.com/tchvtt/ShowTime.git)
+   git clone https://github.com/tchvtt/ShowTime.git
    cd ShowTime
 2. Install dependencies :
 
@@ -42,6 +42,8 @@ Easily manage your watched, to-watch, and favorite lists while discovering the l
 4. Open your browser and go to:
    ```bash
    http://localhost:8080
+
+5. You're done !
 
 
 
