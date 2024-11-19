@@ -36,4 +36,12 @@ public class Movie extends Media{
         getActors().remove(actor);
         //actor.getMovies().remove(this);
     }
+
+    @Override
+    public String toString() {
+        return ("Movie :" + this.getTitle() + "\nGenre :" + this.getGenre() + "\nRelease date :" + this.getReleaseDate()
+                + "\nDuration :" + this.getDuration() + "\nActors :" + this.getActors()
+                + "\n\nSummary :" + this.getOverview());
+    }
+}
 }
