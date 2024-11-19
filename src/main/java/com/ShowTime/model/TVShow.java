@@ -44,4 +44,12 @@ public class TVShow extends Media {
         getActors().remove(actor);
         //actor.getTVShows().remove(this);
     }
+
+    @Override
+    public String toString() {
+        return ("TV Show :" + this.getTitle() + "\nGenre :" + this.getGenre() + "\nRelease date :"
+                + this.getReleaseDate() + "\nNumber of seasons :" + this.getNumberOfSeasons() + "\nCompleted ? "
+                + this.isCompleted() + "\nActors :" + this.getActors()
+                + "\n\nSummary :" + this.getOverview());
+    }
 }
