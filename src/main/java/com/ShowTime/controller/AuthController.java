@@ -33,11 +33,20 @@ public class AuthController {
     }
 
     //Traitement de la soumission du formulaire d'inscription
+    /* 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User user) {
         //Encoder le mot de passe avant de sauvegarder l'utilisateur
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user); 
+        return "redirect:/login"; 
+    }
+    */
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute("user") User userForm) {
+        String encodedPassword = passwordEncoder.encode(userForm.getPassword());
+        User user = new User(userForm.getUsername(), userForm.getEmail(), encodedPassword);
+        userRepository.save(user);
         return "redirect:/login"; 
     }
 

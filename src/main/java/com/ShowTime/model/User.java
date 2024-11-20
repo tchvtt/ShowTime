@@ -36,10 +36,11 @@ public class User {
     public User() {}
 
     public User(String username, String email, String password) {
+        super();
         this.username = username;
         this.email = email;
         this.password = password;
-
+        
         mediaLists.add(new MediaList("Watched Movies", MediaListType.WATCHED, MediaType.MOVIE, this));
         mediaLists.add(new MediaList("To Watch Movies", MediaListType.TO_WATCH, MediaType.MOVIE, this));
         mediaLists.add(new MediaList("Favorites Movies", MediaListType.FAVORITE, MediaType.MOVIE, this));

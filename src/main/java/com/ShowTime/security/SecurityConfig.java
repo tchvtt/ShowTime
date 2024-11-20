@@ -32,6 +32,7 @@ public class SecurityConfig {
         http
             .authorizeRequests(requests -> requests
                 .requestMatchers("/login", "/register", "/h2-console").permitAll() //Autorise accès public aux pages de login, inscription et la console de bdd
+                .requestMatchers("/profile").authenticated()
                 .anyRequest().authenticated() //Authentification nécessaire pour toutes les autres pages
             )
  

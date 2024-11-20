@@ -9,13 +9,13 @@
 
     <div class="container">
         <h1>Profile of <span th:text="${user.username}">User Name</span></h1>
-
+        
         <div class="profile-info">
             <p><strong>Name:</strong> <span th:text="${user.username}">John Doe</span></p>
             <p><strong>Email:</strong> <span th:text="${user.email}">john.doe@example.com</span></p>
         </div>
 
-        
+     
         <div th:each="list : ${user.mediaLists}">
             <h3 th:text="${list.name}"></h3> 
             <ul>
@@ -24,7 +24,6 @@
                 </li>
             </ul>
         </div>
-        
 
         <h3>Ratings</h3>
         <ul>
