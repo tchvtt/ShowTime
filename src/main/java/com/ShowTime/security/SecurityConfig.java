@@ -31,9 +31,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeRequests(requests -> requests
+                /*
                 .requestMatchers("/login", "/register", "/h2-console").permitAll() //Autorise accès public aux pages de login, inscription et la console de bdd
                 .requestMatchers("/profile").authenticated()
                 .anyRequest().authenticated() //Authentification nécessaire pour toutes les autres pages
+                */
+                .requestMatchers("/profile").authenticated() // Nécessite authentification pour /profile
+                .anyRequest().permitAll()
             )
  
             .formLogin(login -> login
