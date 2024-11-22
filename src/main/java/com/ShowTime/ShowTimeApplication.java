@@ -76,19 +76,19 @@ public class ShowTimeApplication implements CommandLineRunner{
         topRatedMoviesSet = TMDBApiClient.getMovieListEndpointPageN(1, TMDBApiClient.getTopRatedMovieEndpoint());
         trendingMoviesSet = TMDBApiClient.getTrendingMovie();
 
-        for (Movie currentMovie : popularMoviesSet) {
-            movieRepository.save(currentMovie);
-            popularMovies.getMediaList().add(currentMovie);
-            allMoviesSet.add(currentMovie);
-        }
-        mediaListRepository.save(popularMovies);
-
         for (Movie currentMovie : topRatedMoviesSet) {
             movieRepository.save(currentMovie);
             topRatedMovies.getMediaList().add(currentMovie);
             allMoviesSet.add(currentMovie);
         }
         mediaListRepository.save(topRatedMovies);
+
+        for (Movie currentMovie : popularMoviesSet) {
+            movieRepository.save(currentMovie);
+            popularMovies.getMediaList().add(currentMovie);
+            allMoviesSet.add(currentMovie);
+        }
+        mediaListRepository.save(popularMovies);
 
         for (Movie currentMovie : trendingMoviesSet) {
             movieRepository.save(currentMovie);
@@ -102,60 +102,56 @@ public class ShowTimeApplication implements CommandLineRunner{
         }
         mediaListRepository.save(allMovies);
 
-      /*
-      //Get all the TV Shows and save them to the db
-      //All TV Shows MediaList creation
-      MediaList allTVShows = new MediaList("All TV Shows",MediaListType.ALL,MediaType.TV_SHOW);
-      LinkedHashSet<TVShow> TVShowSet = new LinkedHashSet();
-      TVShowSet = TMDBApiClient.getTop100TVShow();
-      for (TVShow currentShow : TVShowSet) {
-          tvshowRepository.save(currentShow);
-          allTVShows.getMediaList().add(currentShow);
-      }
-      mediaListRepository.save(allTVShows);
+        System.out.println("Movies added to the db");
 
-      // Ajout de séries
-      TVShow tvshow1 = new TVShow("Breaking Bad", "Crime", LocalDate.of(2008, 1, 20), 5, false);
-      TVShow tvshow2 = new TVShow("Stranger Things", "Sci-Fi", LocalDate.of(2016, 7, 15), 4, true);
-      TVShow tvshow3 = new TVShow("Friends", "Comedy", LocalDate.of(1994, 9, 22), 10, true);
-      tvshowRepository.save(tvshow1);
-      tvshowRepository.save(tvshow2);
-      tvshowRepository.save(tvshow3);
+        //Add TVShows to the db
 
+        //MediaList creation
+        MediaList allTVShows = new MediaList("All TVShows",MediaListType.ALL,MediaType.TV_SHOW);
+        MediaList popularTVShows = new MediaList("Popular TVShows",MediaListType.POPULAR,MediaType.TV_SHOW);
+        MediaList topRatedTVShows = new MediaList("Top Rated TVShows",MediaListType.TOP_RATED,MediaType.TV_SHOW);
+        MediaList trendingTVShows = new MediaList("Trending TVShows",MediaListType.TRENDING,MediaType.TV_SHOW);
 
+        //Get all the movies and save them to the db
+        LinkedHashSet<TVShow> allTVShowsSet = new LinkedHashSet();
+        LinkedHashSet<TVShow> popularTVShowsSet = new LinkedHashSet();
+        LinkedHashSet<TVShow> topRatedTVShowsSet = new LinkedHashSet();
+        LinkedHashSet<TVShow> trendingTVShowsSet = new LinkedHashSet();
 
-      // Création des listes pour les films
-      MediaList trendingMovies = new MediaList("Trending Movies", MediaListType.TRENDING, MediaType.MOVIE);
-      trendingMovies.getMediaList().add(movie1);  // Ajout d'un film "Trending"
-      
-      MediaList mostWatchedMovies = new MediaList("Most Watched Movies", MediaListType.MOST_WATCHED, MediaType.MOVIE);
-      mostWatchedMovies.getMediaList().add(movie2);  // Ajout d'un film "Most Watched"
-      
-      MediaList topRatedMovies = new MediaList("Top Rated Movies", MediaListType.TOP_RATED, MediaType.MOVIE);
-      topRatedMovies.getMediaList().add(movie3);  // Ajout d'un film "Top Rated"
+        popularTVShowsSet = TMDBApiClient.getTVShowListEndpointPageN(1, TMDBApiClient.getPopularTVShowEndpoint());
+        topRatedTVShowsSet = TMDBApiClient.getTVShowListEndpointPageN(1, TMDBApiClient.getTopRatedTVShowEndpoint());
+        trendingTVShowsSet = TMDBApiClient.getTrendingTVShow();
 
-      // Création des listes pour les séries
-      MediaList trendingTVShows = new MediaList("Trending TV Shows", MediaListType.TRENDING, MediaType.TV_SHOW);
-      trendingTVShows.getMediaList().add(tvshow1);  // Ajout d'une série "Trending"
-      
-      MediaList mostWatchedTVShows = new MediaList("Most Watched TV Shows", MediaListType.MOST_WATCHED, MediaType.TV_SHOW);
-      mostWatchedTVShows.getMediaList().add(tvshow2);  // Ajout d'une série "Most Watched"
-      
-      MediaList topRatedTVShows = new MediaList("Top Rated TV Shows", MediaListType.TOP_RATED, MediaType.TV_SHOW);
-      topRatedTVShows.getMediaList().add(tvshow3);  // Ajout d'une série "Top Rated"
-
-      // Sauvegarde des listes
-      mediaListRepository.save(trendingMovies);
-      mediaListRepository.save(mostWatchedMovies);
-      mediaListRepository.save(topRatedMovies);
-      mediaListRepository.save(trendingTVShows);
-      mediaListRepository.save(mostWatchedTVShows);
-      mediaListRepository.save(topRatedTVShows);
+        for (TVShow currentTVShow : topRatedTVShowsSet) {
+            tvshowRepository.save(currentTVShow);
+            topRatedTVShows.getMediaList().add(currentTVShow);
+            allTVShowsSet.add(currentTVShow);
+        }
+        mediaListRepository.save(topRatedTVShows);
 
 
+        for (TVShow currentTVShow : popularTVShowsSet) {
+            tvshowRepository.save(currentTVShow);
+            popularTVShows.getMediaList().add(currentTVShow);
+            allTVShowsSet.add(currentTVShow);
+        }
+        mediaListRepository.save(popularTVShows);
 
+        for (TVShow currentTVShow : trendingTVShowsSet) {
+            tvshowRepository.save(currentTVShow);
+            trendingTVShows.getMediaList().add(currentTVShow);
+            allTVShowsSet.add(currentTVShow);
+        }
+        mediaListRepository.save(trendingTVShows);
 
+        for (TVShow currentTVShow : allTVShowsSet) {
+            allTVShows.getMediaList().add(currentTVShow);
+        }
+        mediaListRepository.save(allTVShows);
 
+        System.out.println("TVShows added to the db");
+
+        /*
 
 
       // Création des acteurs de Friends
