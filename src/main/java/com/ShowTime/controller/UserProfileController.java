@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -20,6 +21,9 @@ public class UserProfileController {
 
     @Autowired
     private RatingRepository ratingRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/profile")
     public String showLoggedInUserProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails, Model model) {
@@ -53,21 +57,42 @@ public class UserProfileController {
         return "User/Profile";
     }
 
+    @PostMapping("/profile/update")
+    public String updateUserProfile(
+        @AuthenticationPrincipal CustomUserDetails customUserDetails,
+        @RequestParam("email") String email,
+        @RequestParam("password") String password,  Model model) {
 
+            System.out.println("Email: " + email);
+            System.out.println("Password: " + password);    
 
+        if (customUserDetails == null) {
+            return "redirect:/login";
+        }
 
+        if (email.isEmpty() || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            model.addAttribute("error", "Invalid email format");
+            return "User/Profile";
+        }
+        
 
+        User user = userRepository.findById(customUserDetails.getUser().getId()).orElse(null);
+        if (user == null) {
+            return "redirect:/";
+        }
+
+        user.setEmail(email);
+        if (!password.isEmpty()) {
+            user.setPassword(passwordEncoder.encode(password)); 
+        }
+        userRepository.save(user);
+
+        return "redirect:/profile";
+    }
 
 
 
     /*
-    @GetMapping("/profile")
-    public String showProfile(Model model, @AuthenticationPrincipal User currentUser) {
-        model.addAttribute("user", currentUser);
-        return "user/profile";  //Vue du profil de l'user
-    }
-
-
     @PostMapping("/profile/update")
     public String updateUser(@AuthenticationPrincipal User currentUser, @Valid @ModelAttribute User updatedUser, BindingResult result) {
         if (result.hasErrors()) {

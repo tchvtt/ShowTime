@@ -59,7 +59,7 @@ public class ShowTimeApplication implements CommandLineRunner{
     @Override
     public void run(String... args) {
         //Add the movies to the db
-
+ /*
         //MediaList creation
         MediaList allMovies = new MediaList("All Movies",MediaListType.ALL,MediaType.MOVIE);
         MediaList popularMovies = new MediaList("Popular Movies",MediaListType.POPULAR,MediaType.MOVIE);
@@ -102,7 +102,7 @@ public class ShowTimeApplication implements CommandLineRunner{
         }
         mediaListRepository.save(allMovies);
 
-      /*
+     
       //Get all the TV Shows and save them to the db
       //All TV Shows MediaList creation
       MediaList allTVShows = new MediaList("All TV Shows",MediaListType.ALL,MediaType.TV_SHOW);

@@ -4,16 +4,52 @@
     <meta charset="UTF-8">
     <title>User Profile</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <script>
+        let isEditing = false;
+
+        function toggleEditMode() {
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const editButton = document.getElementById('editButton');
+            const updateForm = document.getElementById('updateForm');
+
+            if (!isEditing) {
+                //emailInput.disabled = false;
+                //passwordInput.disabled = false;
+                editButton.textContent = 'Save';
+                isEditing = true;
+            } else {
+                //emailInput.disabled = true;
+                //passwordInput.disabled = true;
+                editButton.textContent = 'Edit';
+                isEditing = false;
+                updateForm.submit();
+            }
+        }
+    </script>
+
 </head>
 <body>
 
     <div class="container">
         <h1>Profile of <span th:text="${user.username}">User Name</span></h1>
         
-        <div class="profile-info">
-            <p><strong>Name:</strong> <span th:text="${user.username}">John Doe</span></p>
-            <p><strong>Email:</strong> <span th:text="${user.email}">john.doe@example.com</span></p>
-        </div>
+        <form id="updateForm" th:action="@{/profile/update}" method="post">
+            <div class="profile-info">
+                <p><strong>Name:</strong> <span th:text="${user.username}"></span></p>
+                <p>
+                    <strong>Email:</strong>
+                    <input id="email" type="email" name="email" th:value="${user.email}" />
+                </p>
+                <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+                <p>
+                    <strong>Password:</strong>
+                    <input id="password" type="password" name="password" th:value="${user.password}" />
+                </p>
+            </div>
+
+            <button type="button" id="editButton" onclick="toggleEditMode()">Edit</button>
+        </form>
 
      
         <div th:each="list : ${user.mediaLists}">
