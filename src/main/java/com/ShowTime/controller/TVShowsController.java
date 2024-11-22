@@ -19,15 +19,15 @@ public class TVShowsController {
     @GetMapping("/tvshows")
     public String moviesPage(Model model) {
         // Récupération des listes globales pour les séries
-        MediaList trendingTVShows = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.TRENDING, MediaType.TV_SHOW);
-        MediaList mostWatchedTVShows = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.MOST_WATCHED, MediaType.TV_SHOW);
-        MediaList topRatedTVShows = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.TOP_RATED, MediaType.TV_SHOW);
         MediaList allTVShows = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.ALL, MediaType.TV_SHOW);
+        MediaList popularTVShows = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.POPULAR, MediaType.TV_SHOW);
+        MediaList topRatedTVShows = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.TOP_RATED, MediaType.TV_SHOW);
+        MediaList trendingTVShows = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.TRENDING, MediaType.TV_SHOW);
 
         model.addAttribute("allTVShows",allTVShows.getMediaList());
-        model.addAttribute("trendingTVShows", trendingTVShows.getMediaList());
-        model.addAttribute("mostWatchedTVShows", mostWatchedTVShows.getMediaList());
-        model.addAttribute("topRatedTVShows", topRatedTVShows.getMediaList());
+        model.addAttribute("popularTVShows",popularTVShows.getMediaList());
+        model.addAttribute("topRatedTVShows",topRatedTVShows.getMediaList());
+        model.addAttribute("trendingTVShows",trendingTVShows.getMediaList());
 
         return "tvshows"; // Vue pour la page des séries
     }

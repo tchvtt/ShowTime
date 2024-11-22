@@ -21,16 +21,9 @@
                 </li>
             </ul>            
 
-        <h1>Trending Movies</h1>
+        <h1>Popular Movies</h1>
         <ul>
-            <li th:each="movie : ${trendingMovies}">
-                <a th:href="@{/media/{id}(id=${movie.id})}"><p th:text="${movie.title}">Titre du film</p></a>
-            </li>
-        </ul>
-    
-        <h1>Most Watched Movies</h1>
-        <ul>
-            <li th:each="movie : ${mostWatchedMovies}">
+            <li th:each="movie : ${popularMovies}">
                 <a th:href="@{/media/{id}(id=${movie.id})}"><p th:text="${movie.title}">Titre du film</p></a>
             </li>
         </ul>
@@ -38,6 +31,13 @@
         <h1>Top Rated Movies</h1>
         <ul>
             <li th:each="movie : ${topRatedMovies}">
+                <a th:href="@{/media/{id}(id=${movie.id})}"><p th:text="${movie.title}">Titre du film</p></a>
+            </li>
+        </ul>
+    
+        <h1>Trending Movies</h1>
+        <ul>
+            <li th:each="movie : ${trendingMovies}">
                 <a th:href="@{/media/{id}(id=${movie.id})}"><p th:text="${movie.title}">Titre du film</p></a>
             </li>
         </ul>
