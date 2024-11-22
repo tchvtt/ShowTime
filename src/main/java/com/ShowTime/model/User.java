@@ -30,13 +30,17 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MediaList> mediaLists = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Rating> ratings = new ArrayList<>(); 
+
     public User() {}
 
     public User(String username, String email, String password) {
+        super();
         this.username = username;
         this.email = email;
         this.password = password;
-
+        
         mediaLists.add(new MediaList("Watched Movies", MediaListType.WATCHED, MediaType.MOVIE, this));
         mediaLists.add(new MediaList("To Watch Movies", MediaListType.TO_WATCH, MediaType.MOVIE, this));
         mediaLists.add(new MediaList("Favorites Movies", MediaListType.FAVORITE, MediaType.MOVIE, this));
@@ -87,20 +91,13 @@ public class User {
 
 
 
-
-
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Rating> ratings = new ArrayList<>(); 
-
-
     //gérer les ratings 
     public void addRating(Rating rating){
         this.ratings.add(rating); 
-        rating.setAuthor(this); 
+        rating.setUser(this); 
     }
     public void removeRating(Rating rating){
         this.ratings.remove(rating); 
-        //dans JPA orphanRemoval = true donc censé delete le rating s'il n'est plus associé à un user 
-        rating.setAuthor(null);
+        rating.setUser(null);
     }
 }

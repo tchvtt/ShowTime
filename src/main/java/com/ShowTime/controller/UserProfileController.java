@@ -2,33 +2,54 @@ package com.ShowTime.controller;
 
 import com.ShowTime.model.*;
 import com.ShowTime.repository.*;
+import com.ShowTime.security.CustomUserDetails;
 
-import jakarta.validation.Valid;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-
 @Controller
-@RequestMapping("/user")
+//@RequestMapping("/user")
 public class UserProfileController {
 
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/profile/{id}")
-    public String showProfile(@PathVariable Long id, Model model) {
-        User user = userRepository.findById(id)
-                .orElse(null);
+    @Autowired
+    private RatingRepository ratingRepository;
 
-        if (user == null) {
-            return "error/404";
+    @GetMapping("/profile")
+    public String showLoggedInUserProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails, Model model) {
+        if (customUserDetails == null) {
+            return "redirect:/login"; 
         }
 
+        User user = userRepository.findById(customUserDetails.getUser().getId()).orElse(null);
+        if (user == null) {
+            return "redirect:/"; 
+        }
         model.addAttribute("user", user);
+
+        List<Rating> ratings = ratingRepository.findRatingsByUserId(user.getId());
+        model.addAttribute("ratings", ratings);
+
+        return "User/Profile"; 
+    }
+
+    @GetMapping("/user/{id}")
+    public String showProfile(@PathVariable Long id, Model model) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            return "redirect:/";
+        }
+        model.addAttribute("user", user);
+
+        List<Rating> ratings = ratingRepository.findRatingsByUserId(id);
+        model.addAttribute("ratings", ratings);
+
         return "User/Profile";
     }
 
@@ -39,14 +60,7 @@ public class UserProfileController {
 
 
 
-
-
-
-
-
-
-
-
+    /*
     @GetMapping("/profile")
     public String showProfile(Model model, @AuthenticationPrincipal User currentUser) {
         model.addAttribute("user", currentUser);
@@ -74,16 +88,5 @@ public class UserProfileController {
         //redirect page d'accueil
         return "redirect:/";
     }
-
-
-    @GetMapping("/profile/media-lists")
-    public String showAllMediaLists(Model model, @AuthenticationPrincipal User currentUser) {
-        /*
-        model.addAttribute("favoriteMovies", favoriteMoviesListRepository.findByUser(currentUser));
-        model.addAttribute("favoriteTVShows", favoriteTVShowsListRepository.findByUser(currentUser));
-        model.addAttribute("toWatchMovies", toWatchMoviesListRepository.findByUser(currentUser));
-        model.addAttribute("toWatchTVShows", toWatchTVShowsListRepository.findByUser(currentUser));
-        */
-        return "user-media-lists";
-    }
+    */
 }

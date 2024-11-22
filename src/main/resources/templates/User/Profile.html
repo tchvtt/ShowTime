@@ -9,13 +9,13 @@
 
     <div class="container">
         <h1>Profile of <span th:text="${user.username}">User Name</span></h1>
-
+        
         <div class="profile-info">
             <p><strong>Name:</strong> <span th:text="${user.username}">John Doe</span></p>
             <p><strong>Email:</strong> <span th:text="${user.email}">john.doe@example.com</span></p>
         </div>
 
-        
+     
         <div th:each="list : ${user.mediaLists}">
             <h3 th:text="${list.name}"></h3> 
             <ul>
@@ -24,63 +24,17 @@
                 </li>
             </ul>
         </div>
-        
 
+        <h3>Ratings</h3>
+        <ul>
+            <li th:each="rating : ${ratings}">
+                <p><strong>Media:</strong> <a th:href="@{/media/{id}(id=${rating.media.id})}" th:text="${rating.media.title}">Media Title</a></p>
+                <p><strong>Rating:</strong> <span th:text="${rating.rating}"></span>/5</p>
+                <p><strong>Comment:</strong> <span th:text="${rating.comment}"></span></p>
+                <p><small>Posted on: <span th:text="${rating.date}"></span></small></p>
+            </li>
+        </ul>
 
-
-
-
-        <!--
-        <h2>Favorite Movies</h2>
-        <div class="media-list">
-            <ul>
-                <li th:each="movie : ${user.favoriteMoviesList.movies}">
-                    <span th:text="${movie.title}">Movie Title</span>
-                </li>
-            </ul>
-        </div>
-
-        <h2>Favorite TV Shows</h2>
-        <div class="media-list">
-            <ul>
-                <li th:each="tvShow : ${user.favoriteTVShowsList.tvShows}">
-                    <span th:text="${tvShow.title}">TV Show Title</span>
-                </li>
-            </ul>
-        </div>
-
-        <h2>Movies To Watch</h2>
-        <div class="media-list">
-            <ul>
-                <li th:each="movie : ${user.toWatchMoviesList.movies}">
-                    <span th:text="${movie.title}">Movie Title</span>
-                </li>
-            </ul>
-        </div>
-
-        <h2>TV Shows To Watch</h2>
-        <div class="media-list">
-            <ul>
-                <li th:each="tvShow : ${user.toWatchTVShowsList.tvShows}">
-                    <span th:text="${tvShow.title}">TV Show Title</span>
-                </li>
-            </ul>
-        </div>
-
-        <div class="actions">
-            <form th:action="@{/user/profile/update}" method="post">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" th:value="${user.name}">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" th:value="${user.email}">
-                <button type="submit">Update Profile</button>
-            </form>
-
-            <form th:action="@{/user/profile/delete}" method="post" th:object="${user}">
-                <button type="submit">Delete Account</button>
-            </form>
-        </div>
-        -->
     </div>
 
 </body>

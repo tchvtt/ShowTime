@@ -1,5 +1,13 @@
 package com.ShowTime;
 
+import com.ShowTime.model.*;
+import com.ShowTime.repository.ActorRepository;
+import com.ShowTime.repository.MediaListRepository;
+import com.ShowTime.repository.MovieRepository;
+import com.ShowTime.repository.RatingRepository;
+import com.ShowTime.repository.TVShowRepository;
+import com.ShowTime.repository.UserRepository;
+
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 
@@ -44,6 +52,9 @@ public class ShowTimeApplication implements CommandLineRunner{
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RatingRepository ratingRepository;
 
     @Override
     public void run(String... args) {
@@ -164,7 +175,7 @@ public class ShowTimeApplication implements CommandLineRunner{
 
 
           // Création de l'utilisateur
-      User thomas = new User("Thomas", "thomas@example.com", "securepassword");
+      User thomas = new User("Thomas", "thomas@example.com", "password");
         
       
       // Ajout des films et séries à ses listes
@@ -192,6 +203,19 @@ public class ShowTimeApplication implements CommandLineRunner{
 
       // Sauvegarde de l'utilisateur
       userRepository.save(thomas);
+
+
+
+
+
+
+
+        // Création de ratings
+        Rating rating1 = new Rating(thomas, tvshow3, 5, "Amazing");
+        ratingRepository.save(rating1);
+
+        Rating rating2 = new Rating(thomas, tvshow1, 4, "Still Viewing");
+        ratingRepository.save(rating2);
 
     }
 }

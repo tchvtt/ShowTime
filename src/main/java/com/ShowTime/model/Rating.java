@@ -2,7 +2,9 @@ package com.ShowTime.model;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.*; 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min; 
 
 @Entity
 public class Rating {
@@ -11,12 +13,14 @@ public class Rating {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User author;
+    @JoinColumn(name = "app_user_id")
+    private User user;
 
-    @Enumerated(EnumType.ORDINAL)
-    private Ratings rating;
+    @Min(1)
+    @Max(5) 
+    private int rating;
 
+    // Mettre max characteres ? (a voir en fonction du CSS)
     private String comment;
 
     @ManyToOne
@@ -27,36 +31,57 @@ public class Rating {
 
     public Rating() {}
 
-    public enum Ratings {
-        ONE, TWO, THREE, FOUR, FIVE
+    public Rating(User user, Media media, int rate, String comment) {
+        this.setUser(user);
+        this.setMedia(media);
+        this.setRating(rate);
+        this.setComment(comment);
+        this.date = LocalDate.now();
     }
 
-    //Getters
-    public Long getId(){
-        return id; 
-    }
-    public User getAuthor(){
-        return author; 
-    }
-    public String getComment(){
-        return comment;    
-    }
-    public Media getMedia(){
-        return media; 
-    }
-    public LocalDate getDate(){
-        return date; 
+    // Getters et Setters
+    public Long getId() {
+        return id;
     }
 
-    //Setters
-    public void setComment(String comment){
-        this.comment = comment; 
+    public User getUser() {
+        return user;
     }
-    public void setRating(Ratings rating){
+
+    public String getComment() {
+        return comment;
+    }
+
+    public Media getMedia() {
+        return media;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public void setRating(int rating) {
         this.rating = rating; 
     }
-    public void setAuthor(User author){
-        this.author = author; 
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setMedia(Media media) {
+        this.media = media;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
 }
