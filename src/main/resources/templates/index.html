@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>ShowTime - Accueil</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link th:href="@{/main.css}" rel="stylesheet" />
 </head>
-<body>
+<body class="bg-gray-900 text-white">
     <!-- Insertion du Header -->
     <div th:replace="~{Components/Header :: header}"></div>
 
-    <div class="container">
-        <h1>It's ShowTime !</h1>
-        <p>Suivez vos films et séries préférés, lisez des critiques et bien plus encore !</p>
-
-        <!--<<a href="/logout">Logout</a>>-->
+    <div class="container mx-auto p-8">
+        <h1 class="text-4xl font-bold mb-4">It's ShowTime!</h1>
+        <p class="text-lg mb-2">
+            ShowTime is your ultimate web application for tracking movies and series.
+        </p>
+        <p class="text-lg">
+            Easily manage your watched, to-watch, and favorite lists while discovering the latest and most popular content.
+        </p>
     </div>
 
     <!-- Insertion du Footer -->

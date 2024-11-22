@@ -58,6 +58,8 @@ public class ShowTimeApplication implements CommandLineRunner{
 
     @Override
     public void run(String... args) {
+        
+        /*
         //Add the movies to the db
 
         //MediaList creation
@@ -150,9 +152,10 @@ public class ShowTimeApplication implements CommandLineRunner{
         mediaListRepository.save(allTVShows);
 
         System.out.println("TVShows added to the db");
+        */
+
 
         /*
-
 
       // Création des acteurs de Friends
       Actor actor1 = new Actor("Jennifer Aniston", LocalDate.of(1969, 2, 11));
