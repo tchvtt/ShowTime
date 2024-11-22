@@ -79,8 +79,12 @@ import com.ShowTime.model.TVShow;
         JSONArray genresArray;
         JSONObject genre;
         genresArray = response.optJSONArray("genres");
-        genre = genresArray.getJSONObject(0);
-        return genre.getString("name");
+        if (genresArray != null && genresArray.length() > 0) {
+            genre = genresArray.getJSONObject(0);
+            return genre.getString("name");
+        } else {
+            return "unknown";
+        }
      }
 
      public static Movie handleMovie(Integer movieID){
@@ -146,28 +150,12 @@ import com.ShowTime.model.TVShow;
         return movieSet;
     }
 
-    public static LinkedHashSet<TVShow> getTVShowEndpointPageN(int pageN, String endpoint){
+    public static LinkedHashSet<TVShow> getTVShowListEndpointPageN(int pageN, String endpoint){
         LinkedHashSet<TVShow> tvShowSet = new LinkedHashSet<>();
         tvShowSet = aggregateTVShows(handleMediaList(handleApiArrayResponse(makeRequest(endpoint+pageN))));
         return tvShowSet;
     }
-/*
-    public static LinkedHashSet<Movie> getTop100Movie(){
-        LinkedHashSet <Movie> movieSet = new LinkedHashSet<>();
-        for(int i = 1; i < 6; i++){
-            movieSet = aggregateMovieSet(movieSet, getTopRatedMoviePageN(i, TOP_RATED_MOVIE));
-        }
-        return movieSet;
-    }
 
-    public static LinkedHashSet<TVShow> getTop100TVShow(){
-        LinkedHashSet<TVShow> tvShowSet = new LinkedHashSet<>();
-        for(int i = 1; i < 6; i++){
-            tvShowSet = aggregateTVShowSet(tvShowSet, getTopRatedTVShowPageN(i, TOP_RATED_TVSHOW));
-        }
-        return tvShowSet;
-    }
-*/
     public static LinkedHashSet<Movie> getTrendingMovie(){
         LinkedHashSet<Movie> movieSet = new LinkedHashSet<>();
         movieSet = aggregateMovies(handleMediaList(handleApiArrayResponse(makeRequest("trending/movie/week?language=en-US"))));

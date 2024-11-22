@@ -6,44 +6,44 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Insertion du Header -->
-    <div th:replace="~{Components/Header :: header}"></div>
+<!-- Insertion du Header -->
+<div th:replace="~{Components/Header :: header}"></div>
 
-    <div class="container">
-        <h1>TV Shows</h1>
-        <ul>
-            <li th:each="tvshow : ${allTVShows}">
-                <a th:href="@{/media/{id}(id=${tvshow.id})}">
-                    <p th:text="${tvshow.title}">Titre du TVShow</p>
-                </a>
-                <!-- Displaying the image using the external URL from the posterURL field -->
-                <img th:src="@{${tvshow.posterURL}}" alt="Poster of ${tvshow.title}" width="400" height="400" />
-            </li>
-        </ul>      
+<div class="container">
+    <h1>TV Shows</h1>
+    <ul>
+        <li th:each="tvshow : ${allTVShows}">
+            <a th:href="@{/media/{id}(id=${tvshow.id})}">
+                <p th:text="${tvshow.title}">TV Show Title</p>
+            </a>
+            <!-- Displaying the image using the external URL from the posterURL field -->
+            <img th:src="@{${tvshow.posterURL}}" alt="Poster of ${tvshow.title}" width="400" height="400" />
+        </li>
+    </ul>
 
-        <h1>Trending TV Shows</h1>
-        <ul>
-            <li th:each="tvshow : ${trendingTVShows}">
-                <a th:href="@{/media/{id}(id=${tvshow.id})}"><p th:text="${tvshow.title}">Titre de la série</p></a>
-            </li>
-        </ul>
-    
-        <h1>Most Watched TV Shows</h1>
-        <ul>
-            <li th:each="tvshow : ${mostWatchedTVShows}">
-                <a th:href="@{/media/{id}(id=${tvshow.id})}"><p th:text="${tvshow.title}">Titre de la série</p></a>
-            </li>
-        </ul>
-    
-        <h1>Top Rated TV Shows</h1>
-        <ul>
-            <li th:each="tvshow : ${topRatedTVShows}">
-                <a th:href="@{/media/{id}(id=${tvshow.id})}"><p th:text="${tvshow.title}">Titre de la série</p></a>
-            </li>
-        </ul>
-    </div>
+    <h1>Popular TV Shows</h1>
+    <ul>
+        <li th:each="tvshow : ${popularTVShows}">
+            <a th:href="@{/media/{id}(id=${tvshow.id})}"><p th:text="${tvshow.title}">TV Show title</p></a>
+        </li>
+    </ul>
 
-    <!-- Insertion du Footer -->
-    <div th:replace="~{Components/Footer :: footer}"></div>
+    <h1>Top Rated TV Shows</h1>
+    <ul>
+        <li th:each="tvshow : ${topRatedTVShows}">
+            <a th:href="@{/media/{id}(id=${tvshow.id})}"><p th:text="${tvshow.title}">TV Show Title</p></a>
+        </li>
+    </ul>
+
+    <h1>Trending TV Shows</h1>
+    <ul>
+        <li th:each="tvshow : ${trendingTVShows}">
+            <a th:href="@{/media/{id}(id=${tvshow.id})}"><p th:text="${tvshow.title}">TV Show Title</p></a>
+        </li>
+    </ul>
+</div>
+
+<!-- Insertion du Footer -->
+<div th:replace="~{Components/Footer :: footer}"></div>
 </body>
 </html>
