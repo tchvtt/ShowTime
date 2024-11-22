@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
 @Controller
 //@RequestMapping("/user")
@@ -61,7 +62,7 @@ public class UserProfileController {
     public String updateUserProfile(
         @AuthenticationPrincipal CustomUserDetails customUserDetails,
         @RequestParam("email") String email,
-        @RequestParam("password") String password,  Model model) {
+        @RequestParam("password") String password,  Model model, RedirectAttributes redirectAttributes) {
 
             System.out.println("Email: " + email);
             System.out.println("Password: " + password);    
@@ -70,12 +71,15 @@ public class UserProfileController {
             return "redirect:/login";
         }
 
-        if (email.isEmpty() || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-            model.addAttribute("error", "Invalid email format");
-            return "User/Profile";
+        if (email.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Email cannot be empty");
+            return "redirect:/profile";
+        }
+        if (!email.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")) {
+            redirectAttributes.addFlashAttribute("error", "Invalid email format");
+            return "redirect:/profile";
         }
         
-
         User user = userRepository.findById(customUserDetails.getUser().getId()).orElse(null);
         if (user == null) {
             return "redirect:/";

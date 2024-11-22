@@ -39,7 +39,7 @@
                 <p><strong>Name:</strong> <span th:text="${user.username}"></span></p>
                 <p>
                     <strong>Email:</strong>
-                    <input id="email" type="email" name="email" th:value="${user.email}" />
+                    <input id="email" type="email" name="email" th:value="${user.email}"/>
                 </p>
                 <p th:if="${error}" th:text="${error}" style="color:red;"></p>
                 <p>
