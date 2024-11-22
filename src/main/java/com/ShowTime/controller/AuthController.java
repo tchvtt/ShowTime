@@ -46,8 +46,15 @@ public class AuthController {
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User userForm, RedirectAttributes redirectAttributes) {
 
+        //check si username pas déjà pris 
         if (userRepository.existsByUsername(userForm.getUsername())) {
             redirectAttributes.addFlashAttribute("error", "Username is already taken");
+            return "redirect:/register";
+        }
+
+        //check si email est dans le bon format 
+        if (userForm.getEmail() == null || !userForm.getEmail().matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")) {
+            redirectAttributes.addFlashAttribute("error", "Invalid email format");
             return "redirect:/register";
         }
 
@@ -56,5 +63,4 @@ public class AuthController {
         userRepository.save(user);
         return "redirect:/login"; 
     }
-
 }
