@@ -242,6 +242,6 @@ public class ShowTimeApplication implements CommandLineRunner{
 
         Rating rating2 = new Rating(thomas, tvshow1, 4, "Still Viewing");
         ratingRepository.save(rating2);
-
+*/
     }
 }
