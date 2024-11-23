@@ -14,6 +14,7 @@ import java.net.http.HttpResponse.BodyHandlers;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 
+import com.ShowTime.model.Actor;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -27,7 +28,7 @@ import com.ShowTime.model.TVShow;
  
      private static final String API_KEY = "xxx";
      private static final String BASE_URL = "https://api.themoviedb.org/3/";
-     private static final String BASE_POSTER_URL= "https://image.tmdb.org/t/p/original";
+     private static final String BASE_IMAGE_URL= "https://media.themoviedb.org/t/p/original";
 
      private static final String TOP_RATED_MOVIE = "movie/top_rated?language=en-US&page=";
      private static final String POPULAR_MOVIE = "movie/popular?language=en-US&page=";
@@ -87,6 +88,32 @@ import com.ShowTime.model.TVShow;
         }
      }
 
+     public static LinkedHashSet<Actor> handleActorsList(JSONArray response){
+         JSONArray actorsArray;
+         JSONObject actor;
+         LinkedHashSet<Actor> actorSet = new LinkedHashSet<>();
+         actorsArray = response.
+         if (actorsArray != null && actorsArray.length() > 0) {
+             for (int i = 0; i < actorsArray.length(); i++) {
+                 actor = actorsArray.getJSONObject(i);
+                 if (actor.getString("known_for_department").equals("Acting")){
+                     actorSet.add(new Actor(actor.getInt("id")));
+                 }
+             }
+         }
+         return actorSet;
+     }
+
+     public static void getActorInfo(Actor actor){
+         JSONObject jsonObject;
+         System.out.println(actor.getId());
+         jsonObject = handleApiResponse(makeRequest("person/"+actor.getId()));
+         System.out.println(jsonObject.toString());
+         actor.setName(jsonObject.optString("name"));
+         actor.setBirthDate(LocalDate.parse(jsonObject.getString("birthday")));
+         actor.setPosterURL(BASE_IMAGE_URL+jsonObject.get("profile_path"));
+     }
+
      public static Movie handleMovie(Integer movieID){
         JSONObject jsonObject;
         Movie movie = new Movie();
@@ -96,7 +123,12 @@ import com.ShowTime.model.TVShow;
         movie.setReleaseDate(LocalDate.parse(jsonObject.getString("release_date")));
         movie.setGenre(handleGenre(jsonObject));
         movie.setOverview(jsonObject.getString("overview"));
-        movie.setPosterURL(BASE_POSTER_URL+jsonObject.get("poster_path"));
+        movie.setPosterURL(BASE_IMAGE_URL+jsonObject.get("poster_path"));
+        movie.setActors(handleActorsList(handleApiArrayResponse(makeRequest("movie/"+movieID+"/credits"))));
+        System.out.println(movie.getActors().size());
+        for (Actor actor : movie.getActors()){
+            getActorInfo(actor);
+        }
         return movie;
     }
 
@@ -110,7 +142,11 @@ import com.ShowTime.model.TVShow;
         tvShow.setGenre(handleGenre(jsonObject));
         tvShow.setCompleted(jsonObject.getString("status").equals("Ended"));
         tvShow.setOverview(jsonObject.getString("overview"));
-        tvShow.setPosterURL(BASE_POSTER_URL+jsonObject.get("poster_path"));
+        tvShow.setPosterURL(BASE_IMAGE_URL+jsonObject.get("poster_path"));
+        tvShow.setActors(handleActorsList(handleApiResponse(makeRequest("tv/"+tvShowID+"/aggregate_credits"))));
+        for (Actor actor : tvShow.getActors()) {
+            getActorInfo(actor);
+        }
         return tvShow;
     }
 

@@ -2,6 +2,7 @@ package com.ShowTime.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -29,7 +30,7 @@ public abstract class Media {
         joinColumns = @JoinColumn(name = "media_id"),
         inverseJoinColumns = @JoinColumn(name = "actor_id")
     )
-    private List<Actor> actors = new ArrayList<>();
+    private LinkedHashSet<Actor> actors = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "media", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rating> ratings = new ArrayList<>();
@@ -53,7 +54,7 @@ public abstract class Media {
     public LocalDate getReleaseDate() {
         return releaseDate;
     }
-    public List<Actor> getActors() {
+    public LinkedHashSet<Actor> getActors() {
         return actors;
     }
     public String getOverview(){
@@ -79,6 +80,7 @@ public abstract class Media {
     public void setPosterURL(String posterURL){
         this.posterURL = posterURL;
     }
+    public void setActors(LinkedHashSet<Actor> actors) {this.actors = actors;}
 
     //Gérer les medias associés
     public void addActor(Actor actor) {

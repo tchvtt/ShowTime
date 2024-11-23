@@ -1,7 +1,8 @@
 package com.ShowTime.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List; 
+import java.util.LinkedHashSet;
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -29,7 +30,7 @@ public class MediaList {
         joinColumns = @JoinColumn(name = "media_list_id"),
         inverseJoinColumns = @JoinColumn(name = "media_id")
      )
-    private List<Media> mediaList = new ArrayList<>();
+    private LinkedHashSet<Media> mediaList = new LinkedHashSet<>();
 
 
 
@@ -83,7 +84,7 @@ public class MediaList {
         return mediaType;
     }
 
-    public List<Media> getMediaList() {
+    public LinkedHashSet<Media> getMediaList() {
         return mediaList;
     }
 

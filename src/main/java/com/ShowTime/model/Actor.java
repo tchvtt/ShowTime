@@ -13,6 +13,9 @@ public class Actor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private int tmdbID;
+    private String posterURL;
+
     @NotNull
     private String name;
     //private String biography;
@@ -35,6 +38,10 @@ public class Actor {
     */
 
     public Actor() {}
+
+    public Actor(int tmdbID){
+        this.tmdbID = tmdbID;
+    }
 
     public Actor(String name, LocalDate birthDate){
         this.name = name; 
@@ -73,6 +80,7 @@ public class Actor {
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
+    public void setPosterURL(String posterURL){this.posterURL = posterURL;}
 
     /*
     // Gérer les médias
