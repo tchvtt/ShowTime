@@ -42,6 +42,7 @@ public class MediaDetailsController {
         List<Actor> actors = actorRepository.findActorsByMediaId(media.getId());
         model.addAttribute("actors", actors);
 
+
         // Media Ratings
         //List<Rating> ratings = ratingRepository.findRatingsByMediaId(id);
         //model.addAttribute("ratings", ratings);

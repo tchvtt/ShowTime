@@ -28,7 +28,7 @@
     <!-- Affichage des acteurs associés au média -->
     <p><strong>Acteurs :</strong></p>
     <ul>
-        <li th:each="actor : ${actors}">
+        <li th:each="actor : ${media.actors}">
             <a th:href="@{/actor/{id}(id=${actor.id})}" th:text="${actor.name}"><p th:text="${actor.name}"></p></a>
         </li>
     </ul>

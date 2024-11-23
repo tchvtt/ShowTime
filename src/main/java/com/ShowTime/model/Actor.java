@@ -2,7 +2,9 @@ package com.ShowTime.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -23,10 +25,13 @@ public class Actor {
     private LocalDate birthDate;
     //private String profileImage;
 
-    //@ManyToOne(cascade = CascadeType.PERSIST)
-    //@JoinColumn(name = "media_list_id")
-    @OneToMany(mappedBy = "actors")
-    private List<Media> mediaList;
+
+    @ManyToMany(mappedBy = "actors")
+    private List<Movie> MoviesCastedIn = new ArrayList<>();
+
+
+    @ManyToMany
+    private List<TVShow> TVShowsCastedIn = new ArrayList<>();
 
 
     /*
@@ -45,9 +50,10 @@ public class Actor {
 
     public Actor(String name, LocalDate birthDate){
         this.name = name; 
-        this.birthDate = birthDate; 
+        this.birthDate = birthDate;
         //this.mediaList = new MediaList(name, MediaListType.ACTOR, MediaType.ANY);
-        this.mediaList = new ArrayList<>();
+        //this.mediaList = new LinkedHashSet<>();
+
     }
 
     //Getters
@@ -60,8 +66,14 @@ public class Actor {
     public LocalDate getBirthDate(){
         return birthDate; 
     }
-    public List<Media> getMediaList(){
-        return this.mediaList;
+    public Integer getTmdbID(){return tmdbID;}
+
+    public List<Movie> getMoviesCastedIn(){
+        return this.MoviesCastedIn;
+    }
+
+    public List<TVShow> getTVShowsCastedIn(){
+        return this.TVShowsCastedIn;
     }
 
     /* 
@@ -82,6 +94,9 @@ public class Actor {
     }
     public void setPosterURL(String posterURL){this.posterURL = posterURL;}
 
+    public void addMovie(Movie movie){
+        this.MoviesCastedIn.add(movie);
+    }
     /*
     // Gérer les médias
     public void addMedia(Media media) {
@@ -95,7 +110,7 @@ public class Actor {
         mediaList.getMediaList().remove(media);
         media.getActors().remove(this);
     }
-    */
+
 
 
     // Gérer les médias
@@ -110,7 +125,7 @@ public class Actor {
         mediaList.remove(media);
         media.getActors().remove(this);
     }
-
+    */
 
     //Gérer les movies 
     /*
@@ -131,4 +146,7 @@ public class Actor {
         tvShow.getActors().remove(this);  
     }
     */
+    public String toString(){
+        return "Actor: "+name+" born on "+birthDate + " with ID: "+id;
+    }
 }

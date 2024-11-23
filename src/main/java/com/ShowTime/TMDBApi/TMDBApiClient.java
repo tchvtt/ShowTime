@@ -12,7 +12,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 import com.ShowTime.model.Actor;
 import org.json.JSONArray;
@@ -88,35 +90,48 @@ import com.ShowTime.model.TVShow;
         }
      }
 
-     public static LinkedHashSet<Actor> handleActorsList(JSONArray response){
-         JSONArray actorsArray;
+     public static List<Integer> handleActorsList(String response){
          JSONObject actor;
-         LinkedHashSet<Actor> actorSet = new LinkedHashSet<>();
-         actorsArray = response.
-         if (actorsArray != null && actorsArray.length() > 0) {
-             for (int i = 0; i < actorsArray.length(); i++) {
-                 actor = actorsArray.getJSONObject(i);
+         JSONObject jsonResponse = new JSONObject(response);
+         JSONArray responseArray = jsonResponse.getJSONArray("cast");
+         List<Integer> actorSet = new ArrayList<>();
+         if (responseArray != null && !responseArray.isEmpty()) {
+             for (int i = 0; i < responseArray.length(); i++) {
+                 actor = responseArray.getJSONObject(i);
                  if (actor.getString("known_for_department").equals("Acting")){
-                     actorSet.add(new Actor(actor.getInt("id")));
+                     actorSet.add(actor.getInt("id"));
                  }
              }
          }
          return actorSet;
      }
 
-     public static void getActorInfo(Actor actor){
+     public static Actor getActorInfo(Integer actorID){
          JSONObject jsonObject;
-         System.out.println(actor.getId());
-         jsonObject = handleApiResponse(makeRequest("person/"+actor.getId()));
-         System.out.println(jsonObject.toString());
-         actor.setName(jsonObject.optString("name"));
-         actor.setBirthDate(LocalDate.parse(jsonObject.getString("birthday")));
+         System.out.println("Actor ID: "+actorID);
+         Actor actor = new Actor(actorID);
+         jsonObject = handleApiResponse(makeRequest("person/"+actorID));
+         if (!jsonObject.isNull("name")){
+             actor.setName(jsonObject.getString("name"));
+         } else {
+             actor.setName("unknown");
+         }
+        if (!jsonObject.isNull("birthday")){
+            actor.setBirthDate(LocalDate.parse(jsonObject.getString("birthday")));
+        } else {
+            actor.setBirthDate(LocalDate.now());
+        }
+        if (!jsonObject.isNull("profile_path")){
          actor.setPosterURL(BASE_IMAGE_URL+jsonObject.get("profile_path"));
+        }
+        return actor;
      }
 
      public static Movie handleMovie(Integer movieID){
         JSONObject jsonObject;
         Movie movie = new Movie();
+        LinkedHashSet<Integer> actorsIDSet = new LinkedHashSet<>();
+        Actor actorToSave;
         jsonObject = handleApiResponse(makeRequest("movie/"+movieID));
         movie.setTitle(jsonObject.getString("title"));
         movie.setDuration(jsonObject.getDouble("runtime"));
@@ -124,17 +139,15 @@ import com.ShowTime.model.TVShow;
         movie.setGenre(handleGenre(jsonObject));
         movie.setOverview(jsonObject.getString("overview"));
         movie.setPosterURL(BASE_IMAGE_URL+jsonObject.get("poster_path"));
-        movie.setActors(handleActorsList(handleApiArrayResponse(makeRequest("movie/"+movieID+"/credits"))));
-        System.out.println(movie.getActors().size());
-        for (Actor actor : movie.getActors()){
-            getActorInfo(actor);
-        }
+        movie.setActorsID(handleActorsList(makeRequest("movie/"+movieID+"/credits")));
         return movie;
     }
 
     public static TVShow handleTVShow(Integer tvShowID){
         JSONObject jsonObject;
         TVShow tvShow = new TVShow();
+        List<Integer> actorsIDSet = new ArrayList<>();
+        Actor actorToSave;
         jsonObject = handleApiResponse(makeRequest("tv/"+tvShowID));
         tvShow.setTitle(jsonObject.getString("name"));
         tvShow.setNumberOfSeasons(jsonObject.getInt("number_of_seasons"));
@@ -143,10 +156,7 @@ import com.ShowTime.model.TVShow;
         tvShow.setCompleted(jsonObject.getString("status").equals("Ended"));
         tvShow.setOverview(jsonObject.getString("overview"));
         tvShow.setPosterURL(BASE_IMAGE_URL+jsonObject.get("poster_path"));
-        tvShow.setActors(handleActorsList(handleApiResponse(makeRequest("tv/"+tvShowID+"/aggregate_credits"))));
-        for (Actor actor : tvShow.getActors()) {
-            getActorInfo(actor);
-        }
+        actorsIDSet = handleActorsList(makeRequest("tv/"+tvShowID+"/aggregate_credits"));
         return tvShow;
     }
 

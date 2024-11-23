@@ -3,19 +3,13 @@ package com.ShowTime;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 
+import com.ShowTime.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.ShowTime.TMDBApi.TMDBApiClient;
-import com.ShowTime.model.Actor;
-import com.ShowTime.model.MediaList;
-import com.ShowTime.model.MediaListType;
-import com.ShowTime.model.MediaType;
-import com.ShowTime.model.Movie;
-import com.ShowTime.model.TVShow;
-import com.ShowTime.model.User;
 import com.ShowTime.repository.ActorRepository;
 import com.ShowTime.repository.MediaListRepository;
 import com.ShowTime.repository.MovieRepository;
@@ -47,6 +41,7 @@ public class ShowTimeApplication implements CommandLineRunner{
 
     @Override
     public void run(String... args) {
+
         //Add the movies to the db
 
         //MediaList creation
@@ -56,24 +51,47 @@ public class ShowTimeApplication implements CommandLineRunner{
         MediaList trendingMovies = new MediaList("Trending Movies",MediaListType.TRENDING,MediaType.MOVIE);
 
         //Get all the movies and save them to the db
-        LinkedHashSet<Movie> allMoviesSet = new LinkedHashSet();
-        LinkedHashSet<Movie> popularMoviesSet = new LinkedHashSet();
-        LinkedHashSet<Movie> topRatedMoviesSet = new LinkedHashSet();
-        LinkedHashSet<Movie> trendingMoviesSet = new LinkedHashSet();
+        LinkedHashSet<Movie> allMoviesSet = new LinkedHashSet<>();
+        LinkedHashSet<Movie> popularMoviesSet;
+        LinkedHashSet<Movie> topRatedMoviesSet;
+        LinkedHashSet<Movie> trendingMoviesSet;
 
         popularMoviesSet = TMDBApiClient.getMovieListEndpointPageN(1, TMDBApiClient.getPopularMovieEndpoint());
         topRatedMoviesSet = TMDBApiClient.getMovieListEndpointPageN(1, TMDBApiClient.getTopRatedMovieEndpoint());
         trendingMoviesSet = TMDBApiClient.getTrendingMovie();
 
-        for (Movie currentMovie : topRatedMoviesSet) {
-            movieRepository.save(currentMovie);
-            topRatedMovies.getMediaList().add(currentMovie);
-            allMoviesSet.add(currentMovie);
+        //Test to see if everything works
+        Movie currentMovie = topRatedMoviesSet.iterator().next();
+        for (Integer actorTMDBID: currentMovie.getActorsID()) {
+            currentMovie.addActor(TMDBApiClient.getActorInfo(actorTMDBID));
         }
-        mediaListRepository.save(topRatedMovies);
+        for (Actor currentActor : currentMovie.getActors()) {
+            currentActor.addMovie(currentMovie);
+            actorRepository.save(currentActor);
+        }
+        movieRepository.save(currentMovie);
+        allMovies.addMedia(currentMovie);
+        topRatedMovies.addMedia(currentMovie);
+        topRatedMovies.addMedia(currentMovie);
+        trendingMovies.addMedia(currentMovie);
 
+        mediaListRepository.save(allMovies);
+        mediaListRepository.save(popularMovies);
+        mediaListRepository.save(topRatedMovies);
+        mediaListRepository.save(trendingMovies);
+
+
+
+
+
+
+
+        /*
         for (Movie currentMovie : popularMoviesSet) {
             movieRepository.save(currentMovie);
+            for (Actor currentActor : currentMovie.getActors()) {
+                actorRepository.save(currentActor);
+            }
             popularMovies.getMediaList().add(currentMovie);
             allMoviesSet.add(currentMovie);
         }
@@ -81,6 +99,9 @@ public class ShowTimeApplication implements CommandLineRunner{
 
         for (Movie currentMovie : trendingMoviesSet) {
             movieRepository.save(currentMovie);
+            for (Actor currentActor : currentMovie.getActors()) {
+                actorRepository.save(currentActor);
+            }
             trendingMovies.getMediaList().add(currentMovie);
             allMoviesSet.add(currentMovie);
         }
@@ -90,9 +111,9 @@ public class ShowTimeApplication implements CommandLineRunner{
             allMovies.getMediaList().add(currentMovie);
         }
         mediaListRepository.save(allMovies);
-
+        */
         System.out.println("Movies added to the db");
-
+        /*
         //Add TVShows to the db
 
         //MediaList creation
@@ -102,10 +123,10 @@ public class ShowTimeApplication implements CommandLineRunner{
         MediaList trendingTVShows = new MediaList("Trending TVShows",MediaListType.TRENDING,MediaType.TV_SHOW);
 
         //Get all the movies and save them to the db
-        LinkedHashSet<TVShow> allTVShowsSet = new LinkedHashSet();
-        LinkedHashSet<TVShow> popularTVShowsSet = new LinkedHashSet();
-        LinkedHashSet<TVShow> topRatedTVShowsSet = new LinkedHashSet();
-        LinkedHashSet<TVShow> trendingTVShowsSet = new LinkedHashSet();
+        LinkedHashSet<TVShow> allTVShowsSet = new LinkedHashSet<>();
+        LinkedHashSet<TVShow> popularTVShowsSet;
+        LinkedHashSet<TVShow> topRatedTVShowsSet;
+        LinkedHashSet<TVShow> trendingTVShowsSet;
 
         popularTVShowsSet = TMDBApiClient.getTVShowListEndpointPageN(1, TMDBApiClient.getPopularTVShowEndpoint());
         topRatedTVShowsSet = TMDBApiClient.getTVShowListEndpointPageN(1, TMDBApiClient.getTopRatedTVShowEndpoint());
@@ -139,6 +160,7 @@ public class ShowTimeApplication implements CommandLineRunner{
         mediaListRepository.save(allTVShows);
 
         System.out.println("TVShows added to the db");
+        */
 
         /*
 

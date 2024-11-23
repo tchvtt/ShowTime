@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.*;
 
@@ -19,6 +20,9 @@ public abstract class Media {
     private String genre;
     private LocalDate releaseDate;
 
+    @ElementCollection
+    private List<Integer> actorsID = new ArrayList<>();
+
     @Column(length = 10000)
     private String overview;
 
@@ -30,7 +34,7 @@ public abstract class Media {
         joinColumns = @JoinColumn(name = "media_id"),
         inverseJoinColumns = @JoinColumn(name = "actor_id")
     )
-    private LinkedHashSet<Actor> actors = new LinkedHashSet<>();
+    private List<Actor> actors = new ArrayList<>();
 
     @OneToMany(mappedBy = "media", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rating> ratings = new ArrayList<>();
@@ -54,7 +58,7 @@ public abstract class Media {
     public LocalDate getReleaseDate() {
         return releaseDate;
     }
-    public LinkedHashSet<Actor> getActors() {
+    public List<Actor> getActors() {
         return actors;
     }
     public String getOverview(){
@@ -62,6 +66,10 @@ public abstract class Media {
     }
     public String getPosterURL(){
         return posterURL;
+    }
+
+    public List<Integer> getActorsID() {
+        return actorsID;
     }
 
     //Setters
@@ -80,18 +88,23 @@ public abstract class Media {
     public void setPosterURL(String posterURL){
         this.posterURL = posterURL;
     }
-    public void setActors(LinkedHashSet<Actor> actors) {this.actors = actors;}
+    public void setActors(List<Actor> actors) {this.actors = actors;}
+
+    public void setActorsID(List<Integer> actorsID) {
+        this.actorsID = actorsID;
+    }
 
     //Gérer les medias associés
     public void addActor(Actor actor) {
-        getActors().add(actor);
+        this.actors.add(actor);
         //actor.getMediaList().getMediaList().add(this);
-        actor.getMediaList().add(this);
+        //actor.getMediaList().add(this);
 
     }
     public void removeActor(Actor actor) {
         getActors().remove(actor);
         //actor.getMediaList().getMediaList().remove(this);
-        actor.getMediaList().remove(this);
+        //actor.getMediaList().remove(this);
     }
+
 }
