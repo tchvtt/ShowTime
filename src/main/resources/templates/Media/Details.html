@@ -13,6 +13,7 @@
     <p><strong>Genre :</strong> <span th:text="${media.genre}"></span></p>
     <p><strong>Date de sortie :</strong> <span th:text="${media.releaseDate}"></span></p>
     <p><strong>Synopsis :</strong> <span th:text="${media.overview}"></span></p>
+    <p><strong>IDTMDB :</strong> <span th:text="${media.tmdbID}"></span></p>
 
     <!-- Si c'est un film -->
     <div th:if="${media instanceof T(com.ShowTime.model.Movie)}">
@@ -22,7 +23,7 @@
     <!-- Si c'est une série -->
     <div th:if="${media instanceof T(com.ShowTime.model.TVShow)}">
         <p><strong>Saison :</strong> <span th:text="${media.numberOfSeasons}"></span> saisons</p>
-        <p><strong>Terminé :</strong> <span th:text="${media.isCompleted} ? 'Oui' : 'Non'"></span></p>
+        <!--<p><strong>Terminé :</strong> <span th:text="${media.isCompleted} ? 'Oui' : 'Non'"></span></p>-->
     </div>
     
     <!-- Affichage des acteurs associés au média -->

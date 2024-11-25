@@ -28,7 +28,7 @@ public abstract class Media {
 
     private String posterURL;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "media_actor",
         joinColumns = @JoinColumn(name = "media_id"),
@@ -96,15 +96,26 @@ public abstract class Media {
 
     //Gérer les medias associés
     public void addActor(Actor actor) {
-        this.actors.add(actor);
-        //actor.getMediaList().getMediaList().add(this);
-        //actor.getMediaList().add(this);
-
+        if (!actors.contains(actor)) {
+            actors.add(actor);
+        }
     }
-    public void removeActor(Actor actor) {
+        public void removeActor(Actor actor) {
         getActors().remove(actor);
         //actor.getMediaList().getMediaList().remove(this);
         //actor.getMediaList().remove(this);
     }
 
+    @Override
+    public boolean equals(Object o){
+        if (o == this) return true;
+        if (!(o instanceof Media)) return false;
+        Media m = (Media) o;
+        return m.getId() == this.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

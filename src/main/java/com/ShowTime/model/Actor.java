@@ -1,13 +1,15 @@
 package com.ShowTime.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+import com.ShowTime.ShowTimeApplication;
+import com.ShowTime.repository.ActorRepository;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jdk.jfr.Name;
+import lombok.Builder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 public class Actor {
@@ -19,28 +21,14 @@ public class Actor {
     private String posterURL;
 
     @NotNull
-    private String name;
-    //private String biography;
+    private String name = "Unknown";;
     @NotNull
-    private LocalDate birthDate;
-    //private String profileImage;
+    private LocalDate birthDate = LocalDate.now();
 
 
-    @ManyToMany(mappedBy = "actors")
-    private List<Movie> MoviesCastedIn = new ArrayList<>();
+    @ManyToMany(mappedBy = "actors",fetch = FetchType.EAGER)
+    private List<Media> mediasCastedIn = new ArrayList<>();
 
-
-    @ManyToMany
-    private List<TVShow> TVShowsCastedIn = new ArrayList<>();
-
-
-    /*
-    @ManyToMany(mappedBy = "actors")
-    private List<Movie> movies = new ArrayList<>(); 
-
-    @ManyToMany(mappedBy = "actors")
-    private List<TVShow> tvShows = new ArrayList<>(); 
-    */
 
     public Actor() {}
 
@@ -56,6 +44,7 @@ public class Actor {
 
     }
 
+
     //Getters
     public Long getId(){
         return id; 
@@ -68,22 +57,10 @@ public class Actor {
     }
     public Integer getTmdbID(){return tmdbID;}
 
-    public List<Movie> getMoviesCastedIn(){
-        return this.MoviesCastedIn;
+    public List<Media> getMediasCastedIn(){
+        return this.mediasCastedIn;
     }
 
-    public List<TVShow> getTVShowsCastedIn(){
-        return this.TVShowsCastedIn;
-    }
-
-    /* 
-    public List<Movie> getMovies(){
-        return movies; 
-    }
-    public List<TVShow> getTVShows(){
-        return tvShows; 
-    }
-    */
 
     //Setters
     public void setName(String name){
@@ -94,59 +71,29 @@ public class Actor {
     }
     public void setPosterURL(String posterURL){this.posterURL = posterURL;}
 
-    public void addMovie(Movie movie){
-        this.MoviesCastedIn.add(movie);
-    }
-    /*
-    // Gérer les médias
     public void addMedia(Media media) {
-        if (!mediaList.getMediaList().contains(media)) {
-            mediaList.getMediaList().add(media);
-            media.getActors().add(this);
+        if (!mediasCastedIn.contains(media)) {
+            mediasCastedIn.add(media);
         }
     }
 
-    public void removeMedia(Media media) {
-        mediaList.getMediaList().remove(media);
-        media.getActors().remove(this);
-    }
-
-
-
-    // Gérer les médias
-    public void addMedia(Media media) {
-        if (!mediaList.contains(media)) {
-            mediaList.add(media);
-            media.getActors().add(this);
-        }
-    }
-
-    public void removeMedia(Media media) {
-        mediaList.remove(media);
-        media.getActors().remove(this);
-    }
-    */
-
-    //Gérer les movies 
-    /*
-    public void addMovie(Movie movie) {
-        this.movies.add(movie);
-        movie.getActors().add(this);
-    }
-    public void removeMovie(Movie movie) {
-        this.movies.remove(movie);
-        movie.getActors().remove(this); 
-    }
-    public void addTVShow(TVShow tvShow) {
-        this.tvShows.add(tvShow);
-        tvShow.getActors().add(this);  
-    }
-    public void removeTVShow(TVShow tvShow) {
-        this.tvShows.remove(tvShow);
-        tvShow.getActors().remove(this);  
-    }
-    */
     public String toString(){
         return "Actor: "+name+" born on "+birthDate + " with ID: "+id;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Actor actor)) {
+            return false;
+        }
+        return actor.getTmdbID() == this.getTmdbID();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(tmdbID);
     }
 }
