@@ -135,7 +135,11 @@ import javax.naming.AuthenticationException;
             System.out.println("Handling actor :" + jsonObject.optString("name","unknown"));
             actor.setName(jsonObject.optString("name","unknown"));
             actor.setBirthDate(LocalDate.parse(jsonObject.optString("birthday",LocalDate.now().toString())));
-            actor.setPosterURL(BASE_IMAGE_URL + jsonObject.optString("poster_path","null"));
+            if (jsonObject.optString("profile_path").equals("")) {
+                actor.setPosterURL("https://cdn4.iconfinder.com/data/icons/political-elections/50/48-512.png");
+            } else {
+                actor.setPosterURL(BASE_IMAGE_URL + jsonObject.optString("profile_path"));
+            }
             return actor;
         }
     }

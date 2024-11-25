@@ -33,7 +33,6 @@ build/
 .vscode/
 
 ### Frontend ###
-src/main/frontend/
 /src/main/frontend/node_modules/
 
 
