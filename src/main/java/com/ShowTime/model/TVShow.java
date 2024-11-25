@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 @Entity
 public class TVShow extends Media {
     private Integer numberOfSeasons;
-    //private final boolean isCompleted = false;
+    private Boolean isCompleted;
     private int tmdbID;
 
     public TVShow() {}
@@ -18,23 +18,25 @@ public class TVShow extends Media {
     }
 
     public int getTmdbID(){return tmdbID;}
-    /*
+
     //Getters
     public int getNumberOfSeasons() {return numberOfSeasons;}
     public boolean isCompleted() {return isCompleted;}
-    */
+
     //Setters
-    //public void setCompleted(boolean completed) {isCompleted = completed;}
+    public void setCompleted(Boolean completed) {
+        if (completed != null) {
+            this.isCompleted = completed;
+        } else {
+            this.isCompleted = true;
+        }
+    }
     public void setNumberOfSeasons(Integer numberOfSeasons) {
         if (numberOfSeasons != null && numberOfSeasons > 0) {
             this.numberOfSeasons = numberOfSeasons;
         } else {
             this.numberOfSeasons = 1;
         }
-    }
-
-    public int getNumberOfSeasons() {
-        return numberOfSeasons;
     }
 
     @Override

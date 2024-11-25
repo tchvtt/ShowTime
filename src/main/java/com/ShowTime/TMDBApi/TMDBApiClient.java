@@ -181,6 +181,7 @@ import javax.naming.AuthenticationException;
             tvShow.setTitle(jsonObject.optString("name"));
             tvShow.setReleaseDate(LocalDate.parse(jsonObject.optString("first_air_date")));
             tvShow.setNumberOfSeasons(jsonObject.optInt("number_of_seasons"));
+            tvShow.setCompleted(jsonObject.optString("status").equals("Ended"));
             tvShow.setGenre(handleGenre(jsonObject));
             tvShow.setOverview(jsonObject.optString("overview"));
             tvShow.setPosterURL(BASE_IMAGE_URL + jsonObject.opt("poster_path"));
