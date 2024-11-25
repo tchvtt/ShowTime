@@ -1,14 +1,20 @@
 package com.ShowTime.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import jakarta.persistence.*;
 
 @Entity
 public class Movie extends Media{
-    private double duration;
+    private Double duration;
+    private int tmdbID;
 
     public Movie() {}
+
+    public Movie(int tmdbID){
+        this.tmdbID = tmdbID;
+    }
 
     public Movie(String title, String genre, LocalDate releaseDate, double duration) {
         super(title); 
@@ -21,20 +27,28 @@ public class Movie extends Media{
     public double getDuration(){
         return duration; 
     }
+    public int getTmdbID(){return tmdbID;}
 
     //Setters
-    public void setDuration(double duration){
-        this.duration = duration; 
+    public void setDuration(Double duration){
+        if (duration == null){
+            this.duration = 0.0;
+        } else {
+            this.duration = duration;
+        }
     }
 
-    //Gérer les acteurs liés au film 
-    public void addActor(Actor actor) {
-        getActors().add(actor);
-        //actor.getMovies().add(this);
+    @Override
+    public boolean equals(Object o){
+        if (o == this) return true;
+        if (!(o instanceof Movie)) return false;
+        Movie m = (Movie) o;
+        return m.getTmdbID() == this.getTmdbID();
     }
-    public void removeActor(Actor actor) {
-        getActors().remove(actor);
-        //actor.getMovies().remove(this);
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(tmdbID);
     }
 
     @Override
@@ -43,5 +57,5 @@ public class Movie extends Media{
                 + "\nDuration :" + this.getDuration() + "\nActors :" + this.getActors()
                 + "\n\nSummary :" + this.getOverview());
     }
-}
 
+}

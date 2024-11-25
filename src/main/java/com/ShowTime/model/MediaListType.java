@@ -11,12 +11,12 @@ public enum MediaListType {
     ALL("All"),
     POPULAR("Popular"),
     TOP_RATED("Top Rated"),
-    TRENDING("Trending");
-
-    // Soit on reprend les memes, soit on crée d'autres listes pour Discover (voir idées Drive)
+    TRENDING("Trending"),
 
     // Actors' lists
-    //ACTOR("Actor");
+    ACTOR("Actor");
+
+    // Soit on reprend les memes, soit on crée d'autres listes pour Discover (voir idées Drive)
 
     private final String displayName;
 

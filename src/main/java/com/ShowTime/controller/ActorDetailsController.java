@@ -26,8 +26,10 @@ public class ActorDetailsController {
         }
 
         model.addAttribute("actor", actor);
+        /* Commenté car on ne peut pas utiliser les relations
         List<Media> medias = actorRepository.findMediaByActorId(id);
         model.addAttribute("medias", medias);
+         */
         
         return "Actor/Details";
     }

@@ -13,9 +13,9 @@
     <p><strong>Date de naissance :</strong> <span th:text="${actor.birthDate}"></span></p>
 
     <!-- Liste des médias associés à l'acteur -->
-    <h2>Médias associés :</h2>
+    <h2>Appears on those Medias:</h2>
     <ul>
-        <li th:each="media : ${medias}">
+        <li th:each="media : ${actor.mediasCastedIn}">
             <a th:href="@{/media/{id}(id=${media.id})}"><p th:text="${media.title}"></p></a>
         </li>
     </ul>
