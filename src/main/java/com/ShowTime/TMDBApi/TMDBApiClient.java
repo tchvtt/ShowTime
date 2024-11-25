@@ -30,6 +30,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.naming.AuthenticationException;
+
 
 /**
   *
@@ -61,7 +63,11 @@ import org.springframework.stereotype.Component;
                 .build();
         try {
             HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-            return response.body();
+            if (response.statusCode() == 200) {
+                return response.body();
+            } else {
+                throw new AuthenticationException();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -122,79 +128,76 @@ import org.springframework.stereotype.Component;
     }
 
     public static Actor getActorInfo(ActorRepository actorRepository, int actorID) {
-        JSONObject jsonObject;
-        jsonObject = handleApiResponse(makeRequest("person/" + actorID));
-        Actor actor = createOrGetActor(actorRepository, actorID);
-        if (!jsonObject.isNull("name")) {
-            actor.setName(jsonObject.getString("name"));
+        if (actorRepository.existsActorByTmdbID(actorID)) {
+            return actorRepository.findActorByTmdbID(actorID);
         } else {
-            actor.setName("unknown");
+            JSONObject jsonObject;
+            jsonObject = handleApiResponse(makeRequest("person/" + actorID));
+            Actor actor = new Actor(actorID);
+            System.out.println("Handling actor :" + jsonObject.optString("name","unknown"));
+            actor.setName(jsonObject.optString("name","unknown"));
+            actor.setBirthDate(LocalDate.parse(jsonObject.optString("birth_date",LocalDate.now().toString())));
+            actor.setPosterURL(BASE_IMAGE_URL + jsonObject.optString("poster_path","null"));
+            return actor;
         }
-        if (!jsonObject.isNull("birthday")) {
-            actor.setBirthDate(LocalDate.parse(jsonObject.getString("birthday")));
-        } else {
-            actor.setBirthDate(LocalDate.now());
-        }
-        if (!jsonObject.isNull("profile_path")) {
-            actor.setPosterURL(BASE_IMAGE_URL + jsonObject.get("profile_path"));
-        }
-        return actor;
     }
 
 
     public static Movie handleMovie(MovieRepository movieRepository, int movieID, ActorRepository actorRepository) {
-        JSONObject jsonObject;
-        Movie movie = createOrGetMovie(movieRepository, movieID);
         if (movieRepository.existsMovieByTmdbID(movieID)) {
             return movieRepository.findMovieByTmdbID(movieID);
+        } else {
+            JSONObject jsonObject;
+            jsonObject = handleApiResponse(makeRequest("movie/" + movieID));
+            Movie movie = new Movie(movieID);
+            System.out.println("Handling movie: " + jsonObject.optString("title","unknown"));
+            movie.setTitle(jsonObject.optString("title","unknown"));
+            movie.setDuration(jsonObject.optDouble("runtime",0.0));
+            movie.setReleaseDate(LocalDate.parse(jsonObject.optString("release_date",LocalDate.now().toString())));
+            movie.setGenre(handleGenre(jsonObject));
+            movie.setOverview(jsonObject.optString("overview","unknown"));
+            movie.setPosterURL(BASE_IMAGE_URL + jsonObject.optString("poster_path","null"));
+            movie.setActorsID(handleActorsList(makeRequest("movie/" + movieID + "/credits")));
+            System.out.println("Handling cast of movie: " + jsonObject.optString("title"));
+            for (Integer currentActorID : movie.getActorsID()) {
+                movie.addActor(getActorInfo(actorRepository, currentActorID));
+            }
+            for (Actor currentActor : movie.getActors()) {
+                currentActor.addMedia(movie);
+                actorRepository.save(currentActor);
+            }
+            movieRepository.save(movie);
+            return movie;
+
         }
-        jsonObject = handleApiResponse(makeRequest("movie/" + movieID));
-        System.out.println("Handling movie: " + jsonObject.getString("title"));
-        movie.setTitle(jsonObject.getString("title"));
-        movie.setDuration(jsonObject.optDouble("runtime"));
-        movie.setReleaseDate(LocalDate.parse(jsonObject.getString("release_date")));
-        movie.setGenre(handleGenre(jsonObject));
-        movie.setOverview(jsonObject.getString("overview"));
-        movie.setPosterURL(BASE_IMAGE_URL + jsonObject.get("poster_path"));
-        movie.setActorsID(handleActorsList(makeRequest("movie/" + movieID + "/credits")));
-        System.out.println("Handling cast of movie: " + jsonObject.getString("title"));
-        for (Integer currentActorID : movie.getActorsID()) {
-            movie.addActor(getActorInfo(actorRepository, currentActorID));
-        }
-        for (Actor currentActor : movie.getActors()) {
-            currentActor.addMedia(movie);
-            actorRepository.save(currentActor);
-        }
-        movieRepository.save(movie);
-        return movie;
     }
 
     public static TVShow handleTVShow(TVShowRepository tvShowRepository, int tvShowID, ActorRepository actorRepository) {
-        System.out.println("Trying to handle tv show: " + tvShowID);
-        JSONObject jsonObject;
-        TVShow tvShow = createOrGetTVShow(tvShowRepository, tvShowID);
-        List<Integer> actorsIDSet = new ArrayList<>();
-        jsonObject = handleApiResponse(makeRequest("tv/" + tvShowID));
-        System.out.println("Handling tv show: " + jsonObject.getString("name"));
-        tvShow.setTitle(jsonObject.getString("name"));
-        tvShow.setReleaseDate(LocalDate.parse(jsonObject.getString("first_air_date")));
-        System.out.println(jsonObject.has("number_of_seasons"));
-        System.out.println(jsonObject.optInt("number_of_seasons"));
-        tvShow.setNumberOfSeasons(jsonObject.optInt("number_of_seasons"));
-        tvShow.setGenre(handleGenre(jsonObject));
-        tvShow.setOverview(jsonObject.getString("overview"));
-        tvShow.setPosterURL(BASE_IMAGE_URL + jsonObject.get("poster_path"));
-        tvShow.setActorsID(handleActorsList(makeRequest("tv/" + tvShowID + "/aggregate_credits")));
-        System.out.println("Handling cast of tv show: " + jsonObject.getString("name"));
-        for (Integer currentActorID : tvShow.getActorsID()) {
-            tvShow.addActor(getActorInfo(actorRepository, currentActorID));
+        if (tvShowRepository.existsTVShowByTmdbID(tvShowID)) {
+            return tvShowRepository.findTVShowByTmdbID(tvShowID);
+        } else {
+            JSONObject jsonObject;
+            jsonObject = handleApiResponse(makeRequest("tv/" + tvShowID));
+            TVShow tvShow = new TVShow(tvShowID);
+            System.out.println("Handling tv show: " + jsonObject.optString("name"));
+            tvShow.setTitle(jsonObject.optString("name"));
+            tvShow.setReleaseDate(LocalDate.parse(jsonObject.optString("first_air_date")));
+            tvShow.setNumberOfSeasons(jsonObject.optInt("number_of_seasons"));
+            tvShow.setGenre(handleGenre(jsonObject));
+            tvShow.setOverview(jsonObject.optString("overview"));
+            tvShow.setPosterURL(BASE_IMAGE_URL + jsonObject.opt("poster_path"));
+            tvShow.setActorsID(handleActorsList(makeRequest("tv/" + tvShowID + "/aggregate_credits")));
+            System.out.println("Handling cast of tv show: " + jsonObject.getString("name"));
+            for (Integer currentActorID : tvShow.getActorsID()) {
+                tvShow.addActor(getActorInfo(actorRepository, currentActorID));
+            }
+            for (Actor currentActor : tvShow.getActors()) {
+                currentActor.addMedia(tvShow);
+                actorRepository.save(currentActor);
+            }
+            tvShowRepository.save(tvShow);
+            return tvShow;
         }
-        for (Actor currentActor : tvShow.getActors()) {
-            currentActor.addMedia(tvShow);
-            actorRepository.save(currentActor);
-        }
-        tvShowRepository.save(tvShow);
-        return tvShow;
     }
 
     public static LinkedHashSet<Movie> aggregateMovies(LinkedHashSet<Integer> movieIDs, MovieRepository movieRepository, ActorRepository actorRepository) {
@@ -332,29 +335,5 @@ import org.springframework.stereotype.Component;
         return POPULAR_TVSHOW;
     }
 
-
-    public static Actor createOrGetActor(ActorRepository actorRepository, int tmdbID) {
-        if (actorRepository.existsActorByTmdbID(tmdbID)){
-            return actorRepository.findActorByTmdbID(tmdbID);
-        } else {
-            return new Actor(tmdbID);
-        }
-    }
-
-    public static Movie createOrGetMovie(MovieRepository movieRepository, int tmdbID) {
-        if (movieRepository.existsMovieByTmdbID(tmdbID)) {
-            return movieRepository.findMovieByTmdbID(tmdbID);
-        } else {
-            return new Movie(tmdbID);
-        }
-    }
-
-    public static TVShow createOrGetTVShow(TVShowRepository tvShowRepository, int tmdbID) {
-        if (tvShowRepository.existsTVShowByTmdbID(tmdbID)) {
-            return tvShowRepository.findTVShowByTmdbID(tmdbID);
-        } else {
-            return new TVShow(tmdbID);
-        }
-    }
 }
  
