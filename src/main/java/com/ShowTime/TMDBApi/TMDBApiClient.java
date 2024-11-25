@@ -39,7 +39,7 @@ import javax.naming.AuthenticationException;
   */
  public class TMDBApiClient {
 
-    private static final String API_KEY = "xxx";
+    private static final String API_KEY = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkM2ZiODM5ZTk5Zjg0ODJjMTUzYmIyZGE2OWI1M2RhZSIsIm5iZiI6MTczMTkyMjA1NC4yMzMzMzY3LCJzdWIiOiI2NzJkZDQ2MzVhMjA0NTkyMDc0MTcxNTciLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.VjmV__R6wZqzE23NKG8irzVusxo5gQKPC3JqDUxYTJs";
     private static final String BASE_URL = "https://api.themoviedb.org/3/";
     private static final String BASE_IMAGE_URL = "https://media.themoviedb.org/t/p/original";
 
@@ -76,13 +76,11 @@ import javax.naming.AuthenticationException;
 
     public static JSONArray handleApiArrayResponse(String response) {
         JSONObject jsonResponse = new JSONObject(response);
-        JSONArray results = jsonResponse.optJSONArray("results");
-        return results;
+        return jsonResponse.optJSONArray("results");
     }
 
     public static JSONObject handleApiResponse(String response) {
-        JSONObject jsonResponse = new JSONObject(response);
-        return jsonResponse;
+        return new JSONObject(response);
     }
 
     public static LinkedHashSet<Integer> handleMediaList(JSONArray results) {
@@ -136,7 +134,7 @@ import javax.naming.AuthenticationException;
             Actor actor = new Actor(actorID);
             System.out.println("Handling actor :" + jsonObject.optString("name","unknown"));
             actor.setName(jsonObject.optString("name","unknown"));
-            actor.setBirthDate(LocalDate.parse(jsonObject.optString("birth_date",LocalDate.now().toString())));
+            actor.setBirthDate(LocalDate.parse(jsonObject.optString("birthday",LocalDate.now().toString())));
             actor.setPosterURL(BASE_IMAGE_URL + jsonObject.optString("poster_path","null"));
             return actor;
         }
@@ -224,33 +222,31 @@ import javax.naming.AuthenticationException;
     }
 
     public static LinkedHashSet<TVShow> aggregateTVShowSet(LinkedHashSet<TVShow> destination, LinkedHashSet<TVShow> source) {
-        for (TVShow currentTVShow : source) {
-            destination.add(currentTVShow);
-        }
+        destination.addAll(source);
         return destination;
     }
 
     public static LinkedHashSet<Movie> getMovieListEndpointPageN(int pageN, String endpoint, MovieRepository movieRepository, ActorRepository actorRepository) {
-        LinkedHashSet<Movie> movieSet = new LinkedHashSet<>();
+        LinkedHashSet<Movie> movieSet;
         movieSet = aggregateMovies(handleMediaList(handleApiArrayResponse(makeRequest(endpoint + pageN))), movieRepository, actorRepository);
         return movieSet;
     }
 
     public static LinkedHashSet<TVShow> getTVShowListEndpointPageN(int pageN, String endpoint, TVShowRepository tvShowRepository, ActorRepository actorRepository) {
-        LinkedHashSet<TVShow> tvShowSet = new LinkedHashSet<>();
+        LinkedHashSet<TVShow> tvShowSet;
         tvShowSet = aggregateTVShows(handleMediaList(handleApiArrayResponse(makeRequest(endpoint + pageN))), tvShowRepository, actorRepository);
         return tvShowSet;
     }
 
     public static LinkedHashSet<Movie> getTrendingMovie(MovieRepository movieRepository, ActorRepository actorRepository) {
-        LinkedHashSet<Movie> movieSet = new LinkedHashSet<>();
-        movieSet = aggregateMovies(handleMediaList(handleApiArrayResponse(makeRequest("trending/movie/week?language=en-US"))),movieRepository,actorRepository);
+        LinkedHashSet<Movie> movieSet;
+        movieSet = aggregateMovies(handleMediaList(handleApiArrayResponse(makeRequest(getTrendingMovieEndpoint()))),movieRepository,actorRepository);
         return movieSet;
     }
 
     public static LinkedHashSet<TVShow> getTrendingTVShow(TVShowRepository tvShowRepository, ActorRepository actorRepository) {
-        LinkedHashSet<TVShow> tvShowSet = new LinkedHashSet<>();
-        tvShowSet = aggregateTVShows(handleMediaList(handleApiArrayResponse(makeRequest("trending/tv/week?language=en-US"))), tvShowRepository, actorRepository);
+        LinkedHashSet<TVShow> tvShowSet;
+        tvShowSet = aggregateTVShows(handleMediaList(handleApiArrayResponse(makeRequest(getTrendingTVShowEndpoint()))), tvShowRepository, actorRepository);
         return tvShowSet;
     }
 
@@ -327,12 +323,20 @@ import javax.naming.AuthenticationException;
         return POPULAR_MOVIE;
     }
 
+    public static String getTrendingMovieEndpoint() {
+        return TRENDING_MOVIE;
+    }
+
     public static String getTopRatedTVShowEndpoint() {
         return TOP_RATED_TVSHOW;
     }
 
     public static String getPopularTVShowEndpoint() {
         return POPULAR_TVSHOW;
+    }
+
+    public static String getTrendingTVShowEndpoint() {
+        return TRENDING_TVSHOW;
     }
 
 }
