@@ -50,6 +50,7 @@ public class ShowTimeApplication implements CommandLineRunner{
 
     @Override
     public void run(String... args) {
+        // Création des listes de médias
 
         MediaList topRatedMovies = new MediaList("Top Rated Movies",MediaListType.TOP_RATED,MediaType.MOVIE);
         MediaList popularMovies = new MediaList("Popular Movies",MediaListType.POPULAR,MediaType.MOVIE);
@@ -62,8 +63,8 @@ public class ShowTimeApplication implements CommandLineRunner{
         MediaList allTVShows = new MediaList("All TVShows",MediaListType.ALL,MediaType.TV_SHOW);
 
 
-        TMDBApiClient.fillMovieDatabase(mediaListRepository,movieRepository,actorRepository,topRatedMovies,popularMovies,trendingMovies,allMovies);
-        TMDBApiClient.fillTVShowDatabase(mediaListRepository,tvshowRepository,actorRepository,topRatedTVShows,popularTVShows,trendingTVShows,allTVShows);
+        //TMDBApiClient.fillMovieDatabase(mediaListRepository,movieRepository,actorRepository,topRatedMovies,popularMovies,trendingMovies,allMovies);
+        //TMDBApiClient.fillTVShowDatabase(mediaListRepository,tvshowRepository,actorRepository,topRatedTVShows,popularTVShows,trendingTVShows,allTVShows);
 
         /*
           // Création de l'utilisateur

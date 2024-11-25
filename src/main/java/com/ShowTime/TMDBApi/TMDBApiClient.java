@@ -253,12 +253,15 @@ import javax.naming.AuthenticationException;
 
 
     public static void fillMovieDatabase(MediaListRepository MediaListRepository, MovieRepository movieRepository, ActorRepository actorRepository, MediaList topRatedMovies, MediaList popularMovies, MediaList trendingMovies, MediaList allMovies) {
-        LinkedHashSet<Movie> popularMoviesSet;
-        LinkedHashSet<Movie> topRatedMoviesSet;
+        LinkedHashSet<Movie> popularMoviesSet = new LinkedHashSet<>();
+        LinkedHashSet<Movie> topRatedMoviesSet = new LinkedHashSet<>();
         LinkedHashSet<Movie> trendingMoviesSet;
 
-        popularMoviesSet = getMovieListEndpointPageN(1, getPopularMovieEndpoint(), movieRepository, actorRepository);
-        topRatedMoviesSet = getMovieListEndpointPageN(1, getTopRatedMovieEndpoint(), movieRepository, actorRepository);
+
+        for (int i = 1; i < 6; i++) {
+            popularMoviesSet = aggregateMovieSet(popularMoviesSet, getMovieListEndpointPageN(i, getPopularMovieEndpoint(), movieRepository, actorRepository));
+            topRatedMoviesSet = aggregateMovieSet(topRatedMoviesSet, getMovieListEndpointPageN(i, getTopRatedMovieEndpoint(), movieRepository, actorRepository));
+        }
         trendingMoviesSet = getTrendingMovie(movieRepository, actorRepository);
 
         for (Movie currentMovie : topRatedMoviesSet) {
@@ -285,12 +288,14 @@ import javax.naming.AuthenticationException;
     }
     public static void fillTVShowDatabase(MediaListRepository MediaListRepository, TVShowRepository tvShowRepository, ActorRepository actorRepository, MediaList topRatedTVShows, MediaList popularTVShows, MediaList trendingTVShows, MediaList allTVShows) {
 
-        LinkedHashSet<TVShow> popularTVShowsSet;
-        LinkedHashSet<TVShow> topRatedTVShowsSet;
+        LinkedHashSet<TVShow> popularTVShowsSet = new LinkedHashSet<>();
+        LinkedHashSet<TVShow> topRatedTVShowsSet = new LinkedHashSet<>();
         LinkedHashSet<TVShow> trendingTVShowsSet;
 
-        popularTVShowsSet = getTVShowListEndpointPageN(1, getPopularTVShowEndpoint(), tvShowRepository, actorRepository);
-        topRatedTVShowsSet = getTVShowListEndpointPageN(1, getTopRatedTVShowEndpoint(), tvShowRepository, actorRepository);
+        for (int i = 1; i < 6; i++) {
+            popularTVShowsSet = aggregateTVShowSet(popularTVShowsSet, getTVShowListEndpointPageN(i, getPopularTVShowEndpoint(), tvShowRepository, actorRepository));
+            topRatedTVShowsSet = aggregateTVShowSet(topRatedTVShowsSet, getTVShowListEndpointPageN(i, getTopRatedTVShowEndpoint(), tvShowRepository, actorRepository));
+        }
         trendingTVShowsSet = getTrendingTVShow(tvShowRepository, actorRepository);
 
         for (TVShow currentTVShow : topRatedTVShowsSet) {

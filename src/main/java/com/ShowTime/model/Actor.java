@@ -21,9 +21,9 @@ public class Actor {
     private String posterURL;
 
     @NotNull
-    private String name = "Unknown";;
+    private String name;
     @NotNull
-    private LocalDate birthDate = LocalDate.now();
+    private LocalDate birthDate;
 
 
     @ManyToMany(mappedBy = "actors",fetch = FetchType.EAGER)
