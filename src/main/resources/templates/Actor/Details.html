@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détails de l'Acteur</title>
+    <title th:text="${actor.name} + ' - ShowTime'">Actor Details - ShowTime</title>
+    <link th:href="@{/main.css}" rel="stylesheet" />
+    <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
 </head>
 <body>
     <h1>Détails de l'Acteur : <span th:text="${actor.name}"></span></h1>

@@ -2,24 +2,33 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Login - ShowTime</title>
+    <link th:href="@{/main.css}" rel="stylesheet" />
+    <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
 </head>
-<body>
-    <h2>Login</h2>
-    <form th:action="@{/login}" method="post">       
-        <label>Nom d'utilisateur:</label>
-        <input type="text" name="username" required>
-        <label>Mot de passe:</label>
-        <input type="password" name="password" required>
-        <button type="submit">Connexion</button>
-    </form>
-    <div th:if="${param.error}">
-        <p style="color:red;">Échec de connexion. Vérifiez vos informations.</p>
+<body class="bg-customGray text-customPink flex justify-center items-center h-screen">
+    <div class="text-center p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-customPink text-3xl font-bold mb-6">It's ShowTime !<br>Log In.</h2>
+        
+        <form th:action="@{/login}" method="post">
+            <input type="text" name="username" id="username" placeholder="Username" required
+                   class="w-72 p-2 mb-4 border-2 border-customPink rounded-lg focus:outline-none focus:border-customPink bg-customLightGray">
+            
+            <input type="password" name="password" id="password" placeholder="Password" required
+                   class="w-72 p-2 mb-6 border-2 border-customPink rounded-lg focus:outline-none focus:border-customPink bg-customLightGray">
+            
+            <button type="submit" class="w-52 bg-customPink text-white p-2 rounded-full font-semibold hover:scale-105 transition-transform mb-4">Login</button>
+        </form>
+        
+        <div th:if="${param.error}" class="mt-4">
+            <p class="text-red-500">Login failed. Please check your credentials.</p>
+        </div>
+        
+        <div th:if="${param.logout}" class="mt-4">
+            <p class="text-green-500">You have been successfully logged out.</p>
+        </div>
+        
+        <p class="text-white">Not yet registered? <a th:href="@{/register}" class="text-customPink">Sign up here</a></p>
     </div>
-    <div th:if="${param.logout}">
-        <p>Déconnexion réussie.</p>
-    </div>
-    <a th:href="@{/register}">Pas encore inscrit ? Inscrivez-vous ici</a>
 </body>
 </html>

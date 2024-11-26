@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${media.title} + ' - ShowTime'">Media Details - ShowTime</title>
     <link th:href="@{/main.css}" rel="stylesheet" />
-    <title>Details</title>
+    <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
 </head>
 <body class="flex flex-col">
     <h1>Details of : <span th:text="${media.title}"></span></h1>

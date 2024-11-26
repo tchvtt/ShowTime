@@ -2,20 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Register</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Register - ShowTime</title>
+    <link th:href="@{/main.css}" rel="stylesheet" />
+    <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
 </head>
-<body>
-    <h2>Inscription</h2>
-    <span th:if="${error}" th:text="${error}" style="color:red;"></span>
-    <form th:action="@{/register}" method="post" th:object="${user}">
-        <label>Nom d'utilisateur:</label>
-        <input type="text" th:field="*{username}" required>
-        <label>Email:</label>
-        <input type="email" th:field="*{email}" required>
-        <label>Mot de passe:</label>
-        <input type="password" th:field="*{password}" required>
-        <button type="submit">S'inscrire</button>
-    </form>
+<body class="bg-customGray text-customPink flex justify-center items-center h-screen">
+    <div class="text-center p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-customPink text-3xl font-bold mb-6">Join the Show ! Register.</h2>
+        
+        <form th:action="@{/register}" method="post" th:object="${user}">
+            <input type="text" th:field="*{username}" placeholder="Username" required
+                   class="w-72 p-2 mb-4 border-2 border-customPink rounded-lg focus:outline-none focus:border-customPink bg-customLightGray">
+            
+            <input type="email" th:field="*{email}" placeholder="Email" required
+                   class="w-72 p-2 mb-4 border-2 border-customPink rounded-lg focus:outline-none focus:border-customPink bg-customLightGray">
+            
+            <input type="password" th:field="*{password}" placeholder="Password" required
+                   class="w-72 p-2 mb-6 border-2 border-customPink rounded-lg focus:outline-none focus:border-customPink bg-customLightGray">
+            
+            <button type="submit" class="w-52 bg-customPink text-white p-2 rounded-full font-semibold hover:scale-105 transition-transform mb-4">Sign Up</button>
+        </form>
+        
+        <div th:if="${error}" class="mt-4">
+            <p class="text-red-500" th:text="${error}"></p>
+        </div>
+        
+        <p class="text-white">Already registered? <a th:href="@{/login}" class="text-customPink">Log in here</a></p>
+    </div>
 </body>
 </html>

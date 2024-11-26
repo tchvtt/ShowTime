@@ -1,18 +1,29 @@
 <div th:fragment="header">
-    <header>
-        <nav>
-            <ul>
-                <li><a th:href="@{/}">Home</a></li> <!--A remplacer par logo-->
-                <li><a th:href="@{/discover}">Discover</a></li>
-                <li><a th:href="@{/movies}">Movies</a></li>
-                <li><a th:href="@{/tvshows}">TV Shows</a></li>
-                <li><a th:href="@{/profile}">Profile</a></li>
+    <header class="bg-customGray text-white py-4">
+        <div class="container mx-auto flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center space-x-2">
+                <a th:href="@{/}">
+                    <img src="/assets/icon.png" alt="ShowTime Logo" class="h-10">
+                </a>
+            </div>
 
-                
-                <li><a th:href="@{/logout}">Logout</a></li>
-                <li><a th:href="@{/login}">Login</a></li>
-                
-            </ul>
-        </nav>
+            <!-- Navigation Menu -->
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a th:href="@{/discover}" class="hover:text-customPink">Discover</a></li>
+                    <li><a th:href="@{/movies}" class="hover:text-customPink">Movies</a></li>
+                    <li><a th:href="@{/tvshows}" class="hover:text-customPink">TV Shows</a></li>
+                </ul>
+            </nav>
+
+            <!-- Account Button -->
+            <div>
+                <a th:href="@{/profile}" class="bg-customPink text-gray-800 px-4 py-2 rounded-full font-semibold">
+                    Account
+                    <span aria-hidden="true" class="text-xl">&rarr;</span>
+                </a>             
+            </div>
+        </div>
     </header>
 </div>

@@ -2,21 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>ShowTime - Accueil</title>
+    <title>ShowTime</title>
     <link th:href="@{/main.css}" rel="stylesheet" />
+    <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
 </head>
 <body class="bg-customGray text-customPink">
     <!-- Insertion du Header -->
     <div th:replace="~{Components/Header :: header}"></div>
 
-    <div class="container mx-auto p-8">
-        <h1 class="text-4xl font-bold mb-4">It's ShowTime!</h1>
-        <p class="text-lg mb-2">
-            ShowTime is your ultimate web application for tracking movies and series.
-        </p>
-        <p class="text-lg">
-            Easily manage your watched, to-watch, and favorite lists while discovering the latest and most popular content.
-        </p>
+    <div class="container mx-auto p-8 text-center my-24">
+        <h1 class="text-white text-5xl font-bold">
+            <span class="text-customPink">Discover</span> the latest <span class="italic">Movies</span>,<br>
+            <span class="text-customPink">Watch</span> your favorite <span class="italic">TV Shows</span>,<br>
+            <span class="text-customPink">Remember</span> the moments that matter.
+        </h1>
+
+        <p class="text-zinc-600 text-lg mt-16">
+            Explore new genres, find popular content, and build your personal watchlists.
+        </p>        
     </div>
 
     <!-- Insertion du Footer -->
