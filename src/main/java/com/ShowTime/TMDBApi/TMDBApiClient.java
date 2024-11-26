@@ -114,7 +114,7 @@ import javax.naming.AuthenticationException;
             for (int i = 0; i < responseArray.length(); i++) {
                 actor = responseArray.getJSONObject(i);
                 if (actor.getString("known_for_department").equals("Acting")) {
-                    if (actorSet.size() < 11) {
+                    if (actorSet.size() < 15) {
                         actorSet.add(actor.getInt("id"));
                     } else {
                         break;
@@ -135,7 +135,7 @@ import javax.naming.AuthenticationException;
             System.out.println("Handling actor :" + jsonObject.optString("name","unknown"));
             actor.setName(jsonObject.optString("name","unknown"));
             actor.setBirthDate(LocalDate.parse(jsonObject.optString("birthday",LocalDate.now().toString())));
-            if (jsonObject.optString("profile_path").equals("")) {
+            if (jsonObject.optString("profile_path").isEmpty()) {
                 actor.setPosterURL("https://cdn4.iconfinder.com/data/icons/political-elections/50/48-512.png");
             } else {
                 actor.setPosterURL(BASE_IMAGE_URL + jsonObject.optString("profile_path"));
@@ -158,7 +158,11 @@ import javax.naming.AuthenticationException;
             movie.setReleaseDate(LocalDate.parse(jsonObject.optString("release_date",LocalDate.now().toString())));
             movie.setGenre(handleGenre(jsonObject));
             movie.setOverview(jsonObject.optString("overview","unknown"));
-            movie.setPosterURL(BASE_IMAGE_URL + jsonObject.optString("poster_path","null"));
+            if (jsonObject.optString("poster_path").isEmpty()) {
+                movie.setPosterURL("https://cdn4.iconfinder.com/data/icons/political-elections/50/48-512.png");
+            } else {
+                movie.setPosterURL(BASE_IMAGE_URL + jsonObject.optString("poster_path"));
+            }
             movie.setActorsID(handleActorsList(makeRequest("movie/" + movieID + "/credits")));
             System.out.println("Handling cast of movie: " + jsonObject.optString("title"));
             for (Integer currentActorID : movie.getActorsID()) {

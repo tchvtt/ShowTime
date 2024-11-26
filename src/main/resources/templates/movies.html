@@ -13,21 +13,21 @@
         <h1>Popular Movies</h1>
         <ul class="flex flex-row scroll-smooth overflow-x-auto">
             <li th:each="movie : ${popularMovies}" class="min-w-40 m-4">
-                <a th:href="@{/media/{id}(id=${movie.id})}"><img th:src="@{${movie.posterURL}}" alt="Poster of ${movie.title}" width="400" height="400" /></a>
+                <a th:href="@{/media/{id}(id=${movie.id})}"><img th:src="@{${movie.posterURL}}" alt="Poster of ${movie.title}" loading="lazy" width="400" height="400" /></a>
             </li>
         </ul>
     
         <h1>Top Rated Movies</h1>
         <ul class="flex flex-row scroll-smooth overflow-x-auto">
             <li th:each="movie : ${topRatedMovies}" class="min-w-40 m-4">
-                <a th:href="@{/media/{id}(id=${movie.id})}"><img th:src="@{${movie.posterURL}}" alt="Poster of ${movie.title}" width="400" height="400" /></a>
+                <a th:href="@{/media/{id}(id=${movie.id})}"><img th:src="@{${movie.posterURL}}" alt="Poster of ${movie.title}" loading="lazy" width="400" height="400" /></a>
             </li>
         </ul>
     
         <h1>Trending Movies</h1>
         <ul class="flex flex-row scroll-smooth overflow-x-auto">
             <li th:each="movie : ${trendingMovies}" class="min-w-40 m-4">
-                <a th:href="@{/media/{id}(id=${movie.id})}"><img th:src="@{${movie.posterURL}}" alt="Poster of ${movie.title}" width="400" height="400" /></a>
+                <a th:href="@{/media/{id}(id=${movie.id})}"><img th:src="@{${movie.posterURL}}" alt="Poster of ${movie.title}"loading="lazy" width="400" height="400" /></a>
             </li>
         </ul>
 
@@ -37,7 +37,7 @@
                 <p th:text="${movie.title}">Movie Title</p>
                 <!-- Displaying the image using the external URL from the posterURL field -->
                 <a th:href="@{/media/{id}(id=${movie.id})}">
-                    <img th:src="@{${movie.posterURL}}" alt="Poster of ${movie.title}" width="400" height="400" />
+                    <img th:src="@{${movie.posterURL}}" alt="Poster of ${movie.title}" loading="lazy" width="400" height="400" />
                 </a>
             </li>
         </ul>  
