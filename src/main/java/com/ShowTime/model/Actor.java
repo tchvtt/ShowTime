@@ -61,6 +61,8 @@ public class Actor {
         return this.mediasCastedIn;
     }
 
+    public String getPosterURL(){return posterURL;}
+
 
     //Setters
     public void setName(String name){

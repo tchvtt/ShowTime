@@ -8,6 +8,8 @@
 <body>
     <h1>Détails de l'Acteur : <span th:text="${actor.name}"></span></h1>
 
+    <img th:src="@{${actor.posterURL}}" alt="Poster of ${actor.name}" width="10%" height="10%" />
+
     <!-- Informations de base sur l'acteur -->
     <p><strong>Nom :</strong> <span th:text="${actor.name}"></span></p>
     <p><strong>Date de naissance :</strong> <span th:text="${actor.birthDate}"></span></p>

@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/main.css}" rel="stylesheet" />
     <title>Details</title>
 </head>
-<body>
+<body class="flex flex-col">
     <h1>Details of : <span th:text="${media.title}"></span></h1>
     
     <!-- Affichage des détails d'un film ou d'une série -->
     <p><strong>Titre :</strong> <span th:text="${media.title}"></span></p>
+    <p><strong>Overview :</strong> <span th:text="${media.overview}"></span></p>
     <p><strong>Genre :</strong> <span th:text="${media.genre}"></span></p>
     <p><strong>Date de sortie :</strong> <span th:text="${media.releaseDate}"></span></p>
-    <p><strong>Synopsis :</strong> <span th:text="${media.overview}"></span></p>
     <p><strong>IDTMDB :</strong> <span th:text="${media.tmdbID}"></span></p>
-    <p><strong>Overview :</strong> <span th:text="${media.overview}"></span></p>
 
 
     <!-- Si c'est un film -->
@@ -33,9 +33,12 @@
 
     <!-- Affichage des acteurs associés au média -->
     <p><strong>Actors :</strong></p>
-    <ul>
-        <li th:each="actor : ${media.actors}">
-            <a th:href="@{/actor/{id}(id=${actor.id})}" th:text="${actor.name}"><p th:text="${actor.name}"></p></a>
+    <ul class="flex flex-wrap w-3/4">
+        <li th:each="actor : ${media.actors}" class="w-1/12 m-5">
+            <a th:href="@{/actor/{id}(id=${actor.id})}">
+                <img th:src="@{${actor.posterURL}}" alt="Poster of ${actor.name}" width="400" height="400" />
+            </a>
+            <th:block th:text="${actor.name}"></th:block>
         </li>
     </ul>
 
