@@ -7,24 +7,48 @@
     <link th:href="@{/main.css}" rel="stylesheet" />
     <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
 </head>
-<body>
-    <h1>Détails de l'Acteur : <span th:text="${actor.name}"></span></h1>
+<body class="bg-customGray font-sans text-white">
+    <!-- Insertion du Header -->
+    <div th:replace="~{Components/Header :: header}"></div>
 
-    <img th:src="@{${actor.posterURL}}" alt="Poster of ${actor.name}" width="10%" height="10%" />
+    <div class="flex flex-col items-center">
+        <div class="w-full max-w-6xl mt-8 px-4 py-8 rounded-xl">
 
-    <!-- Informations de base sur l'acteur -->
-    <p><strong>Nom :</strong> <span th:text="${actor.name}"></span></p>
-    <p><strong>Date de naissance :</strong> <span th:text="${actor.birthDate}"></span></p>
+            <!-- Title -->
+            <h1 class="text-3xl font-bold mb-4 text-center text-customPink" th:text="${actor.name}"></h1>
 
-    <!-- Liste des médias associés à l'acteur -->
-    <h2>Appears on those Medias:</h2>
-    <ul>
-        <li th:each="media : ${actor.mediasCastedIn}">
-            <a th:href="@{/media/{id}(id=${media.id})}"><p th:text="${media.title}"></p></a>
-        </li>
-    </ul>
+            <!-- Actor Image -->
+            <div class="flex justify-center mb-6">
+                <img th:src="@{${actor.posterURL}}" alt="Poster of ${actor.name}" class="max-w-xs rounded-lg shadow-xl" />
+            </div>
 
-    <!-- Lien pour revenir à la page d'accueil -->
-    <a th:href="@{/}">Retour à l'accueil</a>
+            <!-- Actor Basic Info -->
+            <div class="mb-8">
+                <p><strong class="text-customPink">Full Name :</strong> <span th:text="${actor.name}"></span></p>
+                <p><strong class="text-customPink">Birthdate :</strong> <span th:text="${actor.birthDate}"></span></p>
+            </div>
+
+            <!-- Actor's Medias (Scrollable Horizontal) -->
+            <h2 class="text-xl font-semibold mb-4 text-customPink">Appears in these Medias:</h2>
+            <div class="overflow-x-auto mb-8">
+                <div class="flex gap-6">
+                    <div th:each="media : ${actor.mediasCastedIn}" class="flex flex-col items-center w-36">
+                        <a th:href="@{/media/{id}(id=${media.id})}">
+                            <img th:src="@{${media.posterURL}}" alt="Poster of ${media.title}" class="w-36 h-48 object-cover rounded-lg shadow-md mb-2" />
+                        </a>
+                        <a th:href="@{/media/{id}(id=${media.id})}" 
+                        th:text="${media.title}" 
+                        class="text-center text-sm font-medium text-white transition-colors duration-300 ease-in-out hover:!text-customPink">
+                            Media Title
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Insertion du Footer -->
+    <div th:replace="~{Components/Footer :: footer}"></div>
 </body>
 </html>

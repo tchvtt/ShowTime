@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,65 +7,85 @@
     <link th:href="@{/main.css}" rel="stylesheet" />
     <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
 </head>
-<body class="flex flex-col">
-    <h1>Details of : <span th:text="${media.title}"></span></h1>
-    
-    <!-- Affichage des détails d'un film ou d'une série -->
-    <p><strong>Titre :</strong> <span th:text="${media.title}"></span></p>
-    <p><strong>Overview :</strong> <span th:text="${media.overview}"></span></p>
-    <p><strong>Genre :</strong> <span th:text="${media.genre}"></span></p>
-    <p><strong>Date de sortie :</strong> <span th:text="${media.releaseDate}"></span></p>
-    <p><strong>IDTMDB :</strong> <span th:text="${media.tmdbID}"></span></p>
+<body class="bg-customGray font-sans text-white">
+    <!-- Insertion du Header -->
+    <div th:replace="~{Components/Header :: header}"></div>
 
+    <div class="flex flex-col items-center">
+        <div class="w-full max-w-6xl mt-8 px-4 py-8 rounded-xl">
 
-    <!-- Si c'est un film -->
-    <div th:if="${media instanceof T(com.ShowTime.model.Movie)}">
-        <p><strong>Duration :</strong> <span th:text="${media.duration}"></span> minutes</p>
+            <!-- Title -->
+            <h1 class="text-3xl font-bold mb-4 text-center text-customPink" th:text="${media.title}"></h1>
+
+            <!-- Media Banner (Poster or Banner Image) -->
+            <div class="flex justify-center mb-6">
+                <img th:src="@{${media.posterURL}}" alt="Poster of ${media.title}" class="max-w-xs rounded-lg shadow-xl" />
+            </div>
+
+            <!-- Action Buttons (Centré horizontalement) -->
+            <div class="flex justify-center gap-4 mb-6">
+                <button class="bg-customPink text-white px-6 py-2 rounded-full hover:scale-105 transition-transform">
+                    Add to Watchlist
+                </button>
+                <button class="bg-customPink text-white px-6 py-2 rounded-full hover:scale-105 transition-transform">
+                    Mark as Watched
+                </button>
+                <button class="bg-customPink text-white px-6 py-2 rounded-full hover:scale-105 transition-transform">
+                    Add to Favorites
+                </button>
+            </div>
+
+            <!-- Media Info (Genre, Release Date, Duration/Seasons) -->
+            <div class="flex justify-center mb-6">
+                <div class="flex flex-wrap gap-12">
+                    <div class="flex flex-row justify-center gap-16">
+                        <p><strong class="text-customPink">Genre:</strong> <span th:text="${media.genre}"></span></p>
+                        <p><strong class="text-customPink">Release Date:</strong> <span th:text="${media.releaseDate}"></span></p>
+                        <div th:if="${media instanceof T(com.ShowTime.model.Movie)}">
+                            <p><strong class="text-customPink">Duration:</strong> <span th:text="${media.duration}"></span> minutes</p>
+                        </div>
+                        <div th:if="${media instanceof T(com.ShowTime.model.TVShow)}">
+                            <p><strong class="text-customPink">Seasons:</strong> <span th:text="${media.numberOfSeasons}"></span> seasons</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overview Section (Short Description or Plot) -->
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-2 text-customPink">Overview</h2>
+                <p th:text="${media.overview}" class="text-white leading-relaxed"></p>
+            </div>
+
+            <!-- Actors Section -->
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-4 text-customPink">Actors</h2>
+                <div class="flex flex-wrap justify-start gap-6">
+                    <div th:each="actor : ${media.actors}" class="flex flex-col items-center w-24">
+                        <a th:href="@{/actor/{id}(id=${actor.id})}">
+                            <img th:src="@{${actor.posterURL}}" alt="Poster of ${actor.name}" class="w-24 h-24 object-cover rounded-full mb-2" />
+                        </a>
+                        <span th:text="${actor.name}" class="text-center text-sm font-medium text-white"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ratings Section -->
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-4 text-customPink">Ratings</h2>
+                <ul class="space-y-4">
+                    <li th:each="rating : ${ratings}" class="flex flex-col bg-gray-50 p-4 rounded-lg shadow-sm">
+                        <p><strong class="text-customPink" th:text="${rating.user.username}">User</strong>: <span th:text="${rating.rating}">Rating</span>/5</p>
+                        <p th:text="${rating.comment}" class="text-gray-600"></p>
+                        <p><small th:text="${rating.date}">Date</small></p>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Insertion du Footer -->
+        <div th:replace="~{Components/Footer :: footer}"></div>
     </div>
-
-    <!-- Si c'est une série -->
-    <div th:if="${media instanceof T(com.ShowTime.model.TVShow)}">
-        <p><strong>Season :</strong> <span th:text="${media.numberOfSeasons}"></span> seasons</p>
-        <p><strong>Ended :</strong> <span th:text="${media.isCompleted} ? 'Yes' : 'No'"></span></p>
-        <p><strong>Saison :</strong> <span th:text="${media.numberOfSeasons}"></span> saisons</p>
-        <p><strong><span th:if="${media instanceof T(com.ShowTime.model.TVShow)}">First </span> Aired :</strong> <span th:text="${media.releaseDate}"></span></p>
-    </div>
-
-
-    <!-- Affichage des acteurs associés au média -->
-    <p><strong>Actors :</strong></p>
-    <ul class="flex flex-wrap w-3/4">
-        <li th:each="actor : ${media.actors}" class="w-1/12 m-5">
-            <a th:href="@{/actor/{id}(id=${actor.id})}">
-                <img th:src="@{${actor.posterURL}}" alt="Poster of ${actor.name}" width="400" height="400" />
-            </a>
-            <th:block th:text="${actor.name}"></th:block>
-        </li>
-    </ul>
-
-    <!-- Affichage des notes associées au média -->
-    <h2>Ratings</h2>
-    <ul>
-        <li th:each="rating : ${ratings}">
-            <p><strong th:text="${rating.user.username}">User</strong>:
-                <span th:text="${rating.rating}">Rating</span>/5
-                <span th:text="${rating.comment}">Comment</span>
-            </p>
-            <p><small th:text="${rating.date}">Date</small></p>
-        </li>
-    </ul>
-
-    <div th:if="${media instanceof T(com.ShowTime.model.Movie)}">
-        <a th:href="@{/movies}">Back to Movies</a>
-    </div>
-
-    <div th:if="${media instanceof T(com.ShowTime.model.TVShow)}">
-        <a th:href="@{/tvshows}">Back to TV Shows</a>
-    </div>
-
-    <!-- Vous pouvez ajouter plus d'informations en fonction des attributs de votre modèle -->
-    <a th:href="@{/}">Homepage</a>
-
-
 </body>
 </html>

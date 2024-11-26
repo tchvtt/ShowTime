@@ -6,45 +6,78 @@
     <link th:href="@{/main.css}" rel="stylesheet" />
     <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
 </head>
-<body>
-<!-- Insertion du Header -->
-<div th:replace="~{Components/Header :: header}"></div>
+<body class="bg-customGray text-white">
+    <!-- Insertion du Header -->
+    <div th:replace="~{Components/Header :: header}"></div>
 
-<div class="container">
-    <h1>TV Shows</h1>
-    <ul>
-        <li th:each="tvshow : ${allTVShows}">
-            <a th:href="@{/media/{id}(id=${tvshow.id})}">
-                <p th:text="${tvshow.title}">TV Show Title</p>
-            </a>
-            <!-- Displaying the image using the external URL from the posterURL field -->
-            <img th:src="@{${tvshow.posterURL}}" alt="Poster of ${tvshow.title}" width="400" height="400" />
-        </li>
-    </ul>
+    <div class="w-4/5 mx-auto">
+        <!-- Texte pour introduire la section TV Shows -->
+        <div class="text-center py-6 my-20">
+            <h1 class="text-4xl font-bold text-customPink mb-4">Welcome to TV Shows</h1>
+            <p class="text-lg text-gray-400">Browse our exclusive collections and select your next binge-worthy series!</p>
+        </div>
 
-    <h1>Popular TV Shows</h1>
-    <ul>
-        <li th:each="tvshow : ${popularTVShows}">
-            <a th:href="@{/media/{id}(id=${tvshow.id})}"><p th:text="${tvshow.title}">TV Show title</p></a>
-        </li>
-    </ul>
+        <!-- Popular TV Shows -->
+        <div class="bg-customGray py-10">
+            <h2 class="text-3xl text-center text-customPink mb-4">Popular TV Shows</h2>
+            <div class="overflow-x-auto scroll-smooth no-scrollbar">
+                <ul id="popularTVShows" class="flex py-2.5">
+                    <li th:each="tvshow : ${popularTVShows}" class="min-w-40 mx-4">
+                        <a th:href="@{/media/{id}(id=${tvshow.id})}">
+                            <img th:src="@{${tvshow.posterURL}}" alt="Poster of ${tvshow.title}" class="rounded-lg" loading="lazy" />
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
-    <h1>Top Rated TV Shows</h1>
-    <ul>
-        <li th:each="tvshow : ${topRatedTVShows}">
-            <a th:href="@{/media/{id}(id=${tvshow.id})}"><p th:text="${tvshow.title}">TV Show Title</p></a>
-        </li>
-    </ul>
+        <!-- Top Rated TV Shows -->
+        <div class="bg-customGray py-10">
+            <h2 class="text-3xl text-center text-customPink mb-4">Top Rated TV Shows</h2>
+            <div class="overflow-x-auto scroll-smooth no-scrollbar">
+                <ul id="topRatedTVShows" class="flex py-2.5">
+                    <li th:each="tvshow : ${topRatedTVShows}" class="min-w-40 mx-4">
+                        <a th:href="@{/media/{id}(id=${tvshow.id})}">
+                            <img th:src="@{${tvshow.posterURL}}" alt="Poster of ${tvshow.title}" class="rounded-lg" loading="lazy" />
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
-    <h1>Trending TV Shows</h1>
-    <ul>
-        <li th:each="tvshow : ${trendingTVShows}">
-            <a th:href="@{/media/{id}(id=${tvshow.id})}"><p th:text="${tvshow.title}">TV Show Title</p></a>
-        </li>
-    </ul>
-</div>
+        <!-- Trending TV Shows -->
+        <div class="bg-customGray py-10">
+            <h2 class="text-3xl text-center text-customPink mb-4">Trending TV Shows</h2>
+            <div class="overflow-x-auto scroll-smooth no-scrollbar">
+                <ul id="trendingTVShows" class="flex py-2.5">
+                    <li th:each="tvshow : ${trendingTVShows}" class="min-w-40 mx-4">
+                        <a th:href="@{/media/{id}(id=${tvshow.id})}">
+                            <img th:src="@{${tvshow.posterURL}}" alt="Poster of ${tvshow.title}" class="rounded-lg" loading="lazy" />
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
-<!-- Insertion du Footer -->
-<div th:replace="~{Components/Footer :: footer}"></div>
+        <!-- All TV Shows -->
+        <div class="bg-customGray py-10">
+            <h2 class="text-3xl text-center text-customPink mb-4">All TV Shows</h2>
+            <ul class="grid grid-cols-2 md:grid-cols-4 gap-6 px-6">
+                <li th:each="tvshow : ${allTVShows}">
+                    <a th:href="@{/media/{id}(id=${tvshow.id})}" 
+                    th:text="${tvshow.title}" 
+                    class="movie-title text-center block text-white mb-2 transition-colors duration-300 ease-in-out hover:!text-customPink">
+                        TV Show Title
+                    </a>
+                    <a th:href="@{/media/{id}(id=${tvshow.id})}">
+                        <img th:src="@{${tvshow.posterURL}}" alt="Poster of ${tvshow.title}" class="rounded-lg" loading="lazy" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Insertion du Footer -->
+    <div th:replace="~{Components/Footer :: footer}"></div>
 </body>
 </html>
