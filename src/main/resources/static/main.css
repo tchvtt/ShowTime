@@ -601,9 +601,9 @@ video {
   margin-bottom: 1rem;
 }
 
-.bg-gray-900 {
+.bg-customGray {
   --tw-bg-opacity: 1;
-  background-color: rgb(17 24 39 / var(--tw-bg-opacity, 1));
+  background-color: rgb(18 18 18 / var(--tw-bg-opacity, 1));
 }
 
 .p-8 {
@@ -624,7 +624,7 @@ video {
   font-weight: 700;
 }
 
-.text-white {
+.text-customPink {
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+  color: rgb(252 204 224 / var(--tw-text-opacity, 1));
 }
