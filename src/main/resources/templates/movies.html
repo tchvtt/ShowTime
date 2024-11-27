@@ -7,10 +7,9 @@
     <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
 </head>
 <body class="bg-customGray text-white">
-    <!-- Insertion du Header -->
+    <!-- Header -->
     <div th:replace="~{Components/Header :: header}"></div>
     <div class="w-4/5 mx-auto">
-        <!-- Texte pour introduire la section Movies -->
         <div class="text-center py-6 my-20">
             <h1 class="text-4xl font-bold text-customPink mb-4">Welcome to Movies</h1>
             <p class="text-lg text-gray-400">Dive into our exclusive collections and find the perfect movie for you!</p>
@@ -19,7 +18,7 @@
         <!-- Popular Movies -->
         <div class="bg-customGray py-10">
             <h2 class="text-3xl text-center text-customPink mb-4">Popular Movies</h2>
-            <div class="overflow-x-auto scroll-smooth no-scrollbar">
+            <div class="overflow-x-auto scroll-smooth no-scrollbar scrollable-div">
                 <ul id="popular" class="flex py-2.5">
                     <li th:each="movie : ${popularMovies}" class="min-w-40 mx-4">
                         <a th:href="@{/media/{id}(id=${movie.id})}">
@@ -33,7 +32,7 @@
         <!-- Top Rated Movies -->
         <div class="bg-customGray py-10">
             <h2 class="text-3xl text-center text-customPink mb-4">Top Rated Movies</h2>
-            <div class="overflow-x-auto scroll-smooth no-scrollbar">
+            <div class="overflow-x-auto scroll-smooth no-scrollbar scrollable-div">
                 <ul id="topRated" class="flex py-2.5">
                     <li th:each="movie : ${topRatedMovies}" class="min-w-40 mx-4">
                         <a th:href="@{/media/{id}(id=${movie.id})}">
@@ -47,7 +46,7 @@
         <!-- Trending Movies -->
         <div class="bg-customGray py-10">
             <h2 class="text-3xl text-center text-customPink mb-4">Trending Movies</h2>
-            <div class="overflow-x-auto scroll-smooth no-scrollbar">
+            <div class="overflow-x-auto scroll-smooth no-scrollbar scrollable-div">
                 <ul id="trending" class="flex py-2.5">
                     <li th:each="movie : ${trendingMovies}" class="min-w-40 mx-4">
                         <a th:href="@{/media/{id}(id=${movie.id})}">
@@ -74,9 +73,12 @@
                 </li>
             </ul>
         </div>
+
+        <!-- Scrollable-Div Script -->
+        <script src="/assets/js/scrollable-div.js"></script>      
     </div>
 
-    <!-- Insertion du Footer -->
+    <!-- Footer -->
     <div th:replace="~{Components/Footer :: footer}"></div>
 </body>
 </html>

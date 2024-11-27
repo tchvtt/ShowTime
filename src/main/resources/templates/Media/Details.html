@@ -8,7 +8,7 @@
     <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
 </head>
 <body class="bg-customGray font-sans text-white">
-    <!-- Insertion du Header -->
+    <!-- Header -->
     <div th:replace="~{Components/Header :: header}"></div>
 
     <div class="flex flex-col items-center">
@@ -17,12 +17,12 @@
             <!-- Title -->
             <h1 class="text-3xl font-bold mb-4 text-center text-customPink" th:text="${media.title}"></h1>
 
-            <!-- Media Banner (Poster or Banner Image) -->
+            <!-- Media Image -->
             <div class="flex justify-center mb-6">
                 <img th:src="@{${media.posterURL}}" alt="Poster of ${media.title}" class="max-w-xs rounded-lg shadow-xl" />
             </div>
 
-            <!-- Action Buttons (Centré horizontalement) -->
+            <!-- Action Buttons -->
             <div class="flex justify-center gap-4 mb-6">
                 <button class="bg-customPink text-white px-6 py-2 rounded-full hover:scale-105 transition-transform">
                     Add to Watchlist
@@ -35,7 +35,7 @@
                 </button>
             </div>
 
-            <!-- Media Info (Genre, Release Date, Duration/Seasons) -->
+            <!-- Media Infos -->
             <div class="flex justify-center mb-6">
                 <div class="flex flex-wrap gap-12">
                     <div class="flex flex-row justify-center gap-16">
@@ -51,13 +51,13 @@
                 </div>
             </div>
 
-            <!-- Overview Section (Short Description or Plot) -->
+            <!-- Overview -->
             <div class="mb-8">
                 <h2 class="text-xl font-semibold mb-2 text-customPink">Overview</h2>
                 <p th:text="${media.overview}" class="text-white leading-relaxed"></p>
             </div>
 
-            <!-- Actors Section -->
+            <!-- Actors -->
             <div class="mb-8">
                 <h2 class="text-xl font-semibold mb-4 text-customPink">Actors</h2>
                 <div class="flex flex-wrap justify-start gap-6">
@@ -70,7 +70,7 @@
                 </div>
             </div>
 
-            <!-- Ratings Section -->
+            <!-- Ratings -->
             <div class="mb-8">
                 <h2 class="text-xl font-semibold mb-4 text-customPink">Ratings</h2>
                 <ul class="space-y-4">
@@ -84,7 +84,7 @@
 
         </div>
 
-        <!-- Insertion du Footer -->
+        <!-- Footer -->
         <div th:replace="~{Components/Footer :: footer}"></div>
     </div>
 </body>

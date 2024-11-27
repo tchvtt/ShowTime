@@ -7,11 +7,10 @@
     <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
 </head>
 <body class="bg-customGray text-white">
-    <!-- Insertion du Header -->
+    <!-- Header -->
     <div th:replace="~{Components/Header :: header}"></div>
 
     <div class="w-4/5 mx-auto">
-        <!-- Texte pour introduire la section TV Shows -->
         <div class="text-center py-6 my-20">
             <h1 class="text-4xl font-bold text-customPink mb-4">Welcome to TV Shows</h1>
             <p class="text-lg text-gray-400">Browse our exclusive collections and select your next binge-worthy series!</p>
@@ -20,7 +19,7 @@
         <!-- Popular TV Shows -->
         <div class="bg-customGray py-10">
             <h2 class="text-3xl text-center text-customPink mb-4">Popular TV Shows</h2>
-            <div class="overflow-x-auto scroll-smooth no-scrollbar">
+            <div class="overflow-x-auto scroll-smooth no-scrollbar scrollable-div">
                 <ul id="popularTVShows" class="flex py-2.5">
                     <li th:each="tvshow : ${popularTVShows}" class="min-w-40 mx-4">
                         <a th:href="@{/media/{id}(id=${tvshow.id})}">
@@ -34,7 +33,7 @@
         <!-- Top Rated TV Shows -->
         <div class="bg-customGray py-10">
             <h2 class="text-3xl text-center text-customPink mb-4">Top Rated TV Shows</h2>
-            <div class="overflow-x-auto scroll-smooth no-scrollbar">
+            <div class="overflow-x-auto scroll-smooth no-scrollbar scrollable-div">
                 <ul id="topRatedTVShows" class="flex py-2.5">
                     <li th:each="tvshow : ${topRatedTVShows}" class="min-w-40 mx-4">
                         <a th:href="@{/media/{id}(id=${tvshow.id})}">
@@ -48,7 +47,7 @@
         <!-- Trending TV Shows -->
         <div class="bg-customGray py-10">
             <h2 class="text-3xl text-center text-customPink mb-4">Trending TV Shows</h2>
-            <div class="overflow-x-auto scroll-smooth no-scrollbar">
+            <div class="overflow-x-auto scroll-smooth no-scrollbar scrollable-div">
                 <ul id="trendingTVShows" class="flex py-2.5">
                     <li th:each="tvshow : ${trendingTVShows}" class="min-w-40 mx-4">
                         <a th:href="@{/media/{id}(id=${tvshow.id})}">
@@ -75,9 +74,12 @@
                 </li>
             </ul>
         </div>
+
+        <!-- Scrollable-Div Script -->
+        <script src="/assets/js/scrollable-div.js"></script>     
     </div>
 
-    <!-- Insertion du Footer -->
+    <!-- Footer -->
     <div th:replace="~{Components/Footer :: footer}"></div>
 </body>
 </html>

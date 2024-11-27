@@ -12,13 +12,13 @@
         
         <form th:action="@{/register}" method="post" th:object="${user}">
             <input type="text" th:field="*{username}" placeholder="Username" required
-                   class="w-72 p-2 mb-4 border-2 border-customPink rounded-lg focus:outline-none focus:border-customPink bg-customLightGray">
+                   class="w-72 p-2 mb-4 border-2 border-customPink rounded-lg focus:outline-none focus:border-customPink bg-customLightGray text-zinc-400">
             
             <input type="email" th:field="*{email}" placeholder="Email" required
-                   class="w-72 p-2 mb-4 border-2 border-customPink rounded-lg focus:outline-none focus:border-customPink bg-customLightGray">
+                   class="w-72 p-2 mb-4 border-2 border-customPink rounded-lg focus:outline-none focus:border-customPink bg-customLightGray text-zinc-400">
             
             <input type="password" th:field="*{password}" placeholder="Password" required
-                   class="w-72 p-2 mb-6 border-2 border-customPink rounded-lg focus:outline-none focus:border-customPink bg-customLightGray">
+                   class="w-72 p-2 mb-6 border-2 border-customPink rounded-lg focus:outline-none focus:border-customPink bg-customLightGray text-zinc-400">
             
             <button type="submit" class="w-52 bg-customPink text-white p-2 rounded-full font-semibold hover:scale-105 transition-transform mb-4">Sign Up</button>
         </form>

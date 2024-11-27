@@ -8,7 +8,7 @@
     <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
 </head>
 <body class="bg-customGray font-sans text-white">
-    <!-- Insertion du Header -->
+    <!-- Header -->
     <div th:replace="~{Components/Header :: header}"></div>
 
     <div class="flex flex-col items-center">
@@ -22,13 +22,13 @@
                 <img th:src="@{${actor.posterURL}}" alt="Poster of ${actor.name}" class="max-w-xs rounded-lg shadow-xl" />
             </div>
 
-            <!-- Actor Basic Info -->
+            <!-- Actor Infos -->
             <div class="mb-8">
                 <p><strong class="text-customPink">Full Name :</strong> <span th:text="${actor.name}"></span></p>
                 <p><strong class="text-customPink">Birthdate :</strong> <span th:text="${actor.birthDate}"></span></p>
             </div>
 
-            <!-- Actor's Medias (Scrollable Horizontal) -->
+            <!-- Actor's Medias -->
             <h2 class="text-xl font-semibold mb-4 text-customPink">Appears in these Medias:</h2>
             <div class="overflow-x-auto mb-8">
                 <div class="flex gap-6">
@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <!-- Insertion du Footer -->
+    <!-- Footer -->
     <div th:replace="~{Components/Footer :: footer}"></div>
 </body>
 </html>
