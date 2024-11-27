@@ -6,31 +6,47 @@
     <link th:href="@{/main.css}" rel="stylesheet" />
     <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
     <script>
-        let isEditing = false;
+            let isEditing = false;
 
-        function toggleEditMode() {
-            const emailInput = document.getElementById('email');
-            const passwordInput = document.getElementById('password');
-            const editButton = document.getElementById('editButton');
-            const updateForm = document.getElementById('updateForm');
+            function toggleEditMode() {
+                const emailInput = document.getElementById('modal-email');
+                const passwordInput = document.getElementById('modal-password');
+                const editButton = document.getElementById('modal-editButton');
+                const updateForm = document.getElementById('updateForm');
 
-            if (!isEditing) {
-                emailInput.readOnly = false;
-                passwordInput.readOnly = false;
-                emailInput.style.pointerEvents = 'auto';
-                passwordInput.style.pointerEvents = 'auto';
-                editButton.textContent = 'Save';
-                isEditing = true;
-            } else {
-                emailInput.readOnly = true;
-                passwordInput.readOnly = true;
-                emailInput.style.pointerEvents = 'none';
-                passwordInput.style.pointerEvents = 'none';
-                editButton.textContent = 'Edit';
-                isEditing = false;
-                updateForm.submit();
+                if (!isEditing) {
+                    emailInput.readOnly = false;
+                    passwordInput.readOnly = false;
+                    emailInput.style.pointerEvents = 'auto';
+                    passwordInput.style.pointerEvents = 'auto';
+                    editButton.textContent = 'Save';
+                    isEditing = true;
+                } else {
+                    emailInput.readOnly = true;
+                    passwordInput.readOnly = true;
+                    emailInput.style.pointerEvents = 'none';
+                    passwordInput.style.pointerEvents = 'none';
+                    editButton.textContent = 'Edit';
+                    isEditing = false;
+                    updateForm.submit();
+                }
             }
-        }
+
+            function toggleModal() {
+                const modal = document.getElementById('accountSettingsModal');
+                modal.classList.toggle('hidden');
+                modal.classList.toggle('opacity-0');  
+                modal.classList.toggle('opacity-100');
+                modal.classList.toggle('pointer-events-none');  
+            }
+        
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('accountSettingsModal').addEventListener('click', function(event) {
+                    if (event.target === this) {
+                        toggleModal();
+                    }
+                });
+            });
     </script>
 </head>
 <body class="bg-customGray font-sans text-white">
@@ -43,46 +59,88 @@
             <!-- Profile Title -->
             <h1 class="text-3xl font-bold mb-4 text-center text-customPink" th:text="'Profile of ' + ${user.username}"></h1>
 
-            <!-- User Info Section -->
-            <form id="updateForm" th:action="@{/profile/update}" method="post" class="p-6 rounded-lg mb-8">
-                <div class="flex justify-center items-center gap-12">
-                    <!-- Username -->
-                    <p class="flex items-center">
-                        <strong class="text-customPink mr-2">Username:</strong>
-                        <span th:text="${user.username}" class="text-white"></span>
-                    </p>
-            
-                    <!-- Email -->
-                    <p class="flex items-center">
-                        <strong class="text-customPink mr-2">Email:</strong>
-                        <input id="email" type="email" name="email" 
-                               th:value="${user.email}" 
-                               readonly
-                               style="pointer-events: none;" 
-                               class="bg-customLightGray text-white p-1 rounded w-40" />
-                    </p>
-            
-                    <!-- Password -->
-                    <p class="flex items-center">
-                        <strong class="text-customPink mr-2">Password:</strong>
-                        <input id="password" type="password" name="password" 
-                               th:value="${user.password}" 
-                               readonly
-                               style="pointer-events: none;" 
-                               class="bg-customLightGray text-white p-1 rounded w-40" />
-                    </p>
-            
-                    <!-- Edit Button -->
-                    <div class="flex items-center">
-                        <button type="button" id="editButton" 
-                                onclick="toggleEditMode()" 
-                                class="bg-customPink px-4 py-1 rounded-full text-white hover:scale-105 transition-transform">
-                            Edit
-                        </button>
-                    </div>
+            <!-- Div for buttons -->
+            <div class="flex flex-row justify-center items-center my-16 gap-4">
+                <!-- Button to Open Modal -->
+                <button 
+                    onclick="toggleModal()" 
+                    class="bg-customPink px-4 py-2 rounded-full text-white hover:scale-105 transition-transform">
+                    Account Settings
+                </button>
+
+                <!-- Logout Button -->
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="bg-red-600 px-4 py-2 rounded-full text-white hover:scale-105 transition-transform">
+                        Logout
+                    </button>
+                </form>                
+            </div>
+
+
+            <!-- Modal -->
+            <div id="accountSettingsModal" name="accountSettingsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50 pointer-events-none transition-opacity duration-300">
+                <div class="bg-customGray text-white rounded-lg p-6 w-96 shadow-lg">
+                    <h2 class="text-xl font-bold mb-6 text-customPink text-center">Account Settings</h2>
+                    <form id="updateForm" th:action="@{/profile/update}" method="post" class="flex flex-col space-y-4">
+                        <!-- Username -->
+                        <div>
+                            <label for="modal-username" class="block text-customPink mb-1">Username</label>
+                            <input id="modal-username" type="text" 
+                                th:value="${user.username}" 
+                                readonly 
+                                class="bg-customLightGray p-2 rounded w-full text-white" />
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label for="modal-email" class="block text-customPink mb-1">Email</label>
+                            <input id="modal-email" type="email" name="email" 
+                                th:value="${user.email}" 
+                                readonly 
+                                style="pointer-events: none;" 
+                                class="bg-customLightGray p-2 rounded w-full text-white" />
+                        </div>
+
+                        <!-- Password -->
+                        <div>
+                            <label for="modal-password" class="block text-customPink mb-1">Password</label>
+                            <input id="modal-password" type="password" name="password" 
+                                th:value="${user.password}" 
+                                readonly 
+                                style="pointer-events: none;" 
+                                class="bg-customLightGray p-2 rounded w-full text-white" />
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="flex flex-row justify-center gap-8">
+                            <button type="button" id="modal-editButton" 
+                                    onclick="toggleEditMode()" 
+                                    class="bg-customPink px-4 py-2 rounded text-white text-center hover:scale-105 transition-transform">
+                                Edit
+                            </button>
+                            <button onclick="toggleModal()" 
+                                    class="border border-customPink bg-customLightGray text-customPink px-4 py-2 rounded text-center hover:bg-customPink hover:text-customLightGray transition-all">
+                                Close
+                            </button>
+                            <!--
+                            <button type="submit" formaction="@{/profile/delete}" 
+                                    class="bg-red-600 px-4 py-2 rounded text-white hover:scale-105 transition-transform">
+                                Delete Account
+                            </button>
+                            -->
+                        </div>
+                    </form>
+
+                    <!-- Close Modal Button -->
+                     <!--
+                    <button onclick="toggleModal()" 
+                            class="mt-4 w-full border border-customPink bg-customLightGray text-customPink px-4 py-2 rounded text-center hover:bg-customPink hover:text-customLightGray transition-all">
+                        Close
+                    </button>
+                    -->
                 </div>
-            </form>
-            
+            </div>
+
 
             <!-- User's Media Lists -->
             <h2 class="text-2xl font-bold mb-4 text-customPink">Your Lists</h2>

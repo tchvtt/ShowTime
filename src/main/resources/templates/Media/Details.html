@@ -23,32 +23,6 @@
             </div>
 
             <!-- Action Buttons -->
-            <!--
-            <div th:if="${isAuthenticated}" class="flex justify-center gap-4 mb-6">
-                <form th:action="@{/media/{id}/add-to-list(id=${media.id})}" method="post">
-                    <input type="hidden" name="listName" value="TO_WATCH" />
-                    <input type="hidden" name="mediaType" th:value="${media instanceof T(com.ShowTime.model.Movie) ? 'MOVIE' : 'TV_SHOW'}" />
-                    <button type="submit" class="bg-customPink text-white px-6 py-2 rounded-full hover:scale-105 transition-transform">
-                        Add to To Watch List
-                    </button>
-                </form>
-            
-                <form th:action="@{/media/{id}/add-to-list(id=${media.id})}" method="post">
-                    <input type="hidden" name="listName" value="WATCHED" />
-                    <input type="hidden" name="mediaType" th:value="${media instanceof T(com.ShowTime.model.Movie) ? 'MOVIE' : 'TV_SHOW'}" />
-                    <button type="submit" class="bg-customPink text-white px-6 py-2 rounded-full hover:scale-105 transition-transform">
-                        Mark as Watched
-                    </button>
-                </form>
-            
-                <form th:action="@{/media/{id}/add-to-list(id=${media.id})}" method="post">
-                    <input type="hidden" name="listName" value="FAVORITE" />
-                    <input type="hidden" name="mediaType" th:value="${media instanceof T(com.ShowTime.model.Movie) ? 'MOVIE' : 'TV_SHOW'}" />
-                    <button type="submit" class="bg-customPink text-white px-6 py-2 rounded-full hover:scale-105 transition-transform">
-                        Add to Favorites
-                    </button>
-                </form>
-            </div>-->
             <div th:if="${isAuthenticated}" class="flex justify-center gap-4 mb-6">
                 <form th:action="@{/media/{id}/toggle-list(id=${media.id})}" method="post">
                     <input type="hidden" name="listName" value="TO_WATCH" />
@@ -107,10 +81,13 @@
                         <a th:href="@{/actor/{id}(id=${actor.id})}">
                             <img th:src="@{${actor.posterURL}}" alt="Poster of ${actor.name}" class="w-24 h-24 object-cover rounded-full mb-2" />
                         </a>
-                        <span th:text="${actor.name}" class="text-center text-sm font-medium text-white"></span>
+                        <a th:href="@{/actor/{id}(id=${actor.id})}" class="text-center text-sm font-medium text-white transition-colors duration-300 ease-in-out hover:!text-customPink cursor-pointer">
+                            <span th:text="${actor.name}"></span>
+                        </a>
                     </div>
                 </div>
             </div>
+
 
             <!-- Ratings -->
             <div class="mb-8">
