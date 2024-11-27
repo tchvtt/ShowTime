@@ -3,13 +3,8 @@ package com.ShowTime.model;
 import java.time.LocalDate;
 import java.util.*;
 
-import com.ShowTime.ShowTimeApplication;
-import com.ShowTime.repository.ActorRepository;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jdk.jfr.Name;
-import lombok.Builder;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 public class Actor {

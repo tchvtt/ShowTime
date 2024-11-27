@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let scrollLeft;
 
         // Mouse scroll
+        /*
         div.addEventListener('wheel', function (event) {
             if (event.deltaY !== 0) {
                 event.preventDefault();
@@ -12,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.scrollLeft += event.deltaY * scrollSpeed;
             }
         });
+        */
+
         /*
         // Drag-scroll
         div.addEventListener('mousedown', (e) => {

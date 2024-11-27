@@ -1,8 +1,6 @@
 package com.ShowTime.model;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.*;
@@ -53,13 +51,6 @@ public class MediaList {
 
 
 
-
-
-
-
-
-
-
     // Getters
     public Long getId() {
         return id;
@@ -95,12 +86,6 @@ public class MediaList {
     public void setName(String name) {
         this.name = name;
     }
-
-
-
-
-
-
 
 
 

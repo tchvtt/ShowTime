@@ -94,7 +94,11 @@
                             <a th:href="@{/media/{id}(id=${media.id})}">
                                 <img th:src="@{${media.posterURL}}" alt="Poster of ${media.title}" class="w-36 h-48 object-cover rounded-lg shadow-md mb-2" />
                             </a>
-                            <span th:text="${media.title}" class="text-center text-sm font-medium text-white"></span>
+                            <a th:href="@{/media/{id}(id=${media.id})}" 
+                            th:text="${media.title}" 
+                            class="movie-title text-center block text-white mb-2 transition-colors duration-300 ease-in-out hover:!text-customPink">
+                                Movie Title
+                            </a>
                         </div>
                     </div>
                 </div>                

@@ -4,7 +4,6 @@ import com.ShowTime.model.Actor;
 import com.ShowTime.model.Media;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,7 +14,6 @@ public interface ActorRepository extends JpaRepository<Actor, Long> {
 
     boolean existsActorByTmdbID(int tmdbID);
 
-    // Surement possible sans Query mais legit je comprends pas j'ai tout essayé avec les relations, là au moins ca marche
     @Query(value = "SELECT a.* FROM actor a " +
     "JOIN media_actor ma ON a.id = ma.actor_id " +
     "WHERE ma.media_id = :mediaId", nativeQuery = true)
