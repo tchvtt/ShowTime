@@ -25,20 +25,6 @@
             <!-- Action Buttons -->
             <!--
             <div th:if="${isAuthenticated}" class="flex justify-center gap-4 mb-6">
-                <button th:href="@{/media/{id}/add-to-list(id=${media.id}, listName='TO_WATCH', mediaType=${media instanceof T(com.ShowTime.model.Movie) ? 'MOVIE' : 'TV_SHOW'})}" class="bg-customPink text-white px-6 py-2 rounded-full hover:scale-105 transition-transform">
-                    Add to To Watch List
-                </button>
-
-                <button th:href="@{/media/{id}/add-to-list(id=${media.id}, listName='WATCHED', mediaType=${media instanceof T(com.ShowTime.model.Movie) ? 'MOVIE' : 'TV_SHOW'})}" class="bg-customPink text-white px-6 py-2 rounded-full hover:scale-105 transition-transform">
-                    Add to Watchlist
-                </button>
-
-                <button th:href="@{/media/{id}/add-to-list(id=${media.id}, listName='FAVORITE', mediaType=${media instanceof T(com.ShowTime.model.Movie) ? 'MOVIE' : 'TV_SHOW'})}" class="bg-customPink text-white px-6 py-2 rounded-full hover:scale-105 transition-transform">
-                    Add to Favorites
-                </button>
-            </div> -->   
-            <div th:if="${isAuthenticated}" class="flex justify-center gap-4 mb-6">
-                <!-- Bouton "Add to To Watch List" -->
                 <form th:action="@{/media/{id}/add-to-list(id=${media.id})}" method="post">
                     <input type="hidden" name="listName" value="TO_WATCH" />
                     <input type="hidden" name="mediaType" th:value="${media instanceof T(com.ShowTime.model.Movie) ? 'MOVIE' : 'TV_SHOW'}" />
@@ -47,7 +33,6 @@
                     </button>
                 </form>
             
-                <!-- Bouton "Add to Watchlist" -->
                 <form th:action="@{/media/{id}/add-to-list(id=${media.id})}" method="post">
                     <input type="hidden" name="listName" value="WATCHED" />
                     <input type="hidden" name="mediaType" th:value="${media instanceof T(com.ShowTime.model.Movie) ? 'MOVIE' : 'TV_SHOW'}" />
@@ -56,7 +41,6 @@
                     </button>
                 </form>
             
-                <!-- Bouton "Add to Favorites" -->
                 <form th:action="@{/media/{id}/add-to-list(id=${media.id})}" method="post">
                     <input type="hidden" name="listName" value="FAVORITE" />
                     <input type="hidden" name="mediaType" th:value="${media instanceof T(com.ShowTime.model.Movie) ? 'MOVIE' : 'TV_SHOW'}" />
@@ -64,7 +48,33 @@
                         Add to Favorites
                     </button>
                 </form>
+            </div>-->
+            <div th:if="${isAuthenticated}" class="flex justify-center gap-4 mb-6">
+                <form th:action="@{/media/{id}/toggle-list(id=${media.id})}" method="post">
+                    <input type="hidden" name="listName" value="TO_WATCH" />
+                    <input type="hidden" name="action" th:value="${isInToWatch ? 'remove' : 'add'}" />
+                    <button type="submit" class="bg-customPink text-white px-6 py-2 rounded-full hover:scale-105 transition-transform">
+                        <span th:text="${isInToWatch ? 'Remove from To Watch' : 'Add to To Watch'}"></span>
+                    </button>
+                </form>
+            
+                <form th:action="@{/media/{id}/toggle-list(id=${media.id})}" method="post">
+                    <input type="hidden" name="listName" value="WATCHED" />
+                    <input type="hidden" name="action" th:value="${isInWatched ? 'remove' : 'add'}" />
+                    <button type="submit" class="bg-customPink text-white px-6 py-2 rounded-full hover:scale-105 transition-transform">
+                        <span th:text="${isInWatched ? 'Remove from Watched' : 'Mark as Watched'}"></span>
+                    </button>
+                </form>
+            
+                <form th:action="@{/media/{id}/toggle-list(id=${media.id})}" method="post">
+                    <input type="hidden" name="listName" value="FAVORITE" />
+                    <input type="hidden" name="action" th:value="${isInFavorite ? 'remove' : 'add'}" />
+                    <button type="submit" class="bg-customPink text-white px-6 py-2 rounded-full hover:scale-105 transition-transform">
+                        <span th:text="${isInFavorite ? 'Remove from Favorites' : 'Add to Favorites'}"></span>
+                    </button>
+                </form>
             </div>
+            
                   
 
             <!-- Media Infos -->
