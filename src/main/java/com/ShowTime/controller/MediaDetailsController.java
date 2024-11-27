@@ -144,6 +144,17 @@ public class MediaDetailsController {
 
             if ("add".equals(action)) {
                 if (!mediaList.getMediaList().contains(media)) {
+                    // Si on ajoute à WATCHED, retirer de TO_WATCH
+                    if (listName.equals("WATCHED")) {
+                        MediaList toWatchList = mediaListRepository.findByUserAndMediaListTypeAndMediaType(user, MediaListType.TO_WATCH, media instanceof Movie ? MediaType.MOVIE : MediaType.TV_SHOW);
+                        toWatchList.removeMedia(media);
+                        mediaListRepository.save(toWatchList);
+                    }
+                    else if (listName.equals("TO_WATCH")) {
+                        MediaList watchedList = mediaListRepository.findByUserAndMediaListTypeAndMediaType(user, MediaListType.WATCHED, media instanceof Movie ? MediaType.MOVIE : MediaType.TV_SHOW);
+                        watchedList.removeMedia(media);
+                        mediaListRepository.save(watchedList);
+                    }
                     mediaList.addMedia(media);
                     mediaListRepository.save(mediaList);
                 }
