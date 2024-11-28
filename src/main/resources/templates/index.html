@@ -5,23 +5,122 @@
     <title>ShowTime</title>
     <link th:href="@{/main.css}" rel="stylesheet" />
     <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body class="bg-customGray text-customPink">
     <!-- Header -->
     <div th:replace="~{Components/Header :: header}"></div>
 
-    <div class="container mx-auto p-8 text-center my-24">
+    <div class="container mx-auto p-8 text-center my-32">
         <h1 class="text-white text-5xl font-bold">
             <span class="text-customPink">Discover</span> the latest <span class="italic">Movies</span>,<br>
             <span class="text-customPink">Watch</span> your favorite <span class="italic">TV Shows</span>,<br>
             <span class="text-customPink">Remember</span> the moments that matter.
         </h1>
 
-        <p class="text-zinc-600 text-lg mt-16">
-            Explore new genres, find popular content, and build your personal watchlists.
+        <p class="text-zinc-500 text-xl mt-16">
+            Explore new genres, find popular content, <br> and build your personal watchlists.
         </p>        
     </div>
 
+    <section class="features py-12 bg-customGray">
+        <!--<h2 class="text-3xl font-bold text-center text-customPink mb-8">Features</h2>-->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div class="bg-customLightGray p-6 rounded shadow text-center">
+                <div class="text-customPink text-5xl mb-4">
+                    <i class="fas fa-search"></i> 
+                </div>
+                <h3 class="text-xl font-semibold text-customPink mb-2">Discover Media</h3>
+                <p class="text-gray-300">Browse a wide range of movies and TV shows curated just for you.</p>
+            </div>
+            <div class="bg-customLightGray p-6 rounded shadow text-center">
+                <div class="text-customPink text-5xl mb-4">
+                    <i class="fas fa-list"></i> 
+                </div>
+                <h3 class="text-xl font-semibold text-customPink mb-2">Create Your Lists</h3>
+                <p class="text-gray-300">Add your favorite media to personalized lists and never lose track.</p>
+            </div>
+            <div class="bg-customLightGray p-6 rounded shadow text-center">
+                <div class="text-customPink text-5xl mb-4">
+                    <i class="fas fa-star"></i> 
+                </div>
+                <h3 class="text-xl font-semibold text-customPink mb-2">Rate & Review</h3>
+                <p class="text-gray-300">Share your thoughts and rate media to help others discover the best.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="statistics py-20 bg-customGray text-customPink">
+        <h2 class="text-3xl font-bold text-center mb-8">Why Choose ShowTime?</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-w-6xl mx-auto text-center">
+            <div class="py-6 rounded bg-customGray text-customPink">
+                <p class="text-4xl font-bold">10,000+</p>
+                <p class="text-white italic">Movies & TV Shows</p>
+            </div>
+            <div class="py-6 rounded bg-customGray text-customPink">
+                <p class="text-4xl font-bold">50,000+</p>
+                <p class="text-white italic">Media Enthusiasts</p>
+            </div>
+            <div class="py-6 rounded bg-customGray text-customPink">
+                <p class="text-4xl font-bold">1,000+</p>
+                <p class="text-white italic">Reviews Weekly</p>
+            </div>
+        </div>
+    </section>   
+
+    <section class="testimonials py-20 bg-customGray">
+        <h2 class="text-3xl font-bold text-center text-customPink mb-8">What Our Users Say</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div class="bg-customLightGray p-6 rounded shadow">
+                <p class="italic text-gray-300">"Thanks to ShowTime, I never miss a good movie anymore!"</p>
+                <p class="text-right mt-4 text-customPink font-semibold">- John D.</p>
+            </div>
+            <div class="bg-customLightGray p-6 rounded shadow">
+                <p class="italic text-gray-300">"Creating my own lists has been a game changer for my watchlist."</p>
+                <p class="text-right mt-4 text-customPink font-semibold">- Emma W.</p>
+            </div>
+            <div class="bg-customLightGray p-6 rounded shadow">
+                <p class="italic text-gray-300">"I love discovering new series tailored to my taste!"</p>
+                <p class="text-right mt-4 text-customPink font-semibold">- David R.</p>
+            </div>
+        </div>
+    </section>  
+    
+    <section class="join-us py-12 bg-customGray text-white text-center">
+        <h2 class="text-3xl text-customPink font-bold mb-4">Join the Show</h2>
+        <p class="text-lg text-white mb-6">Sign up today and start building your personal media universe!</p>
+        <button href="/login" class="bg-customPink text-customGray px-6 py-3 rounded font-semibold hover:scale-105 transition-transform">
+            Get Started
+        </button>
+    </section>  
+
+    <section class="faq py-20 bg-customGray">
+        <h2 class="text-3xl font-bold text-center text-customPink mb-8">Frequently Asked Questions</h2>
+        <div class="max-w-4xl mx-auto space-y-6">
+            <div class="faq-item bg-customLightGray text-center p-4 rounded shadow">
+                <h3 class="text-xl font-semibold text-customPink">What is ShowTime?</h3>
+                <p class="text-gray-300 mt-2">ShowTime is a platform where you can discover, track, and rate movies and TV shows.</p>
+            </div>
+            <div class="faq-item bg-customLightGray text-center p-4 rounded shadow">
+                <h3 class="text-xl font-semibold text-customPink">Is ShowTime free to use?</h3>
+                <p class="text-gray-300 mt-2">Yes! ShowTime is completely free to use for all its features.</p>
+            </div>
+            <div class="faq-item bg-customLightGray text-center p-4 rounded shadow">
+                <h3 class="text-xl font-semibold text-customPink">Can I share my lists with friends?</h3>
+                <p class="text-gray-300 mt-2">We are working on a feature to make lists sharable. Stay tuned!</p>
+            </div>
+        </div>
+    </section> 
+
+    <!--
+    <section class="about py-12 bg-customGray text-white text-center">
+        <h2 class="text-3xl font-bold text-customPink mb-4">About ShowTime</h2>
+        <p class="max-w-3xl mx-auto text-gray-300 text-lg">
+            ShowTime was created to bring the joy of cinema to everyone. Our mission is to make discovering, organizing, and sharing your favorite media as effortless as possible.
+        </p>
+    </section>    
+    -->
+        
     <!-- Footer -->
     <div th:replace="~{Components/Footer :: footer}"></div>
 </body>
