@@ -21,7 +21,7 @@ public class ActorDetailsController {
     public String showActor(@PathVariable("id") Long id, Model model) {
         Actor actor = actorRepository.findById(id).orElse(null);
         if (actor == null) {
-            return "redirect:/";  //si l'acteur n'existe pas redirection vers accueil
+            return "redirect:/";  
         }
 
         model.addAttribute("actor", actor);

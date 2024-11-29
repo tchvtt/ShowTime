@@ -18,7 +18,6 @@ public class TVShowsController {
 
     @GetMapping("/tvshows")
     public String moviesPage(Model model) {
-        // Récupération des listes globales pour les séries
         MediaList allTVShows = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.ALL, MediaType.TV_SHOW);
         MediaList popularTVShows = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.POPULAR, MediaType.TV_SHOW);
         MediaList topRatedTVShows = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.TOP_RATED, MediaType.TV_SHOW);
@@ -29,6 +28,6 @@ public class TVShowsController {
         model.addAttribute("topRatedTVShows",topRatedTVShows.getMediaList());
         model.addAttribute("trendingTVShows",trendingTVShows.getMediaList());
 
-        return "tvshows"; // Vue pour la page des séries
+        return "tvshows";
     }
 }

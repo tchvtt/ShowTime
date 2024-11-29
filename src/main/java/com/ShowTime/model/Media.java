@@ -18,7 +18,6 @@ import jakarta.persistence.OneToMany;
 
 
 @Entity
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Media {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -109,10 +108,9 @@ public abstract class Media {
             actors.add(actor);
         }
     }
-        public void removeActor(Actor actor) {
+    
+    public void removeActor(Actor actor) {
         getActors().remove(actor);
-        //actor.getMediaList().getMediaList().remove(this);
-        //actor.getMediaList().remove(this);
     }
 
     @Override

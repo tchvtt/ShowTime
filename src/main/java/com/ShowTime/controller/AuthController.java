@@ -20,29 +20,21 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    //Affichage de la page de connexion
+
+    
     @GetMapping("/login")
     public String showLoginPage() {
         return "login"; 
     }
 
-    //Affichage de la page d'inscription
+
+
     @GetMapping("/register")
     public String showRegisterPage(Model model) {
         model.addAttribute("user", new User());
         return "register"; 
     }
 
-    //Traitement de la soumission du formulaire d'inscription
-    /* 
-    @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") User user) {
-        //Encoder le mot de passe avant de sauvegarder l'utilisateur
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user); 
-        return "redirect:/login"; 
-    }
-    */
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User userForm, RedirectAttributes redirectAttributes) {
 

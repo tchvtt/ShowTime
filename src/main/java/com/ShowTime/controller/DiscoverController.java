@@ -22,6 +22,7 @@ public class DiscoverController {
 
     @GetMapping("/discover")
     public String showIndex(Model model) {
+        /*
         List<Movie> popularMovies = movieRepository.findAll();
         List<TVShow> popularTVShows = tvShowRepository.findAll();
         
@@ -29,6 +30,7 @@ public class DiscoverController {
         model.addAttribute("popularTVShows", popularTVShows);
         System.out.println("Nombre de films trouvés : " + popularMovies.size());
         System.out.println("Nombre de séries trouvées : " + popularTVShows.size());
+        */
         return "discover"; 
     }
 }

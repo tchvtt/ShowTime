@@ -20,7 +20,6 @@ public class Rating {
     @Max(5) 
     private int rating;
 
-    // Mettre max characteres ? (a voir en fonction du CSS)
     private String comment;
 
     @ManyToOne

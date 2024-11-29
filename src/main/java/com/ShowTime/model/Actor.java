@@ -34,9 +34,6 @@ public class Actor {
     public Actor(String name, LocalDate birthDate){
         this.name = name; 
         this.birthDate = birthDate;
-        //this.mediaList = new MediaList(name, MediaListType.ACTOR, MediaType.ANY);
-        //this.mediaList = new LinkedHashSet<>();
-
     }
 
 

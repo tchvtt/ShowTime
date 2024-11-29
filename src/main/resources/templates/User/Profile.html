@@ -154,28 +154,31 @@
                 </div>                
             </div>
 
-            <!-- Ratings Section -->
+            <!-- Ratings -->
             <h2 class="text-2xl font-bold mb-4 text-customPink">Your Ratings</h2>
-            <ul class="space-y-4">
-                <li th:each="rating : ${ratings}" class="bg-gray-800 p-4 rounded-lg shadow-lg">
-                    <p>
-                        <strong class="text-customPink">Media:</strong>
-                        <a th:href="@{/media/{id}(id=${rating.media.id})}" th:text="${rating.media.title}" class="hover:underline text-customPink"></a>
-                    </p>
-                    <p>
-                        <strong class="text-customPink">Rating:</strong>
-                        <span th:text="${rating.rating}"></span>/5
-                    </p>
-                    <p>
-                        <strong class="text-customPink">Comment:</strong>
-                        <span th:text="${rating.comment}"></span>
-                    </p>
-                    <p class="text-sm text-gray-400">
-                        <strong class="text-customPink">Posted on:</strong>
-                        <span th:text="${rating.date}"></span>
-                    </p>
-                </li>
-            </ul>
+            <div class="overflow-x-auto scroll-smooth no-scrollbar">
+                <div class="flex space-x-4">
+                    <div th:if="${#lists.isEmpty(ratings)}" class="text-gray-400">
+                        No ratings yet. Start adding your reviews!
+                    </div>
+                    <div th:each="rating : ${ratings}" 
+                        class="bg-customLightGray p-4 rounded-lg shadow-lg w-80 flex-shrink-0">
+                        <div class="flex justify-between items-center">
+                            <p>
+                                <strong class="text-customPink">Media:</strong>
+                                <a th:href="@{/media/{id}(id=${rating.media.id})}" 
+                                th:text="${rating.media.title}" 
+                                class="hover:underline text-customPink"></a>
+                            </p>
+                            <p class="text-customPink font-bold" th:text="${rating.rating} + ' / 5'"></p>
+                        </div>
+                        <p class="text-sm text-gray-400" th:text="${rating.date}"></p>
+                        <div class="overflow-y-auto max-h-24 no-scrollbar mt-4">
+                            <p class="text-gray-300 italic" th:text="${rating.comment}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
 

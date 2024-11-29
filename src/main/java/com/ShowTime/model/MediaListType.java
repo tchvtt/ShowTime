@@ -16,7 +16,7 @@ public enum MediaListType {
     // Actors' lists
     ACTOR("Actor");
 
-    // Soit on reprend les memes, soit on crée d'autres listes pour Discover (voir idées Drive)
+    
 
     private final String displayName;
 

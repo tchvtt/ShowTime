@@ -18,20 +18,16 @@ public class MoviesController {
 
     @GetMapping("/movies")
     public String moviesPage(Model model) {
-        // Récupération des listes globales pour les films
         MediaList allMovies = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.ALL, MediaType.MOVIE);
         MediaList popularMovies = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.POPULAR, MediaType.MOVIE);
         MediaList topRatedMovies = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.TOP_RATED, MediaType.MOVIE);
         MediaList trendingMovies = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.TRENDING, MediaType.MOVIE);
-
-
-        System.out.println(trendingMovies);
 
         model.addAttribute("allMovies", allMovies.getMediaList());
         model.addAttribute("popularMovies", popularMovies.getMediaList());
         model.addAttribute("topRatedMovies", topRatedMovies.getMediaList());
         model.addAttribute("trendingMovies", trendingMovies.getMediaList());
 
-        return "movies"; // Vue pour la page des films
+        return "movies";
     }
 }

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
 @Controller
-//@RequestMapping("/user")
 public class UserProfileController {
 
     @Autowired
@@ -42,20 +41,6 @@ public class UserProfileController {
         model.addAttribute("ratings", ratings);
 
         return "User/Profile"; 
-    }
-
-    @GetMapping("/user/{id}")
-    public String showProfile(@PathVariable Long id, Model model) {
-        User user = userRepository.findById(id).orElse(null);
-        if (user == null) {
-            return "redirect:/";
-        }
-        model.addAttribute("user", user);
-
-        List<Rating> ratings = ratingRepository.findRatingsByUserId(id);
-        model.addAttribute("ratings", ratings);
-
-        return "User/Profile";
     }
 
     @PostMapping("/profile/update")
@@ -94,28 +79,23 @@ public class UserProfileController {
         return "redirect:/profile";
     }
 
-
+    // /profile/ delete
 
     /*
-    @PostMapping("/profile/update")
-    public String updateUser(@AuthenticationPrincipal User currentUser, @Valid @ModelAttribute User updatedUser, BindingResult result) {
-        if (result.hasErrors()) {
-            //gère avec thymelead l'affichage des erreurs 
-            return "profile/update"; 
+    // See others profiles ?
+    @GetMapping("/user/{id}")
+    public String showProfile(@PathVariable Long id, Model model) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            return "redirect:/";
         }
-        currentUser.setUsername(updatedUser.getUsername());
-        currentUser.setEmail(updatedUser.getEmail());
-        userRepository.save(currentUser);
-        return "redirect:/user/profile";
-    }
+        model.addAttribute("user", user);
 
+        List<Rating> ratings = ratingRepository.findRatingsByUserId(id);
+        model.addAttribute("ratings", ratings);
 
-    @PostMapping("/profile/delete")
-    //à faire : gérer le fait que quand l'user delete son profil il est auto déconnecté 
-    public String deleteUser(@PathVariable("id") Long id) {
-        userRepository.deleteById(id);
-        //redirect page d'accueil
-        return "redirect:/";
+        return "User/Profile";
     }
     */
+
 }
