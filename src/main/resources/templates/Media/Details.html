@@ -47,9 +47,86 @@
                         <span th:text="${isInFavorite ? 'Remove from Favorites' : 'Add to Favorites'}"></span>
                     </button>
                 </form>
+
+
+                
+                <div>
+                    <button th:if="${existingRating == null}" 
+                            onclick="toggleRatingModal()" 
+                            class="bg-customPink text-white px-6 py-2 rounded-full hover:scale-105 transition-transform">
+                        Add Rating
+                    </button>
+                
+                    <form th:if="${existingRating != null}" 
+                          th:action="@{/media/{id}/toggle-rating(id=${media.id})}" 
+                          method="post">
+                        <button type="submit" 
+                            class="bg-customPink text-white px-6 py-2 rounded-full hover:scale-105 transition-transform">
+                            Delete Rating
+                        </button>
+                    </form>
+                    <script>
+                        function toggleRatingModal() {
+                            const modal = document.getElementById('ratingModal');
+                            modal.classList.toggle('hidden');
+                            modal.classList.toggle('opacity-0');  
+                            modal.classList.toggle('opacity-100');
+                            modal.classList.toggle('pointer-events-none');  
+                        }
+                    
+                        document.addEventListener('DOMContentLoaded', function() {
+                            document.getElementById('ratingModal').addEventListener('click', function(event) {
+                                if (event.target === this) {
+                                    toggleRatingModal();
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+                
             </div>
             
-                  
+            <!-- Rating Modal -->
+            <div id="ratingModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50 pointer-events-none transition-opacity duration-300">
+                <div class="bg-customGray text-white rounded-lg p-6 w-96 shadow-lg">
+                    <h2 class="text-xl font-bold mb-6 text-customPink text-center">Add Your Rating</h2>
+                    <form id="ratingForm" th:action="@{/media/{id}/toggle-rating(id=${media.id})}" method="post" class="flex flex-col space-y-4">
+                        <!-- Rating -->
+                        <div>
+                            <label for="rating" class="block text-customPink mb-1">Your Rating (out of 5)</label>
+                            <select id="rating" name="rating" class="bg-customLightGray p-2 rounded w-full text-white">
+                                <option value="1">1 - Poor</option>
+                                <option value="2">2 - Fair</option>
+                                <option value="3">3 - Good</option>
+                                <option value="4">4 - Very Good</option>
+                                <option value="5">5 - Excellent</option>
+                            </select>
+                        </div>
+
+                        <!-- Comment -->
+                        <div>
+                            <label for="comment" class="block text-customPink mb-1">Your Comment</label>
+                            <textarea id="comment" name="comment" rows="3" 
+                                    class="bg-customLightGray p-2 rounded w-full text-white" 
+                                    placeholder="Share your thoughts..."></textarea>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="flex justify-center gap-6">
+                            <button type="button" onclick="toggleRatingModal()" 
+                                    class="border border-customPink bg-customLightGray text-customPink px-4 py-2 rounded hover:bg-customPink hover:text-customLightGray transition-all">
+                                Close
+                            </button>
+                            <button type="submit" 
+                                    class="bg-customPink px-4 py-2 rounded text-white hover:scale-105 transition-transform">
+                                Validate
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
 
             <!-- Media Infos -->
             <div class="flex justify-center mb-6">
@@ -90,15 +167,26 @@
 
 
             <!-- Ratings -->
-            <div class="mb-8">
+            <div class="my-8">
                 <h2 class="text-xl font-semibold mb-4 text-customPink">Ratings</h2>
-                <ul class="space-y-4">
-                    <li th:each="rating : ${ratings}" class="flex flex-col bg-gray-50 p-4 rounded-lg shadow-sm">
-                        <p><strong class="text-customPink" th:text="${rating.user.username}">User</strong>: <span th:text="${rating.rating}">Rating</span>/5</p>
-                        <p th:text="${rating.comment}" class="text-gray-600"></p>
-                        <p><small th:text="${rating.date}">Date</small></p>
-                    </li>
-                </ul>
+                <div class="overflow-x-auto scroll-smooth no-scrollbar">
+                    <div class="flex space-x-4">
+                        <div th:if="${#lists.isEmpty(ratings)}" class="text-gray-400">
+                            No ratings yet. Be the first to add your review!
+                        </div>
+                        <div th:each="rating : ${ratings}" 
+                            class="bg-customLightGray p-4 rounded-lg shadow w-80 flex-shrink-0 no-scrollbar">
+                            <div class="flex justify-between items-center">
+                                <p class="text-customPink font-bold" th:text="${rating.user.username}"></p>
+                                <p class="text-customPink font-bold" th:text="${rating.rating} + ' / 5'"></p>
+                            </div>
+                            <p class="text-gray-400 text-sm" th:text="${rating.date}"></p>
+                            <div class="overflow-y-auto max-h-24 no-scrollbar mt-4">
+                                <p class="text-white italic" th:text="${rating.comment}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>

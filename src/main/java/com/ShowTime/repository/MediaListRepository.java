@@ -23,6 +23,7 @@ public interface MediaListRepository extends JpaRepository<MediaList, Long> {
     // Retourne toutes les listes d'un User
     List<MediaList> findByUser(User user);
 
+    // Recherche si le media existe au moins une fois dans la liste de l'user
     @Query("SELECT CASE WHEN COUNT(ml) > 0 THEN TRUE ELSE FALSE END " +
             "FROM MediaList ml JOIN ml.mediaList m " +
             "WHERE ml.user = :user AND m = :media AND ml.mediaListType = :mediaListType")

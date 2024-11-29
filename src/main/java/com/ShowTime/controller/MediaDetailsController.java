@@ -3,7 +3,9 @@ import com.ShowTime.model.*;
 import com.ShowTime.repository.*;
 import com.ShowTime.security.CustomUserDetails;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -88,6 +90,10 @@ public class MediaDetailsController {
                 model.addAttribute("isInToWatch", isInToWatch);
                 model.addAttribute("isInWatched", isInWatched);
                 model.addAttribute("isInFavorite", isInFavorite);
+
+                // Vérifier si l'utilisateur a déjà ajouté un rating pour ce média
+                Optional<Rating> existingRating = ratingRepository.findByUserIdAndMediaId(currentUser.getId(), media.getId());
+                model.addAttribute("existingRating", existingRating.orElse(null));
             }
         }
 
@@ -169,4 +175,78 @@ public class MediaDetailsController {
     }
 
     
+    /*
+    @PostMapping("media/{id}/add-rating")
+    public String addRating(@PathVariable("id") Long mediaId,
+                            @RequestParam("rating") int rating,
+                            @RequestParam("comment") String comment,
+                            @AuthenticationPrincipal CustomUserDetails customUserDetails,
+                            Model model) {
+
+        User user = userRepository.findById(customUserDetails.getUser().getId()).orElse(null);
+
+        Media media = movieRepository.findById(mediaId).orElse(null);
+        if (media == null) {
+            media = tvShowRepository.findById(mediaId).orElse(null);
+        }
+        if (media == null) {
+            return "redirect:/";
+        }
+
+        // Création de l'objet Rating
+        Rating newRating = new Rating(user, media, rating, comment);
+        newRating.setDate(LocalDate.now());
+
+        // Sauvegarde dans la base de données
+        ratingRepository.save(newRating);
+
+        // Redirection vers la page des détails du média
+        return "redirect:/media/" + mediaId;
+    }
+
+    @PostMapping("media/{id}/delete-rating")
+    public String deleteRating(@PathVariable("id") Long mediaId,
+                            @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+
+        Long userId = customUserDetails.getUser().getId();
+
+        // Trouver et supprimer le rating existant
+        Optional<Rating> existingRating = ratingRepository.findByUserIdAndMediaId(userId, mediaId);
+        existingRating.ifPresent(ratingRepository::delete);
+
+        // Redirection vers la page des détails du média
+        return "redirect:/media/" + mediaId;
+    }
+    */
+
+    @PostMapping("/media/{id}/toggle-rating")
+    public String toggleRating(@PathVariable("id") Long mediaId,
+                            @RequestParam("rating") Optional<Integer> rating,
+                            @RequestParam("comment") Optional<String> comment,
+                            @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+
+        Long userId = customUserDetails.getUser().getId();
+        User user = userRepository.findById(userId).orElse(null);
+        Media media = movieRepository.findById(mediaId).orElse(null);
+
+        if (media == null) {
+            media = tvShowRepository.findById(mediaId).orElse(null);
+        }
+        if (media == null || user == null) {
+            return "redirect:/";
+        }
+
+        Optional<Rating> existingRating = ratingRepository.findByUserIdAndMediaId(userId, mediaId);
+
+        if (existingRating.isPresent()) {
+            ratingRepository.delete(existingRating.get());
+        } else if (rating.isPresent() && comment.isPresent()) {
+            Rating newRating = new Rating(user, media, rating.get(), comment.get());
+            newRating.setDate(LocalDate.now());
+            ratingRepository.save(newRating);
+        }
+
+        return "redirect:/media/" + mediaId;
+    }
+
 }
