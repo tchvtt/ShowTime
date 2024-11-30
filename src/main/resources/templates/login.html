@@ -20,11 +20,13 @@
             <button type="submit" class="w-52 bg-customPink text-white p-2 rounded-full font-semibold hover:scale-105 transition-transform mb-4">Login</button>
         </form>
         
-        <div th:if="${param.error}" class="mt-4">
-            <p class="text-red-500">Login failed. Please check your credentials.</p>
+        <div th:if="${error}" class="my-4">
+            <p class="text-red-500">Incorrect username or password. <br>Please try again.</p>
         </div>
-        
-        <div th:if="${param.logout}" class="mt-4">
+        <div th:if="${registrationSuccess}" class="my-4">
+            <p class="text-green-500">Account created successfully. <br>You can now log in.</p>
+        </div>
+        <div th:if="${param.logout}" class="my-4">
             <p class="text-green-500">You have been successfully logged out.</p>
         </div>
         

@@ -649,6 +649,11 @@ video {
   margin-bottom: 8rem;
 }
 
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 .my-8 {
   margin-top: 2rem;
   margin-bottom: 2rem;
