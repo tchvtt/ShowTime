@@ -1,11 +1,13 @@
 package com.ShowTime.controller;
 
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ShowTime.model.Movie;
@@ -36,4 +38,29 @@ public class DiscoverController {
             return "redirect:/discover"; 
         }
     }
+
+    
+    
+    @GetMapping("category/{genre}")
+    public String getMediaByGenre(@PathVariable String genre, Model model) {
+        List<Movie> moviesByGenre = movieRepository.findByGenreIgnoreCase(genre);
+        List<TVShow> tvShowsByGenre = tvShowRepository.findByGenreIgnoreCase(genre);
+
+        if ("sci-fi-fantasy".equalsIgnoreCase(genre)) {
+            moviesByGenre = movieRepository.findByGenreIgnoreCase("Science Fiction");
+            tvShowsByGenre = tvShowRepository.findByGenreIgnoreCase("Sci-Fi & Fantasy");
+        }
+        else if ("action".equalsIgnoreCase(genre)) {
+            moviesByGenre = movieRepository.findByGenreIgnoreCase("Adventure");
+            tvShowsByGenre = tvShowRepository.findByGenreIgnoreCase("Action & Adventure");
+        }
+
+        model.addAttribute("genre", genre);
+        model.addAttribute("movies", moviesByGenre);
+        model.addAttribute("tvShows", tvShowsByGenre);
+
+        return "Discover/genre";
+    }
+    
+    
 }

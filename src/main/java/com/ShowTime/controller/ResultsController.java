@@ -38,6 +38,6 @@ public class ResultsController {
         model.addAttribute("actors", actors);
         model.addAttribute("query", query);
 
-        return "searchresults";  // Le nom de la vue Thymeleaf
+        return "Discover/searchresults"; 
     }
 }

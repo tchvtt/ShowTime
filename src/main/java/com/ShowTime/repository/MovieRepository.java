@@ -17,4 +17,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     @Query(value = "SELECT id FROM media ORDER BY RAND() LIMIT 1", nativeQuery = true)
     Long findRandomMediaId();
 
+    List<Movie> findByGenreIgnoreCase(String genre);
+
 }
