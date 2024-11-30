@@ -53,19 +53,26 @@
                     if (!response.ok) throw new Error('Failed to fetch results');
                     const results = await response.json();
         
-                    // Construire le HTML des résultats
+                    // Construire le HTML des résultats avec images
                     if (results.length === 0) {
                         autocompleteResults.innerHTML = `<div class="p-2 text-gray-400">No results found</div>`;
                     } else {
                         autocompleteResults.innerHTML = results.map(result => {
-                            // Vérifier le type pour ajuster l'URL
                             const url = (result.type === 'movie' || result.type === 'tvshow') 
                                 ? `/media/${result.id}` 
                                 : `/${result.type}/${result.id}`;
                             
+                            const imageUrl = result.posterURL || '/assets/default-poster.png'; // Default image if none exists
                             return `
-                                <div class="p-2 hover:bg-customPink cursor-pointer" onclick="window.location.href='${url}'">
-                                    ${result.type === 'actor' ? result.name : result.title} (${result.type})
+                                <div class="p-2 group flex items-center gap-4 hover:bg-customPink hover:text-customGray cursor-pointer" onclick="window.location.href='${url}'">
+                                    <img src="${imageUrl}" alt="${result.type === 'actor' ? result.name : result.title}" 
+                                        class="w-10 h-10 rounded object-cover">
+                                    <div>
+                                        <div class="font-semibold">
+                                            ${result.type === 'actor' ? result.name : result.title}
+                                        </div>
+                                        <div class="text-sm text-gray-400 group-hover:text-customGray">${result.type.charAt(0).toUpperCase() + result.type.slice(1)}</div>
+                                    </div>
                                 </div>
                             `;
                         }).join('');
@@ -76,14 +83,14 @@
                 }
             });
         
-            // Masquer les résultats lorsque le champ perd le focus
             searchInput.addEventListener('blur', () => {
                 setTimeout(() => {
                     autocompleteResults.classList.add('hidden');
-                }, 200); // Donne un peu de temps pour cliquer sur les suggestions
+                }, 200); 
             });
         </script>        
     </section>
+    
     
 
 
@@ -117,16 +124,11 @@
         <p class="text-gray-300 text-lg mb-6">
             Not sure what to watch? Let us pick something random for you!
         </p>
-        <button onclick="goToRandomMedia()" 
+        <button onclick="window.location.href='/surprise-me'" 
                 class="bg-customPink px-6 py-3 rounded text-white hover:scale-105 transition-transform">
             Surprise Me!
         </button>
     </section>
-    <script>
-        function goToRandomMedia() {
-            window.location.href = '/random-media'; // A FINIR
-        }
-    </script>
     
     <section class="categories py-12 bg-customGray">
         <h2 class="text-3xl font-bold text-center text-customPink mb-8">Browse by Categories</h2>
@@ -151,30 +153,6 @@
         </div>
     </section>
     
-    
-    
-    <!--
-    <div class="container">
-        <h1>Discover</h1>
-        <section>
-            <h2>Popular Movies</h2>
-            <ul class="media-list">
-                <li th:each="movie : ${popularMovies}" class="media-item">
-                    <a th:href="@{/media/{id}(id=${movie.id})}"><p th:text="${movie.title}">Titre du film</p></a>
-                </li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Popular TV Shows</h2>
-            <ul class="media-list">
-                <li th:each="tvshow : ${popularTVShows}" class="media-item">
-                    <a th:href="@{/media/{id}(id=${tvshow.id})}"><p th:text="${tvshow.title}">Titre de la série</p></a>
-                </li>
-            </ul>
-        </section>
-    </div>
-    -->
 
     <!-- Insertion du Footer -->
     <div th:replace="~{Components/Footer :: footer}"></div>

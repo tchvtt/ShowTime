@@ -1,11 +1,12 @@
 package com.ShowTime.controller;
 
-import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ShowTime.model.Movie;
 import com.ShowTime.model.TVShow;
@@ -22,15 +23,17 @@ public class DiscoverController {
 
     @GetMapping("/discover")
     public String showIndex(Model model) {
-        /*
-        List<Movie> popularMovies = movieRepository.findAll();
-        List<TVShow> popularTVShows = tvShowRepository.findAll();
-        
-        model.addAttribute("popularMovies", popularMovies);
-        model.addAttribute("popularTVShows", popularTVShows);
-        System.out.println("Nombre de films trouvés : " + popularMovies.size());
-        System.out.println("Nombre de séries trouvées : " + popularTVShows.size());
-        */
+
         return "discover"; 
+    }
+
+    @GetMapping("/surprise-me")
+    public String surpriseMe() {
+        try {
+            Long randomId = movieRepository.findRandomMediaId();
+            return "redirect:/media/" + randomId;
+        } catch (Exception e) {
+            return "redirect:/discover"; 
+        }
     }
 }

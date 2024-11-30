@@ -5,6 +5,7 @@ import com.ShowTime.model.TVShow;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 public interface TVShowRepository extends JpaRepository<TVShow, Long> {
 
@@ -12,5 +13,8 @@ public interface TVShowRepository extends JpaRepository<TVShow, Long> {
     TVShow findTVShowByTmdbID(int tmdbID);
 
     List<TVShow> findByTitleContainingIgnoreCase(String title);
+
+    @Query(value = "SELECT id FROM media ORDER BY RAND() LIMIT 1", nativeQuery = true)
+    Long findRandomMediaId();
 
 }

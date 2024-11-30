@@ -39,6 +39,7 @@ public class SearchController {
             movieResult.put("type", "movie");
             movieResult.put("id", movie.getId());
             movieResult.put("title", movie.getTitle());
+            movieResult.put("posterURL", movie.getPosterURL());
             results.add(movieResult);
         });
 
@@ -48,6 +49,7 @@ public class SearchController {
             tvShowResult.put("type", "tvshow");
             tvShowResult.put("id", tvShow.getId());
             tvShowResult.put("title", tvShow.getTitle());
+            tvShowResult.put("posterURL", tvShow.getPosterURL());   
             results.add(tvShowResult);
         });
 
@@ -57,6 +59,7 @@ public class SearchController {
             actorResult.put("type", "actor");
             actorResult.put("id", actor.getId());
             actorResult.put("name", actor.getName());
+            actorResult.put("posterURL", actor.getPosterURL());   
             results.add(actorResult);
         });
 
