@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ShowTime - Search Results</title>
+    <link th:href="@{/main.css}" rel="stylesheet" />
+    <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
+</head>
+<body class="bg-customGray text-white">
+    <!-- Header -->
+    <div th:replace="~{Components/Header :: header}"></div>
+
+    <div class="w-4/5 mx-auto">
+        <div class="text-center py-6 my-20">
+            <h1 class="text-4xl font-bold text-customPink mb-4">Search Results for "<span th:text="${query}"></span>"</h1>
+            <p class="text-lg text-gray-400">Here are the results for your search query!</p>
+        </div>
+
+        <!-- Movies -->
+        <div class="bg-customGray py-10">
+            <h2 class="text-3xl text-center text-customPink mb-4">Movies</h2>
+            <ul class="grid grid-cols-2 md:grid-cols-4 gap-6 px-6">
+                <li th:each="movie : ${movies}">
+                    <a th:href="@{/media/{id}(id=${movie.id})}" 
+                       class="movie-title text-center block text-white mb-2 transition-colors duration-300 ease-in-out hover:!text-customPink">
+                        <img th:src="@{${movie.posterURL}}" alt="Poster of ${movie.title}" class="rounded-lg" loading="lazy" />
+                        <div th:text="${movie.title}" class="mt-2"></div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- TV Shows -->
+        <div class="bg-customGray py-10">
+            <h2 class="text-3xl text-center text-customPink mb-4">TV Shows</h2>
+            <ul class="grid grid-cols-2 md:grid-cols-4 gap-6 px-6">
+                <li th:each="tvShow : ${tvShows}">
+                    <a th:href="@{/media/{id}(id=${tvShow.id})}" 
+                       class="tv-show-title text-center block text-white mb-2 transition-colors duration-300 ease-in-out hover:!text-customPink">
+                        <img th:src="@{${tvShow.posterURL}}" alt="Poster of ${tvShow.title}" class="rounded-lg" loading="lazy" />
+                        <div th:text="${tvShow.title}" class="mt-2"></div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Actors -->
+        <div class="bg-customGray py-10">
+            <h2 class="text-3xl text-center text-customPink mb-4">Actors</h2>
+            <ul class="grid grid-cols-2 md:grid-cols-4 gap-6 px-6">
+                <li th:each="actor : ${actors}">
+                    <a th:href="@{/actor/{id}(id=${actor.id})}" 
+                       class="actor-name text-center block text-white mb-2 transition-colors duration-300 ease-in-out hover:!text-customPink">
+                        <img th:src="@{${actor.posterURL}}" alt="Picture of ${actor.name}" class="rounded-lg" loading="lazy" />
+                        <div th:text="${actor.name}" class="mt-2"></div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="~{Components/Footer :: footer}"></div>
+</body>
+</html>

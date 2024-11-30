@@ -22,4 +22,6 @@ public interface ActorRepository extends JpaRepository<Actor, Long> {
     
     @Query("SELECT m FROM Media m JOIN m.actors a WHERE a.id = :actorId")
     List<Media> findMediaByActorId(@Param("actorId") Long actorId);
+
+    List<Actor> findByNameContainingIgnoreCase(String name);
 }

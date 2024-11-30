@@ -5,6 +5,7 @@
     <title>ShowTime - Discover</title>
     <link th:href="@{/main.css}" rel="stylesheet" />
     <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body class="bg-customGray">
     <!-- Insertion du Header -->
@@ -17,12 +18,75 @@
         </p>
     </section>
 
+    <!--
     <section class="search-bar py-6 bg-customGray">
         <div class="max-w-xl mx-auto bg-customLightGray">
             <input type="text" placeholder="Search for movies, series, or actors..." 
                    class="w-full p-4 rounded border text-white bg-customLightGray border-customPink focus:outline-none focus:ring-2 focus:ring-customPink" />
         </div>
+    </section>-->
+    <section class="search-bar py-6 bg-customGray">
+        <div class="max-w-xl mx-auto bg-customLightGray relative">
+            <form action="/search/results" method="get" class="relative">
+                <input id="searchInput" type="text" name="q" placeholder="Search for movies, series, or actors..."
+                    class="w-full p-4 rounded border text-white bg-customLightGray border-customPink focus:outline-none focus:ring-2 focus:ring-customPink pr-16" />
+                <button type="submit" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-customPink">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            <div id="autocompleteResults" class="absolute w-full bg-customLightGray text-white mt-2 rounded hidden shadow-lg z-10 max-h-60 overflow-y-auto no-scrollbar"></div>
+        </div>        
+        <script>
+            const searchInput = document.getElementById('searchInput');
+            const autocompleteResults = document.getElementById('autocompleteResults');
+        
+            searchInput.addEventListener('input', async () => {
+                const query = searchInput.value.trim();
+                if (query.length < 2) {
+                    autocompleteResults.innerHTML = '';
+                    autocompleteResults.classList.add('hidden');
+                    return;
+                }
+        
+                try {
+                    const response = await fetch(`/search?q=${encodeURIComponent(query)}`);
+                    if (!response.ok) throw new Error('Failed to fetch results');
+                    const results = await response.json();
+        
+                    // Construire le HTML des résultats
+                    if (results.length === 0) {
+                        autocompleteResults.innerHTML = `<div class="p-2 text-gray-400">No results found</div>`;
+                    } else {
+                        autocompleteResults.innerHTML = results.map(result => {
+                            // Vérifier le type pour ajuster l'URL
+                            const url = (result.type === 'movie' || result.type === 'tvshow') 
+                                ? `/media/${result.id}` 
+                                : `/${result.type}/${result.id}`;
+                            
+                            return `
+                                <div class="p-2 hover:bg-customPink cursor-pointer" onclick="window.location.href='${url}'">
+                                    ${result.type === 'actor' ? result.name : result.title} (${result.type})
+                                </div>
+                            `;
+                        }).join('');
+                    }
+                    autocompleteResults.classList.remove('hidden');
+                } catch (error) {
+                    console.error('Error fetching autocomplete results:', error);
+                }
+            });
+        
+            // Masquer les résultats lorsque le champ perd le focus
+            searchInput.addEventListener('blur', () => {
+                setTimeout(() => {
+                    autocompleteResults.classList.add('hidden');
+                }, 200); // Donne un peu de temps pour cliquer sur les suggestions
+            });
+        </script>        
     </section>
+    
+
+
 
     <section class="featured py-12">
         <h2 class="text-3xl font-bold text-center text-customPink mb-8">Featured Media</h2>
