@@ -24,7 +24,7 @@ Easily manage your watched, to-watch, and favorite lists while discovering the l
 
 ### Prerequisites
 - Java 17
-- Maven 3.8+
+- Maven 3.5+
 - An IDE (VSCode recommended)
 - A web browser (Google Chrome recommended)
 
@@ -33,7 +33,10 @@ Easily manage your watched, to-watch, and favorite lists while discovering the l
    ```bash
    git clone https://github.com/tchvtt/ShowTime.git
 
-2. Install dependencies :
+#### Option 1 :
+2. Open the cloned repository :
+   ```bash
+   cd ShowTime
 
 3. Start the application:
    ```bash
@@ -44,6 +47,61 @@ Easily manage your watched, to-watch, and favorite lists while discovering the l
    http://localhost:8080
 
 5. You're done !
+
+#### Option 2 : 
+2. Open the projet in your IDE (like VSCode)
+
+3. Navigate to src/main/java/com/ShowTime
+
+4. Run ShowTimeApplication.java
+
+5. Open your browser and go to:
+   ```bash
+   http://localhost:8080
+
+6. You're done !
+
+
+### If not installed, open a terminal : 
+
+#### Java 17
+Make sure Java 17 is installed by running :
+```bash
+java-version  
+```
+
+The output should show Java version 17 or higher.
+If it's not installed, you can install Java 17 with:
+```bash
+sudo apt update
+sudo apt install openjdk-17-jdk
+```
+
+To verify the installation:
+```bash
+java-version  
+```
+
+#### Maven 3.5+
+Check if Maven is installed by running:
+```bash
+mvn -v
+```
+
+The output should show Maven version 3.5 or higher.
+If Maven is not installed, you can install it with:
+```bash
+sudo apt install maven
+```
+
+To verify the installation:
+```bash
+mvn -v
+```
+
+You should be able to start the project now !
+
+
 
 
 
