@@ -12,6 +12,9 @@ public enum MediaListType {
     POPULAR("Popular"),
     TOP_RATED("Top Rated"),
     TRENDING("Trending"),
+    FEATURED("Featured"),
+    RECOMMENDED("Recommended"),
+    NEW_RELEASES("New Releases"),
 
     // Actors' lists
     ACTOR("Actor");

@@ -292,10 +292,6 @@ import javax.naming.AuthenticationException;
         }
         MediaListRepository.save(trendingMovies);
 
-        for (Movie currentMovie : movieRepository.findAll()) {
-            allMovies.getMediaList().add(currentMovie);
-        }
-        MediaListRepository.save(allMovies);
 
     }
     public static void fillTVShowDatabase(MediaListRepository MediaListRepository, TVShowRepository tvShowRepository, ActorRepository actorRepository, MediaList topRatedTVShows, MediaList popularTVShows, MediaList trendingTVShows, MediaList allTVShows) {
@@ -325,6 +321,57 @@ import javax.naming.AuthenticationException;
             trendingTVShows.getMediaList().add(currentTVShow);
         }
         MediaListRepository.save(trendingTVShows);
+    }
+
+    public static void fillDiscover(MediaListRepository MediaListRepository, MediaList featured, MediaList recommended, MediaList new_releases, MediaList allMovies, MediaList allTVShows, MovieRepository movieRepository, TVShowRepository tvShowRepository, ActorRepository actorRepository){
+        LinkedHashSet<Movie> newReleasesMovieSet;
+        LinkedHashSet<Movie> featuredMovieSet;
+        LinkedHashSet<Movie> recommendedMovieSet;
+        LinkedHashSet<TVShow> newReleasesTVSet;
+        LinkedHashSet<TVShow> featuredTVSet;
+        LinkedHashSet<TVShow> recommendedTVSet;
+
+        newReleasesMovieSet = getMovieListEndpointPageN(7, getTopRatedMovieEndpoint(), movieRepository, actorRepository);
+        featuredMovieSet = getMovieListEndpointPageN(8, getTopRatedMovieEndpoint(), movieRepository, actorRepository);
+        recommendedMovieSet = getMovieListEndpointPageN(9, getTopRatedMovieEndpoint(), movieRepository, actorRepository);
+        newReleasesTVSet = getTVShowListEndpointPageN(7, getTopRatedTVShowEndpoint(), tvShowRepository, actorRepository);
+        featuredTVSet = getTVShowListEndpointPageN(8, getTopRatedTVShowEndpoint(), tvShowRepository, actorRepository);
+        recommendedTVSet = getTVShowListEndpointPageN(9, getTopRatedTVShowEndpoint(), tvShowRepository, actorRepository);
+
+        for (Movie currentMovie : newReleasesMovieSet) {
+            new_releases.getMediaList().add(currentMovie);
+        }
+        MediaListRepository.save(new_releases);
+
+        for (Movie currentMovie : featuredMovieSet) {
+            featured.getMediaList().add(currentMovie);
+        }
+        MediaListRepository.save(featured);
+
+        for (Movie currentMovie : recommendedMovieSet) {
+            recommended.getMediaList().add(currentMovie);
+        }
+        MediaListRepository.save(recommended);
+
+        for (TVShow currentTVShow : newReleasesTVSet) {
+            new_releases.getMediaList().add(currentTVShow);
+        }
+        MediaListRepository.save(new_releases);
+
+        for (TVShow currentTVShow : featuredTVSet) {
+            featured.getMediaList().add(currentTVShow);
+        }
+        MediaListRepository.save(featured);
+
+        for (TVShow currentTVShow : recommendedTVSet) {
+            recommended.getMediaList().add(currentTVShow);
+        }
+        MediaListRepository.save(recommended);
+
+        for (Movie currentMovie : movieRepository.findAll()) {
+            allMovies.getMediaList().add(currentMovie);
+        }
+        MediaListRepository.save(allMovies);
 
         for (TVShow currentTVShow : tvShowRepository.findAll()) {
             allTVShows.getMediaList().add(currentTVShow);

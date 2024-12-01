@@ -59,8 +59,13 @@ public class ShowTimeApplication implements CommandLineRunner{
         MediaList allTVShows = new MediaList("All TVShows",MediaListType.ALL,MediaType.TV_SHOW);
 
 
+        MediaList featured = new MediaList("Featured",MediaListType.FEATURED,MediaType.ANY);
+        MediaList recommended = new MediaList("Recommended",MediaListType.RECOMMENDED,MediaType.ANY);
+        MediaList newReleases = new MediaList("New Releases",MediaListType.NEW_RELEASES,MediaType.ANY);
+
         //TMDBApiClient.fillMovieDatabase(mediaListRepository,movieRepository,actorRepository,topRatedMovies,popularMovies,trendingMovies,allMovies);
         //TMDBApiClient.fillTVShowDatabase(mediaListRepository,tvshowRepository,actorRepository,topRatedTVShows,popularTVShows,trendingTVShows,allTVShows);
+        //TMDBApiClient.fillDiscover(mediaListRepository,featured,recommended,newReleases,allMovies,allTVShows,movieRepository,tvshowRepository,actorRepository);
 
     }
 }
