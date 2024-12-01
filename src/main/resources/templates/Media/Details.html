@@ -6,6 +6,7 @@
     <title th:text="${media.title} + ' - ShowTime'">Media Details - ShowTime</title>
     <link th:href="@{/main.css}" rel="stylesheet" />
     <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 <body class="bg-customGray font-sans text-white">
     <!-- Header -->
@@ -93,22 +94,33 @@
                     <form id="ratingForm" th:action="@{/media/{id}/toggle-rating(id=${media.id})}" method="post" class="flex flex-col space-y-4">
                         <!-- Rating -->
                         <div>
-                            <label for="rating" class="block text-customPink mb-1">Your Rating (out of 5)</label>
-                            <select id="rating" name="rating" class="bg-customLightGray p-2 rounded w-full text-white">
-                                <option value="1">1 - Poor</option>
-                                <option value="2">2 - Fair</option>
-                                <option value="3">3 - Good</option>
-                                <option value="4">4 - Very Good</option>
-                                <option value="5">5 - Excellent</option>
-                            </select>
+                            <!--<label for="rating" class="block text-customPink mb-1">Your Rating (out of 5)</label>-->
+                            <div class="flex justify-center space-x-2" id="star-rating">
+                                <svg class="w-8 h-8 text-gray-500 stroke-customPink cursor-pointer" data-value="1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25l2.645 6.48 7.105.685-5.377 4.78 1.96 6.62-6.333-3.713-6.333 3.713 1.96-6.62L2.25 9.415l7.105-.685L12 2.25z" />
+                                </svg>
+                                <svg class="w-8 h-8 text-gray-500 stroke-customPink cursor-pointer" data-value="2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25l2.645 6.48 7.105.685-5.377 4.78 1.96 6.62-6.333-3.713-6.333 3.713 1.96-6.62L2.25 9.415l7.105-.685L12 2.25z" />
+                                </svg>
+                                <svg class="w-8 h-8 text-gray-500 stroke-customPink cursor-pointer" data-value="3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25l2.645 6.48 7.105.685-5.377 4.78 1.96 6.62-6.333-3.713-6.333 3.713 1.96-6.62L2.25 9.415l7.105-.685L12 2.25z" />
+                                </svg>
+                                <svg class="w-8 h-8 text-gray-500 stroke-customPink cursor-pointer" data-value="4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25l2.645 6.48 7.105.685-5.377 4.78 1.96 6.62-6.333-3.713-6.333 3.713 1.96-6.62L2.25 9.415l7.105-.685L12 2.25z" />
+                                </svg>
+                                <svg class="w-8 h-8 text-gray-500 stroke-customPink cursor-pointer" data-value="5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25l2.645 6.48 7.105.685-5.377 4.78 1.96 6.62-6.333-3.713-6.333 3.713 1.96-6.62L2.25 9.415l7.105-.685L12 2.25z" />
+                                </svg>
+                            </div>
+                            <input type="hidden" id="rating" name="rating" value="0" />
                         </div>
 
                         <!-- Comment -->
                         <div>
-                            <label for="comment" class="block text-customPink mb-1">Your Comment</label>
+                            <!--<label for="comment" class="block text-customPink mb-1">Your Comment</label>-->
                             <textarea id="comment" name="comment" rows="3" 
-                                    class="bg-customLightGray p-2 rounded w-full text-white" 
-                                    placeholder="Share your thoughts..."></textarea>
+                                    class="bg-customLightGray p-2 rounded w-full h-32 max-h-32 text-white" 
+                                    placeholder="Share your thoughts..." required></textarea>
                         </div>
 
                         <!-- Buttons -->
@@ -125,6 +137,30 @@
                     </form>
                 </div>
             </div>
+
+            <!-- Script pour les étoiles -->
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    const stars = document.querySelectorAll("#star-rating svg");
+                    const ratingInput = document.querySelector("#rating");
+                    stars.forEach((star, index) => {
+                        star.addEventListener("click", () => {
+                            const ratingValue = parseInt(star.getAttribute("data-value"));
+                            ratingInput.value = ratingValue;
+                            stars.forEach((s, i) => {
+                                if (i < ratingValue) {
+                                    s.classList.add("fill-customPink");
+                                    s.classList.remove("text-gray-500");
+                                } else {
+                                    s.classList.remove("fill-customPink");
+                                    s.classList.add("text-gray-500");
+                                }
+                            });
+                        });
+                    });
+                });
+            </script>
+
 
 
 
@@ -192,11 +228,11 @@
                 <h2 class="text-xl font-semibold mb-4 text-customPink">Actors</h2>
                 <div class="flex flex-wrap justify-start gap-6">
                     <div th:each="actor : ${media.actors}" class="flex flex-col items-center w-24">
-                        <a th:href="@{/actor/{id}(id=${actor.id})}">
+                        <a th:href="@{/actor/{id}(id=${actor.id})}" class="text-center text-sm font-medium text-white transition-colors duration-300 ease-in-out hover:!text-customPink cursor-pointer group">
                             <img th:src="@{${actor.posterURL}}" alt="Poster of ${actor.name}" class="w-24 h-24 object-cover rounded-full mb-2" />
-                        </a>
-                        <a th:href="@{/actor/{id}(id=${actor.id})}" class="text-center text-sm font-medium text-white transition-colors duration-300 ease-in-out hover:!text-customPink cursor-pointer">
-                            <span th:text="${actor.name}"></span>
+                            <div th:href="@{/actor/{id}(id=${actor.id})}">
+                                <span th:text="${actor.name}"></span>
+                            </div>
                         </a>
                     </div>
                 </div>
@@ -215,7 +251,11 @@
                             class="bg-customLightGray p-4 rounded-lg shadow w-80 flex-shrink-0 no-scrollbar">
                             <div class="flex justify-between items-center">
                                 <p class="text-customPink font-bold" th:text="${rating.user.username}"></p>
-                                <p class="text-customPink font-bold" th:text="${rating.rating} + ' / 5'"></p>
+                                <div class="flex items-center">
+                                    <span th:each="i : ${#numbers.sequence(1, 5)}">
+                                        <i th:classappend="${i <= rating.rating} ? 'fas fa-star text-customPink' : 'far fa-star text-gray-400'"></i>
+                                    </span>
+                                </div>
                             </div>
                             <p class="text-gray-400 text-sm" th:text="${rating.date}"></p>
                             <div class="overflow-y-auto max-h-24 no-scrollbar mt-4">
@@ -225,6 +265,7 @@
                     </div>
                 </div>
             </div>
+            
 
         </div>
 

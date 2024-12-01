@@ -16,9 +16,10 @@ public class Rating {
     @JoinColumn(name = "app_user_id")
     private User user;
 
-    @Min(1)
+    @Column(nullable = false)
+    @Min(0)
     @Max(5) 
-    private int rating;
+    private Integer rating;
 
     private String comment;
 
