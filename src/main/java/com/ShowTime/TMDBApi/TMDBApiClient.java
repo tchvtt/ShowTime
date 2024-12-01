@@ -136,7 +136,7 @@ import javax.naming.AuthenticationException;
             actor.setName(jsonObject.optString("name","unknown"));
             actor.setBirthDate(LocalDate.parse(jsonObject.optString("birthday",LocalDate.now().toString())));
             if (jsonObject.optString("profile_path").isEmpty()) {
-                actor.setPosterURL("https://cdn4.iconfinder.com/data/icons/political-elections/50/48-512.png");
+                actor.setPosterURL("/assets/default-actor.png");
             } else {
                 actor.setPosterURL(BASE_IMAGE_URL + jsonObject.optString("profile_path"));
             }
@@ -159,7 +159,7 @@ import javax.naming.AuthenticationException;
             movie.setGenre(handleGenre(jsonObject));
             movie.setOverview(jsonObject.optString("overview","unknown"));
             if (jsonObject.optString("poster_path").isEmpty()) {
-                movie.setPosterURL("https://cdn4.iconfinder.com/data/icons/political-elections/50/48-512.png");
+                movie.setPosterURL("/assets/default-banner.png");
             } else {
                 movie.setPosterURL(BASE_IMAGE_URL + jsonObject.optString("poster_path"));
             }
@@ -192,7 +192,11 @@ import javax.naming.AuthenticationException;
             tvShow.setCompleted(jsonObject.optString("status").equals("Ended"));
             tvShow.setGenre(handleGenre(jsonObject));
             tvShow.setOverview(jsonObject.optString("overview"));
-            tvShow.setPosterURL(BASE_IMAGE_URL + jsonObject.opt("poster_path"));
+            if (jsonObject.optString("poster_path").isEmpty()) {
+                tvShow.setPosterURL("/assets/default-banner.png");
+            } else {
+                tvShow.setPosterURL(BASE_IMAGE_URL + jsonObject.optString("poster_path"));
+            }
             tvShow.setActorsID(handleActorsList(makeRequest("tv/" + tvShowID + "/aggregate_credits")));
             System.out.println("Handling cast of tv show: " + jsonObject.getString("name"));
             for (Integer currentActorID : tvShow.getActorsID()) {
