@@ -87,30 +87,48 @@
     
 
 
-
+    <div class="w-4/5 mx-auto">
     <section class="featured py-12">
         <h2 class="text-3xl font-bold text-center text-customPink mb-8">Featured Media</h2>
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-6xl mx-auto">
-
-            
+        <div class="overflow-x-auto scroll-smooth no-scrollbar scrollable-div">
+            <ul id="featured-media" class="flex py-2.5">
+                <li th:each="media : ${featured.mediaList}" class="min-w-40 mx-4">
+                    <a th:href="@{/media/{id}(id=${media.id})}">
+                        <img th:src="@{${media.posterURL}}" alt="Poster of ${media.title}" 
+                            class="w-40 h-60 object-cover rounded-lg transition-transform duration-300 ease-in-out hover:scale-105" loading="lazy" />
+                    </a>
+                </li>
+            </ul>
         </div>
     </section>
-
-    <section class="featured py-12">
+    
+    <section class="recommended py-12">
         <h2 class="text-3xl font-bold text-center text-customPink mb-8">Our Recommendations</h2>
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-6xl mx-auto">
-
-            
+        <div class="overflow-x-auto scroll-smooth no-scrollbar scrollable-div">
+            <ul id="recommended-media" class="flex py-2.5">
+                <li th:each="media : ${recommended.mediaList}" class="min-w-40 mx-4">
+                    <a th:href="@{/media/{id}(id=${media.id})}">
+                        <img th:src="@{${media.posterURL}}" alt="Poster of ${media.title}" 
+                            class="w-40 h-60 object-cover rounded-lg transition-transform duration-300 ease-in-out hover:scale-105" loading="lazy" />
+                    </a>
+                </li>
+            </ul>
         </div>
     </section>
-
-    <section class="featured py-12">
+    
+    <section class="new-releases py-12">
         <h2 class="text-3xl font-bold text-center text-customPink mb-8">New Releases</h2>
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-6xl mx-auto">
-
-            
+        <div class="overflow-x-auto scroll-smooth no-scrollbar scrollable-div">
+            <ul id="new-releases-media" class="flex py-2.5">
+                <li th:each="media : ${newReleases.mediaList}" class="min-w-40 mx-4">
+                    <a th:href="@{/media/{id}(id=${media.id})}">
+                        <img th:src="@{${media.posterURL}}" alt="Poster of ${media.title}" 
+                            class="w-40 h-60 object-cover rounded-lg transition-transform duration-300 ease-in-out hover:scale-105" loading="lazy" />
+                    </a>
+                </li>
+            </ul>
         </div>
-    </section>
+    </section>    
 
     <section class="surprise-me py-12 bg-customGray text-center">
         <h2 class="text-3xl font-bold text-customPink mb-4">Feeling Adventurous?</h2>
@@ -122,6 +140,7 @@
             Surprise Me!
         </button>
     </section>
+    </div>
     
     <section class="categories py-12 bg-customGray">
         <h2 class="text-3xl font-bold text-center text-customPink mb-8">Browse by Categories</h2>

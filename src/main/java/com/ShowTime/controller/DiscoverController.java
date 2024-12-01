@@ -8,8 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.ShowTime.model.MediaList;
+import com.ShowTime.model.MediaListType;
+import com.ShowTime.model.MediaType;
 import com.ShowTime.model.Movie;
 import com.ShowTime.model.TVShow;
+import com.ShowTime.repository.MediaListRepository;
 import com.ShowTime.repository.MovieRepository;
 import com.ShowTime.repository.TVShowRepository;
 
@@ -21,8 +25,19 @@ public class DiscoverController {
     @Autowired
     private TVShowRepository tvShowRepository;
 
+    @Autowired
+    private MediaListRepository mediaListRepository;
+
     @GetMapping("/discover")
     public String showIndex(Model model) {
+
+        MediaList featured = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.FEATURED, MediaType.ANY);
+        MediaList recommended = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.RECOMMENDED, MediaType.ANY);
+        MediaList newReleases = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.NEW_RELEASES, MediaType.ANY);
+
+        model.addAttribute("featured", featured);
+        model.addAttribute("recommended", recommended);
+        model.addAttribute("newReleases", newReleases);
 
         return "discover"; 
     }
