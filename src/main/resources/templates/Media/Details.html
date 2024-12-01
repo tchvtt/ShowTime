@@ -133,16 +133,53 @@
                 <div class="flex flex-wrap gap-12">
                     <div class="flex flex-row justify-center gap-16">
                         <p><strong class="text-customPink">Genre:</strong> <span th:text="${media.genre}"></span></p>
-                        <p><strong class="text-customPink">Release Date:</strong> <span th:text="${media.releaseDate}"></span></p>
+                        
+                        <p>
+                            <strong class="text-customPink">Release Date:</strong>
+                            <span id="releaseDate" th:text="${media.releaseDate}"></span>
+                        </p>
+                        <script>
+                            const releaseDateElement = document.getElementById("releaseDate");
+                            if (releaseDateElement) {
+                                const rawDate = new Date(releaseDateElement.textContent);
+                                const options = { month: 'long', day: 'numeric', year: 'numeric' };
+                                releaseDateElement.textContent = rawDate.toLocaleDateString('en-US', options);
+                            }
+                        </script>                        
+                        
                         <div th:if="${media instanceof T(com.ShowTime.model.Movie)}">
-                            <p><strong class="text-customPink">Duration:</strong> <span th:text="${media.duration}"></span> minutes</p>
+                            <p>
+                                <strong class="text-customPink">Duration:</strong>
+                                <span id="movieDuration" th:text="${media.duration}"></span>
+                            </p>
                         </div>
+                        <script>
+                            const durationElement = document.getElementById("movieDuration");
+                            if (durationElement) {
+                                const totalMinutes = parseInt(durationElement.textContent, 10);
+                                const hours = Math.floor(totalMinutes / 60);
+                                const minutes = totalMinutes % 60;
+                                durationElement.textContent = `${hours} h ${minutes} min`;
+                            }
+                        </script>
+
                         <div th:if="${media instanceof T(com.ShowTime.model.TVShow)}">
-                            <p><strong class="text-customPink">Seasons:</strong> <span th:text="${media.numberOfSeasons}"></span> seasons</p>
+                            <p>
+                                <strong class="text-customPink">Seasons:</strong>
+                                <span id="tvShowSeasons" th:text="${media.numberOfSeasons}"></span>
+                            </p>
                         </div>
+                        <script>
+                            const seasonsElement = document.getElementById("tvShowSeasons");
+                            if (seasonsElement) {
+                                const seasons = parseInt(seasonsElement.textContent, 10);
+                                seasonsElement.textContent = `${seasons} season${seasons > 1 ? 's' : ''}`;
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
+            
 
             <!-- Overview -->
             <div class="mb-8">

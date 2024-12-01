@@ -18,13 +18,13 @@
 
         <!-- Movies -->
         <div class="bg-customGray py-10" th:if="${#lists.size(movies) > 0}">
-            <h2 class="text-3xl text-center text-customPink mb-4">Movies</h2>
+            <h2 class="text-3xl text-center text-customPink mb-8">Movies</h2>
             <ul class="grid grid-cols-2 md:grid-cols-4 gap-6 px-6">
-                <li th:each="movie : ${movies}">
+                <li th:each="movie : ${movies}" class="group">
                     <a th:href="@{/media/{id}(id=${movie.id})}" 
                        class="movie-title text-center block text-white mb-2 transition-colors duration-300 ease-in-out hover:!text-customPink">
-                        <img th:src="@{${movie.posterURL}}" alt="Poster of ${movie.title}" class="rounded-lg" loading="lazy" />
-                        <div th:text="${movie.title}" class="mt-2"></div>
+                        <img th:src="@{${movie.posterURL}}" alt="Poster of ${movie.title}" class="object-cover rounded-lg transition-transform duration-300 ease-in-out group-hover:scale-105" loading="lazy" />
+                        <div th:text="${movie.title}" class="mt-2 transition-transform duration-300 ease-in-out group-hover:translate-y-3"></div>
                     </a>
                 </li>
             </ul>
@@ -32,13 +32,13 @@
 
         <!-- TV Shows -->
         <div class="bg-customGray py-10" th:if="${#lists.size(tvShows) > 0}">
-            <h2 class="text-3xl text-center text-customPink mb-4">TV Shows</h2>
+            <h2 class="text-3xl text-center text-customPink mb-8">TV Shows</h2>
             <ul class="grid grid-cols-2 md:grid-cols-4 gap-6 px-6">
-                <li th:each="tvShow : ${tvShows}">
+                <li th:each="tvShow : ${tvShows}" class="group">
                     <a th:href="@{/media/{id}(id=${tvShow.id})}" 
                        class="tv-show-title text-center block text-white mb-2 transition-colors duration-300 ease-in-out hover:!text-customPink">
-                        <img th:src="@{${tvShow.posterURL}}" alt="Poster of ${tvShow.title}" class="rounded-lg" loading="lazy" />
-                        <div th:text="${tvShow.title}" class="mt-2"></div>
+                        <img th:src="@{${tvShow.posterURL}}" alt="Poster of ${tvShow.title}" class="object-cover rounded-lg transition-transform duration-300 ease-in-out group-hover:scale-105" loading="lazy" />
+                        <div th:text="${tvShow.title}" class="mt-2 transition-transform duration-300 ease-in-out group-hover:translate-y-3"></div>
                     </a>
                 </li>
             </ul>

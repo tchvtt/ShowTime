@@ -23,7 +23,7 @@
                 <ul id="popularTVShows" class="flex py-2.5">
                     <li th:each="tvshow : ${popularTVShows}" class="min-w-40 mx-4">
                         <a th:href="@{/media/{id}(id=${tvshow.id})}">
-                            <img th:src="@{${tvshow.posterURL}}" alt="Poster of ${tvshow.title}" class="rounded-lg" loading="lazy" />
+                            <img th:src="@{${tvshow.posterURL}}" alt="Poster of ${tvshow.title}" class="w-40 h-60 object-cover rounded-lg transition-transform duration-300 ease-in-out hover:scale-105" loading="lazy" />
                         </a>
                     </li>
                 </ul>
@@ -37,7 +37,7 @@
                 <ul id="topRatedTVShows" class="flex py-2.5">
                     <li th:each="tvshow : ${topRatedTVShows}" class="min-w-40 mx-4">
                         <a th:href="@{/media/{id}(id=${tvshow.id})}">
-                            <img th:src="@{${tvshow.posterURL}}" alt="Poster of ${tvshow.title}" class="rounded-lg" loading="lazy" />
+                            <img th:src="@{${tvshow.posterURL}}" alt="Poster of ${tvshow.title}" class="w-40 h-60 object-cover rounded-lg transition-transform duration-300 ease-in-out hover:scale-105" loading="lazy" />
                         </a>
                     </li>
                 </ul>
@@ -51,7 +51,7 @@
                 <ul id="trendingTVShows" class="flex py-2.5">
                     <li th:each="tvshow : ${trendingTVShows}" class="min-w-40 mx-4">
                         <a th:href="@{/media/{id}(id=${tvshow.id})}">
-                            <img th:src="@{${tvshow.posterURL}}" alt="Poster of ${tvshow.title}" class="rounded-lg" loading="lazy" />
+                            <img th:src="@{${tvshow.posterURL}}" alt="Poster of ${tvshow.title}" class="w-40 h-60 object-cover rounded-lg transition-transform duration-300 ease-in-out hover:scale-105" loading="lazy" />
                         </a>
                     </li>
                 </ul>
@@ -62,14 +62,15 @@
         <div class="bg-customGray py-10">
             <h2 class="text-3xl text-center text-customPink mb-4">All TV Shows</h2>
             <ul class="grid grid-cols-2 md:grid-cols-4 gap-6 px-6">
-                <li th:each="tvshow : ${allTVShows}">
-                    <a th:href="@{/media/{id}(id=${tvshow.id})}" 
+                <li th:each="tvshow : ${allTVShows}" class="group">
+                    <a th:href="@{/media/{id}(id=${tvshow.id})}" class="movie-title text-center block text-white transition-colors duration-300 ease-in-out mb-2 hover:!text-customPink">
+                        <img th:src="@{${tvshow.posterURL}}" alt="Poster of ${tvshow.title}" class="object-cover rounded-lg transition-transform duration-300 ease-in-out group-hover:scale-105" loading="lazy" />
+                    
+                    <div th:href="@{/media/{id}(id=${tvshow.id})}" 
                     th:text="${tvshow.title}" 
-                    class="movie-title text-center block text-white mb-2 transition-colors duration-300 ease-in-out hover:!text-customPink">
+                    class="mt-2 transition-transform duration-300 ease-in-out group-hover:translate-y-3">
                         TV Show Title
-                    </a>
-                    <a th:href="@{/media/{id}(id=${tvshow.id})}">
-                        <img th:src="@{${tvshow.posterURL}}" alt="Poster of ${tvshow.title}" class="rounded-lg" loading="lazy" />
+                    </div>
                     </a>
                 </li>
             </ul>
