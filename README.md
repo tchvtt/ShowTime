@@ -65,6 +65,7 @@ Easily manage your watched, to-watch, and favorite lists while discovering the l
 ### If not installed, open a terminal : 
 
 1. Java 17  
+  
 Make sure Java 17 is installed by running :
 ```bash
 java -version  
@@ -81,7 +82,8 @@ To verify the installation:
 java -version  
 ```
 
-2. Maven 3.5+  
+2. Maven 3.5+
+  
 Check if Maven is installed by running:
 ```bash
 mvn -v
