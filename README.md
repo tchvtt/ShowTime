@@ -64,25 +64,26 @@ Easily manage your watched, to-watch, and favorite lists while discovering the l
 
 ### If not installed, open a terminal : 
 
-#### Java 17
+1. Java 17  
+  
 Make sure Java 17 is installed by running :
 ```bash
-java-version  
+java -version  
 ```
 
 The output should show Java version 17 or higher.
 If it's not installed, you can install Java 17 with:
 ```bash
-sudo apt update
 sudo apt install openjdk-17-jdk
 ```
 
 To verify the installation:
 ```bash
-java-version  
+java -version  
 ```
 
-#### Maven 3.5+
+2. Maven 3.5+
+  
 Check if Maven is installed by running:
 ```bash
 mvn -v
