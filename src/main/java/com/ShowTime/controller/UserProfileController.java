@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -79,7 +80,23 @@ public class UserProfileController {
         return "redirect:/profile";
     }
 
-    // /profile/ delete
+    @PostMapping("/profile/delete")
+    public String deleteAccount(@AuthenticationPrincipal CustomUserDetails customUserDetails, Model model) {
+        Long userId = customUserDetails.getUser().getId();
+        if (userRepository.existsById(userId)) {
+            userRepository.deleteById(userId);
+        }
+        SecurityContextHolder.clearContext();
+
+        /*
+        for (long i = 1; i <= 14; i++) {
+            userRepository.deleteById(i);
+        }
+        */        
+
+        return "redirect:/logout";
+    }
+
 
     /*
     // See others profiles ?

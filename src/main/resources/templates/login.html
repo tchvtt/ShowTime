@@ -23,11 +23,17 @@
         <div th:if="${error}" class="my-4">
             <p class="text-red-500">Incorrect username or password. <br>Please try again.</p>
         </div>
+        
         <div th:if="${registrationSuccess}" class="my-4">
             <p class="text-green-500">Account created successfully. <br>You can now log in.</p>
         </div>
+        
         <div th:if="${param.logout}" class="my-4">
             <p class="text-green-500">You have been successfully logged out.</p>
+        </div>
+
+        <div th:if="${accountDeleted}" class="my-4">
+            <p class="text-green-500">Your account has been successfully deleted.</p>
         </div>
         
         <p class="text-white">Not yet registered? <a th:href="@{/register}" class="text-customPink">Sign up here</a></p>

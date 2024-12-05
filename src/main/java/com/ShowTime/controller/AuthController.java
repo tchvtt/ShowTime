@@ -25,18 +25,20 @@ public class AuthController {
     @GetMapping("/login")
     public String showLoginPage(@RequestParam(value = "error", required = false) String error, 
                                  @RequestParam(value = "logout", required = false) String logout, 
+                                 @RequestParam(value = "registrationSuccess", required = false) String registrationSuccess,
+                                 @RequestParam(value = "accountDeleted", required = false) String accountDeleted,
                                  Model model) {
         if (error != null) {
             model.addAttribute("error", "Invalid username or password.");
         }
         if (logout != null) {
             model.addAttribute("message", "You have been successfully logged out.");
+            model.addAttribute("registrationSuccess", false);
         }
-
-        String registrationSuccessMessage = (String) model.asMap().get("message");
-        if (registrationSuccessMessage != null) {
-            model.addAttribute("registrationSuccess", registrationSuccessMessage);
+        if (registrationSuccess != null && registrationSuccess.equals("true")) {
+            model.addAttribute("registrationSuccess", true);
         }
+        
         return "login"; 
     }
 
@@ -71,7 +73,7 @@ public class AuthController {
         userRepository.save(user);
 
         // Redirige vers la page de connexion
-        redirectAttributes.addFlashAttribute("message", "Account created successfully. You can now log in.");
+        redirectAttributes.addFlashAttribute("registrationSuccess", "Account created successfully. You can now log in.");
         return "redirect:/login";
     }
 }

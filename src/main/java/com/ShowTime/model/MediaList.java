@@ -17,6 +17,7 @@ public class MediaList {
     private LocalDate date;
 
     @ManyToOne
+    @JoinColumn(name = "app_user_id")
     private User user;  // Peut être null pour des listes générales
 
     private MediaListType mediaListType;
