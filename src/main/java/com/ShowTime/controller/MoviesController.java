@@ -16,6 +16,7 @@ public class MoviesController {
     @Autowired
     private MediaListRepository mediaListRepository;
 
+    // Affiche la page des movies
     @GetMapping("/movies")
     public String moviesPage(Model model) {
         MediaList allMovies = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.ALL, MediaType.MOVIE);

@@ -86,33 +86,9 @@ public class UserProfileController {
         if (userRepository.existsById(userId)) {
             userRepository.deleteById(userId);
         }
-        SecurityContextHolder.clearContext();
-
-        /*
-        for (long i = 1; i <= 14; i++) {
-            userRepository.deleteById(i);
-        }
-        */        
+        SecurityContextHolder.clearContext();      
 
         return "redirect:/logout";
     }
-
-
-    /*
-    // See others profiles
-    @GetMapping("/user/{id}")
-    public String showProfile(@PathVariable Long id, Model model) {
-        User user = userRepository.findById(id).orElse(null);
-        if (user == null) {
-            return "redirect:/";
-        }
-        model.addAttribute("user", user);
-
-        List<Rating> ratings = ratingRepository.findRatingsByUserId(id);
-        model.addAttribute("ratings", ratings);
-
-        return "User/Profile";
-    }
-    */
 
 }

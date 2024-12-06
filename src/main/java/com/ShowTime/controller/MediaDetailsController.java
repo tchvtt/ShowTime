@@ -37,7 +37,7 @@ public class MediaDetailsController {
     private MediaListRepository mediaListRepository;
 
 
-
+    // Affiche la page d'un Media
     @GetMapping("/media/{id}")
     public String showMedia(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable("id") Long id, Model model) {
         // Media Infos
@@ -61,7 +61,7 @@ public class MediaDetailsController {
         List<Rating> ratings = ratingRepository.findRatingsByMediaId(id);
         model.addAttribute("ratings", ratings);
 
-        // Connected User ?
+        // Is User Connected
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         boolean isAuthenticated = authentication != null && authentication.isAuthenticated() &&
                                    !"anonymousUser".equals(authentication.getPrincipal());
@@ -100,38 +100,7 @@ public class MediaDetailsController {
         return "Media/Details";
     }
 
-
-
-    /*
-    @PostMapping("/media/{id}/add-to-list")
-    public String addMediaToList(@PathVariable("id") Long mediaId, @RequestParam("listName") String listName, @RequestParam("mediaType") String mediaType, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
-        if (customUserDetails != null) {
-
-            Media media = movieRepository.findById(mediaId).orElse(null);
-            if (media == null) {
-                media = tvShowRepository.findById(mediaId).orElse(null);
-            }
-            if (media == null) {
-                return "redirect:/";
-            }
-
-            User user = userRepository.findById(customUserDetails.getUser().getId()).orElse(null);
-            MediaListType listType = MediaListType.valueOf(listName);
-            MediaType type = MediaType.valueOf(mediaType);
-            MediaList mediaList = mediaListRepository.findByUserAndMediaListTypeAndMediaType(user, listType, type);
-
-            mediaList.addMedia(media);
-            mediaListRepository.save(mediaList);
-            
-
-            return "redirect:/media/" + mediaId;
-        }
-
-        return "redirect:/"; 
-    }
-    */
-
-
+    // Ajouter Ou Supprimer un media d'une liste
     @PostMapping("/media/{id}/toggle-list")
     public String toggleMediaInList(@PathVariable("id") Long mediaId, @RequestParam("listName") String listName, @RequestParam("action") String action, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
         if (customUserDetails != null) {
@@ -174,51 +143,7 @@ public class MediaDetailsController {
         return "redirect:/media/" + mediaId;
     }
 
-    
-    /*
-    @PostMapping("media/{id}/add-rating")
-    public String addRating(@PathVariable("id") Long mediaId,
-                            @RequestParam("rating") int rating,
-                            @RequestParam("comment") String comment,
-                            @AuthenticationPrincipal CustomUserDetails customUserDetails,
-                            Model model) {
-
-        User user = userRepository.findById(customUserDetails.getUser().getId()).orElse(null);
-
-        Media media = movieRepository.findById(mediaId).orElse(null);
-        if (media == null) {
-            media = tvShowRepository.findById(mediaId).orElse(null);
-        }
-        if (media == null) {
-            return "redirect:/";
-        }
-
-        // Création de l'objet Rating
-        Rating newRating = new Rating(user, media, rating, comment);
-        newRating.setDate(LocalDate.now());
-
-        // Sauvegarde dans la base de données
-        ratingRepository.save(newRating);
-
-        // Redirection vers la page des détails du média
-        return "redirect:/media/" + mediaId;
-    }
-
-    @PostMapping("media/{id}/delete-rating")
-    public String deleteRating(@PathVariable("id") Long mediaId,
-                            @AuthenticationPrincipal CustomUserDetails customUserDetails) {
-
-        Long userId = customUserDetails.getUser().getId();
-
-        // Trouver et supprimer le rating existant
-        Optional<Rating> existingRating = ratingRepository.findByUserIdAndMediaId(userId, mediaId);
-        existingRating.ifPresent(ratingRepository::delete);
-
-        // Redirection vers la page des détails du média
-        return "redirect:/media/" + mediaId;
-    }
-    */
-
+    // Ajouter ou supprimer une evaluation à un media
     @PostMapping("/media/{id}/toggle-rating")
     public String toggleRating(@PathVariable("id") Long mediaId,
                             @RequestParam("rating") Optional<Integer> rating,

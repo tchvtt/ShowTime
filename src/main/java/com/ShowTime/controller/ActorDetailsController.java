@@ -17,6 +17,7 @@ public class ActorDetailsController {
     @Autowired
     private ActorRepository actorRepository;
 
+    // Afficher la page d'un Actor
     @GetMapping("/{id}")
     public String showActor(@PathVariable("id") Long id, Model model) {
         Actor actor = actorRepository.findById(id).orElse(null);
@@ -25,10 +26,6 @@ public class ActorDetailsController {
         }
 
         model.addAttribute("actor", actor);
-        /* Commenté car on ne peut pas utiliser les relations
-        List<Media> medias = actorRepository.findMediaByActorId(id);
-        model.addAttribute("medias", medias);
-         */
         
         return "Actor/Details";
     }

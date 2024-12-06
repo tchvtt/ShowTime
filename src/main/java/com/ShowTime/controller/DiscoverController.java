@@ -28,6 +28,7 @@ public class DiscoverController {
     @Autowired
     private MediaListRepository mediaListRepository;
 
+    // Affiche la page discover
     @GetMapping("/discover")
     public String showIndex(Model model) {
 
@@ -42,6 +43,7 @@ public class DiscoverController {
         return "discover"; 
     }
 
+    // Genere un id random parmis les medias et affiche le media
     @GetMapping("/surprise-me")
     public String surpriseMe() {
         try {
@@ -52,8 +54,7 @@ public class DiscoverController {
         }
     }
 
-    
-    
+    // Affiche la recherche par genre
     @GetMapping("category/{genre}")
     public String getMediaByGenre(@PathVariable String genre, Model model) {
         List<Movie> moviesByGenre = movieRepository.findByGenreIgnoreCase(genre);
@@ -74,6 +75,5 @@ public class DiscoverController {
 
         return "Discover/genre";
     }
-    
     
 }

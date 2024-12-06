@@ -16,6 +16,7 @@ public class TVShowsController {
     @Autowired
     private MediaListRepository mediaListRepository;
 
+    // Affiche les TV Shows
     @GetMapping("/tvshows")
     public String moviesPage(Model model) {
         MediaList allTVShows = mediaListRepository.findByMediaListTypeAndMediaType(MediaListType.ALL, MediaType.TV_SHOW);

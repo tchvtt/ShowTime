@@ -27,6 +27,7 @@ public class ResultsController {
     @Autowired
     private ActorRepository actorRepository;
 
+    // Affiche les resultats de recherche
     @GetMapping("search/results")
     public String searchResults(@RequestParam("q") String query, Model model) {
         List<Movie> movies = movieRepository.findByTitleContainingIgnoreCase(query);

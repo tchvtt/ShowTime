@@ -29,6 +29,7 @@ public class SearchController {
     @Autowired
     private ActorRepository actorRepository;
 
+    // Affiche les suggestions d'autocomplétion de la barre de recherche
     @GetMapping
     public ResponseEntity<List<Map<String, Object>>> search(@RequestParam("q") String query) {
         List<Map<String, Object>> results = new ArrayList<>();

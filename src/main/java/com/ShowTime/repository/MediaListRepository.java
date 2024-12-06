@@ -32,5 +32,4 @@ public interface MediaListRepository extends JpaRepository<MediaList, Long> {
         @Param("media") Media media, 
         @Param("mediaListType") MediaListType mediaListType
     );
-
 }

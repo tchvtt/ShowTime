@@ -87,10 +87,6 @@ public class User {
 
 
 
-
-
-
-
     //gérer les ratings 
     public void addRating(Rating rating){
         this.ratings.add(rating); 
