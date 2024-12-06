@@ -99,7 +99,7 @@ public class UserProfileController {
 
 
     /*
-    // See others profiles ?
+    // See others profiles
     @GetMapping("/user/{id}")
     public String showProfile(@PathVariable Long id, Model model) {
         User user = userRepository.findById(id).orElse(null);

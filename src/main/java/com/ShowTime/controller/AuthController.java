@@ -66,8 +66,8 @@ public class AuthController {
         }
 
         // Crypte le mot de passe
-        String encodedPassword = passwordEncoder.encode(userForm.getPassword());
-        User user = new User(userForm.getUsername(), userForm.getEmail(), encodedPassword);
+        //String encodedPassword = passwordEncoder.encode(userForm.getPassword());
+        User user = new User(userForm.getUsername(), userForm.getEmail(), userForm.getPassword());
 
         // Sauvegarde l'utilisateur
         userRepository.save(user);
