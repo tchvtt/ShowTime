@@ -246,12 +246,9 @@
                 
                 <div th:if="${media.averageRating != null && media.averageRating.averageRating > 0.0}" 
                         class="mb-4 bg-customGray rounded-lg">
-                    <div class="flex items-center mt-2">
-                        <h3 class="text-lg font-semibold text-white">Average Rating </h3>
-                        <span class="ml-2 text-white font-bold" th:text="${#numbers.formatDecimal(media.averageRating.averageRating, 1, 1)} + ' / 5.0'"></span>
-                        <span th:each="i : ${#numbers.sequence(1, 5)}">
-                            <i th:classappend="${i <= media.averageRating.averageRating} ? 'fas fa-star text-customPink' : 'far fa-star text-gray-400'"></i>
-                        </span>
+                    <div class="flex items-center mt-2 mx-4">
+                        <span class="ml-2 text-white" th:text="'Average ' + ${#numbers.formatDecimal(media.averageRating.averageRating, 1, 1)} + ' / 5.0 '"></span>
+                        <i class="fas fa-star text-customPink ml-1"></i>
                     </div>
                 </div>
                 
