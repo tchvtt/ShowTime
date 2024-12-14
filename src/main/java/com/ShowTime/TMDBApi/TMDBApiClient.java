@@ -16,19 +16,13 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import com.ShowTime.ShowTimeApplication;
-import com.ShowTime.controller.ActorDetailsController;
 import com.ShowTime.model.*;
 import com.ShowTime.repository.ActorRepository;
 import com.ShowTime.repository.MediaListRepository;
 import com.ShowTime.repository.MovieRepository;
 import com.ShowTime.repository.TVShowRepository;
-import lombok.Getter;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.naming.AuthenticationException;
 

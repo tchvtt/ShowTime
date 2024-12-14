@@ -178,8 +178,8 @@
             <div th:each="list : ${user.mediaLists}" class="mb-8">
                 <h3 class="text-base mb-4 text-white" th:text="${list.name}"></h3>
                 <div class="overflow-x-auto scroll-smooth no-scrollbar scrollable-div">
-                    <ul class="flex py-2.5">
-                        <li th:each="media : ${list.mediaList}" class="min-w-40 mx-4 group">
+                    <ul class="flex gap-6 p-2">
+                        <li th:each="media : ${list.mediaList}" class="flex flex-col items-center w-40 min-w-40 group">
                             <a th:href="@{/media/{id}(id=${media.id})}" class="text-center text-sm font-medium text-white transition-colors duration-300 ease-in-out hover:!text-customPink">
                                 <img th:src="@{${media.posterURL}}" 
                                     alt="Poster of ${media.title}" 

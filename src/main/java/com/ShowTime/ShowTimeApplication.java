@@ -63,6 +63,7 @@ public class ShowTimeApplication implements CommandLineRunner{
         MediaList recommended = new MediaList("Recommended",MediaListType.RECOMMENDED,MediaType.ANY);
         MediaList newReleases = new MediaList("New Releases",MediaListType.NEW_RELEASES,MediaType.ANY);
 
+        // To Refill the Database : 
         //TMDBApiClient.fillMovieDatabase(mediaListRepository,movieRepository,actorRepository,topRatedMovies,popularMovies,trendingMovies,allMovies);
         //TMDBApiClient.fillTVShowDatabase(mediaListRepository,tvshowRepository,actorRepository,topRatedTVShows,popularTVShows,trendingTVShows,allTVShows);
         //TMDBApiClient.fillDiscover(mediaListRepository,featured,recommended,newReleases,allMovies,allTVShows,movieRepository,tvshowRepository,actorRepository);

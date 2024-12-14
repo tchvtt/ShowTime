@@ -43,7 +43,7 @@
             <h2 class="text-xl font-semibold mb-4 text-customPink">Appears in these Medias:</h2>
             <div class="overflow-x-auto mb-8 scrollable-div no-scrollbar">
                 <ul class="flex gap-6 p-2">
-                    <li th:each="media : ${actor.mediasCastedIn}" class="flex flex-col items-center w-36 group">
+                    <li th:each="media : ${actor.mediasCastedIn}" class="flex flex-col items-center w-40 group min-w-40">
                         <a th:href="@{/media/{id}(id=${media.id})}" class="text-center text-sm font-medium text-white transition-colors duration-300 ease-in-out hover:!text-customPink">
                             <img th:src="@{${media.posterURL}}" 
                                 alt="Poster of ${media.title}" 

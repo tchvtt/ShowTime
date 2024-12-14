@@ -22394,3 +22394,7 @@ Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection wa
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
 	... 94 more
+2024-12-14 10:35:17.620048+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "[*]APP_USER"; attendu "ALTER, ANALYZE"
+Syntax error in SQL statement "[*]APP_USER"; expected "ALTER, ANALYZE"; SQL statement:
+APP_USER [42001-224]
