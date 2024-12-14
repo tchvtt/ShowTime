@@ -36,6 +36,9 @@ public class MediaDetailsController {
     @Autowired
     private MediaListRepository mediaListRepository;
 
+    @Autowired
+    private AverageRatingRepository averageRatingRepository;
+
 
     // Affiche la page d'un Media
     @GetMapping("/media/{id}")
@@ -170,6 +173,20 @@ public class MediaDetailsController {
             newRating.setDate(LocalDate.now());
             ratingRepository.save(newRating);
         }
+
+        // Average Rating
+        AverageRating averageRating = media.getAverageRating();
+        if (averageRating == null) {
+            averageRating = new AverageRating();
+            averageRating.setMedia(media);
+            media.setAverageRating(averageRating);
+        }
+        List<Integer> ratingValues = ratingRepository.findRatingsByMediaId(mediaId)
+                                                    .stream()
+                                                    .map(Rating::getRating)
+                                                    .toList();
+        averageRating.calculateAndSetAverageRating(ratingValues);
+        averageRatingRepository.save(averageRating);
 
         return "redirect:/media/" + mediaId;
     }

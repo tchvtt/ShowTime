@@ -5,16 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
 
 
 @Entity
@@ -47,6 +37,9 @@ public abstract class Media {
     @OneToMany(mappedBy = "media", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rating> ratings = new ArrayList<>();
 
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "media")
+    private AverageRating averageRating;
+
     public Media() {}
 
     public Media(String title){
@@ -75,9 +68,11 @@ public abstract class Media {
     public String getPosterURL(){
         return posterURL;
     }
-
     public List<Integer> getActorsID() {
         return actorsID;
+    }
+    public AverageRating getAverageRating() {
+        return averageRating;
     }
 
     //Setters
@@ -100,6 +95,9 @@ public abstract class Media {
 
     public void setActorsID(List<Integer> actorsID) {
         this.actorsID = actorsID;
+    }
+    public void setAverageRating(AverageRating averageRating) {
+        this.averageRating = averageRating;
     }
 
     //Gérer les medias associés

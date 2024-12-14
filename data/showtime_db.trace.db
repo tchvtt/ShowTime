@@ -22398,3 +22398,7 @@ Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection wa
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "[*]APP_USER"; attendu "ALTER, ANALYZE"
 Syntax error in SQL statement "[*]APP_USER"; expected "ALTER, ANALYZE"; SQL statement:
 APP_USER [42001-224]
+2024-12-14 12:18:37.461244+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "[*]AVERAGE_RATING"; attendu "ALTER, ANALYZE"
+Syntax error in SQL statement "[*]AVERAGE_RATING"; expected "ALTER, ANALYZE"; SQL statement:
+AVERAGE_RATING [42001-224]
