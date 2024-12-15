@@ -16,8 +16,19 @@ Easily manage your watched, to-watch, and favorite lists while discovering the l
 
 ## Screenshots
 
-...
+![Home](/Screenshots/1-Home.png?raw=true "Home Page")  
 
+![Discover](/Screenshots/2-Discover.png?raw=true "Discover Page")  
+
+![Movies](/Screenshots/3-Movies.png?raw=true "Movies Page")  
+
+![TVShows](/Screenshots/4-TVShows.png?raw=true "TVShows Page")  
+
+![Media-Details-1](/Screenshots/5-Media-Details-1.png?raw=true "Media Details Page")  
+
+![Media-Details-2](/Screenshots/5-Media-Details-2.png?raw=true "Media Details Page")  
+
+![Profile](/Screenshots/6-Profile-1.png?raw=true "Profile Page")  
 
 
 ## Installation
@@ -103,17 +114,17 @@ mvn -v
 You should be able to start the project now !
 
 
-## Use 
+## Usage 
 
 
 ### Login or create an account
 
-#### Option 1 : existing user 
+#### Option 1 : Existing User 
 Log in using the pre-created identifiers :
 - Username : user
 - Password : password
 
-#### Option 2 : new user 
+#### Option 2 : New User 
 Create an account with the necessary information, then log in.
 
 
