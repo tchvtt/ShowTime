@@ -12,7 +12,7 @@ Soutric Tanguy
 #### Discover. Watch. Remember. It's ShowTime !
 
 Cette application permet aux utilisateurs de découvrir et d'explorer un large éventail de films et de séries TV. 
-Grâce à une interface simple et intuitive, l'utilisateur peut consulter les détails de chaque média, ajouter ses films et séries préférés à des listes personnalisées, et garder une trace des contenus qu'il souhaite regarder. 
+Grâce à une interface simple et intuitive, l'utilisateur peut consulter les détails de chaque média, ajouter ses films et séries préférés à ses listes, et garder une trace des contenus qu'il souhaite regarder. 
 De plus, il peut attribuer une note et un commentaire à chaque film ou série afin de partager son avis. 
 Que ce soit pour enregistrer ses favoris, organiser ses futures découvertes ou donner son avis, l'application aide à gérer ses choix de divertissement facilement, tout en offrant une expérience de navigation agréable et fluide.
 

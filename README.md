@@ -103,7 +103,27 @@ mvn -v
 You should be able to start the project now !
 
 
+## Use 
 
+
+### Login or create an account
+
+#### Option 1 : existing user 
+Log in using the pre-created identifiers :
+- Username : user
+- Password : password
+
+#### Option 2 : new user 
+Create an account with the necessary information, then log in.
+
+
+### Explore and organize your movies and series 
+
+Once logged in, you can :
+- Discover a wide selection of films and series.
+- Consult the details of each media to help you make your choice.
+- Add content to lists, such as “To Watched” or “Watched”.
+- Rate the films and series you've watched to keep track of them or share your impressions.
 
 
 ## Authors
@@ -116,9 +136,9 @@ CY Tech Pau
 - Soutric Tanguy
 
 
-## AutoEvaluation 
+## Self-Assessment 
 
-Lien vers notre [autoévaluation](https://github.com/tchvtt/ShowTime/blob/main/AUTOEVALUATION.md). 
+Link to our [self-assessment](https://github.com/tchvtt/ShowTime/blob/main/AUTOEVALUATION.md). 
 
 
 ## License
