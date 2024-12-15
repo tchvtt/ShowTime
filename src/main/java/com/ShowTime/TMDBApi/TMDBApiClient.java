@@ -5,7 +5,6 @@
 
  package com.ShowTime.TMDBApi;
 
- //imports to make the request
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -16,19 +15,23 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import com.ShowTime.model.*;
+import javax.naming.AuthenticationException;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.ShowTime.model.Actor;
+import com.ShowTime.model.MediaList;
+import com.ShowTime.model.Movie;
+import com.ShowTime.model.TVShow;
 import com.ShowTime.repository.ActorRepository;
 import com.ShowTime.repository.MediaListRepository;
 import com.ShowTime.repository.MovieRepository;
 import com.ShowTime.repository.TVShowRepository;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import javax.naming.AuthenticationException;
 
 
 /**
-  *
+  * Remplir la base de données avec l'API TMDB
   * @author anthony
   */
  public class TMDBApiClient {
@@ -47,6 +50,7 @@ import javax.naming.AuthenticationException;
 
 
 
+    @SuppressWarnings({"UseSpecificCatch", "CallToPrintStackTrace"})
     public static String makeRequest(String endpoint) {
         HttpClient client = HttpClient.newBuilder().build();
         HttpRequest request = HttpRequest.newBuilder()

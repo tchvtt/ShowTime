@@ -1,9 +1,5 @@
 package com.ShowTime.controller;
 
-import com.ShowTime.model.*;
-import com.ShowTime.repository.*;
-import com.ShowTime.security.CustomUserDetails;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +7,17 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.ShowTime.model.Rating;
+import com.ShowTime.model.User;
+import com.ShowTime.repository.RatingRepository;
+import com.ShowTime.repository.UserRepository;
+import com.ShowTime.security.CustomUserDetails;
 @Controller
 public class UserProfileController {
 
@@ -26,6 +30,7 @@ public class UserProfileController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    // Affiche la page de profil
     @GetMapping("/profile")
     public String showLoggedInUserProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails, Model model) {
         if (customUserDetails == null) {
@@ -44,6 +49,7 @@ public class UserProfileController {
         return "User/Profile"; 
     }
 
+    // Modifier les informations du profil
     @PostMapping("/profile/update")
     public String updateUserProfile(
         @AuthenticationPrincipal CustomUserDetails customUserDetails,
@@ -80,6 +86,7 @@ public class UserProfileController {
         return "redirect:/profile";
     }
 
+    // Supprimer compte
     @PostMapping("/profile/delete")
     public String deleteAccount(@AuthenticationPrincipal CustomUserDetails customUserDetails, Model model) {
         Long userId = customUserDetails.getUser().getId();

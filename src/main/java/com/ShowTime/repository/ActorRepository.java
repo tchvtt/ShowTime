@@ -1,16 +1,17 @@
 package com.ShowTime.repository;
 
-import com.ShowTime.model.Actor;
-import com.ShowTime.model.Media;
-
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.ShowTime.model.Actor;
+import com.ShowTime.model.Media;
+
 public interface ActorRepository extends JpaRepository<Actor, Long> {
     
+    // Recherche un acteur par son ID TMDB
     Actor findActorByTmdbID(int tmdbID);
 
     boolean existsActorByTmdbID(int tmdbID);
@@ -25,5 +26,6 @@ public interface ActorRepository extends JpaRepository<Actor, Long> {
     @Query("SELECT m FROM Media m JOIN m.actors a WHERE a.id = :actorId")
     List<Media> findMediaByActorId(@Param("actorId") Long actorId);
 
+    // Recherche un acteur par son nom
     List<Actor> findByNameContainingIgnoreCase(String name);
 }

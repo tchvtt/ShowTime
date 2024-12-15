@@ -1,6 +1,13 @@
 package com.ShowTime;
 
-import com.ShowTime.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.ShowTime.model.MediaList;
+import com.ShowTime.model.MediaListType;
+import com.ShowTime.model.MediaType;
 import com.ShowTime.repository.ActorRepository;
 import com.ShowTime.repository.MediaListRepository;
 import com.ShowTime.repository.MovieRepository;
@@ -9,17 +16,6 @@ import com.ShowTime.repository.TVShowRepository;
 import com.ShowTime.repository.UserRepository;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import com.ShowTime.TMDBApi.TMDBApiClient;
-import com.ShowTime.repository.ActorRepository;
-import com.ShowTime.repository.MediaListRepository;
-import com.ShowTime.repository.MovieRepository;
-import com.ShowTime.repository.TVShowRepository;
-import com.ShowTime.repository.UserRepository;
 
 @SpringBootApplication
 public class ShowTimeApplication implements CommandLineRunner{
@@ -27,6 +23,9 @@ public class ShowTimeApplication implements CommandLineRunner{
       SpringApplication.run(ShowTimeApplication.class, args);
     }
 
+
+
+    // Initialiser la bdd, a décommenter que si on veut la refill
     @Autowired
     private MovieRepository movieRepository;
 
@@ -63,7 +62,6 @@ public class ShowTimeApplication implements CommandLineRunner{
         MediaList recommended = new MediaList("Recommended",MediaListType.RECOMMENDED,MediaType.ANY);
         MediaList newReleases = new MediaList("New Releases",MediaListType.NEW_RELEASES,MediaType.ANY);
 
-        // To Refill the Database : 
         //TMDBApiClient.fillMovieDatabase(mediaListRepository,movieRepository,actorRepository,topRatedMovies,popularMovies,trendingMovies,allMovies);
         //TMDBApiClient.fillTVShowDatabase(mediaListRepository,tvshowRepository,actorRepository,topRatedTVShows,popularTVShows,trendingTVShows,allTVShows);
         //TMDBApiClient.fillDiscover(mediaListRepository,featured,recommended,newReleases,allMovies,allTVShows,movieRepository,tvshowRepository,actorRepository);

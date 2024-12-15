@@ -1,9 +1,16 @@
 package com.ShowTime.model;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -71,6 +78,7 @@ public class Actor {
         }
     }
 
+    @Override
     public String toString(){
         return "Actor: "+name+" born on "+birthDate + " with ID: "+id;
     }
