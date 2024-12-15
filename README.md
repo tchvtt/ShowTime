@@ -116,7 +116,9 @@ CY Tech Pau
 - Soutric Tanguy
 
 
+## AutoEvaluation 
 
+Lien vers notre [autoévaluation](https://github.com/tchvtt/ShowTime/blob/main/AUTOEVALUATION.md). 
 
 
 ## License
