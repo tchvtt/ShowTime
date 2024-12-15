@@ -67,6 +67,11 @@ public class AuthController {
             return "redirect:/register";
         }
 
+        if (userForm.getPassword() == null || userForm.getPassword().length() < 8) {
+            redirectAttributes.addFlashAttribute("error", "Password must be at least 8 characters long.");
+            return "redirect:/register";
+        }
+
         // Crypte le mot de passe
         //String encodedPassword = passwordEncoder.encode(userForm.getPassword());
         User user = new User(userForm.getUsername(), userForm.getEmail(), userForm.getPassword());
