@@ -22,7 +22,7 @@ Que ce soit pour enregistrer ses favoris, organiser ses futures découvertes ou 
 
 - Nous avons utlisé l'architecture **MVC** pour séparer le traitement des données et leur affichage.
 
-- Notre modèle comporte au moins **5 entités** différentes (6), avec des relations :
+- Notre modèle comporte au moins **5 entités** différentes (6) :
   - **Media** (séparée en 2 sous entités **Movie** et **TVShow**), modélisant les films et les séries affichées sur notre site
   - **MediaList**, modélisant toutes les listes présentes sur le site (détaillé dans les parties suivantes) 
   - **Actor**, représentant les Acteurs associés aux films et aux séries.
@@ -36,7 +36,7 @@ Que ce soit pour enregistrer ses favoris, organiser ses futures découvertes ou 
   - **One To Many** et **Many To One** :
     - Media avec Rating, plusieurs Ratings pour un Media.
     - MediaList avec User, un Utilisateur a plusieurs MediaList.
-    - Rating avec User, un Utilisateur peut mettre plusieurs Ratings.
+    - Rating avec User, un Utilisateur peut ajouter plusieurs Ratings.
   - **Many To Many** : 
     - Actor avec MediaList, pour afficher les Medias dans lequel l'Acteur à joué, et inversement pour afficher tous les Acteurs d'un Media.
     - Media avec MediaList, pour créer des Listes de Medias.
@@ -59,7 +59,7 @@ Que ce soit pour enregistrer ses favoris, organiser ses futures découvertes ou 
   
 - L'application permet d'insérer, mettre à jour, supprimer, chercher une entité en BDD : 
   - Insertion : *Création d'Utilisateur et création de Ratings*
-  - Mise à jour : *Modification des informations de connexion* 
+  - Mise à jour : *Modification des informations de connexion, ajout et suppression à des Listes* 
   - Suppression : *Suppression d'un utilisateur, d'un Rating*
   - Recherche : *Barre de recherche de Media et d'Actor.*
   
