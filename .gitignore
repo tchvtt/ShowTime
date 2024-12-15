@@ -35,3 +35,7 @@ build/
 ### Frontend ###
 #src/main/frontend/
 /src/main/frontend/node_modules/
+
+### Other ###
+/Screenshots/
+AUTOEVALUATION.md
