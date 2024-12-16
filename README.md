@@ -28,7 +28,7 @@ Easily manage your watched, to-watch, and favorite lists while discovering the l
 
 ![Media-Details-2](/Screenshots/5-Media-Details-2.png?raw=true "Media Details Page")  
 
-![Profile](/Screenshots/6-Profile-1.png?raw=true "Profile Page")  
+![Profile](/Screenshots/6-Profile.png?raw=true "Profile Page")  
 
 
 ## Installation
